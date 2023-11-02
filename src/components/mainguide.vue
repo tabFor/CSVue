@@ -1,17 +1,22 @@
 <template>
     <div id="di">
+        <hr>
         <form action="" id="fm">
-            <label for="name">用户名称</label>
+            <label for="name">法律名称</label>
             <input type="text"  id="name" name="name" v-model="name" placeholder="Enter your name">
-            <label for="phone">手机号码</label>
+            <label for="phone">法律条款</label>
             <input type="text" id="phone" name="phone" v-model="phone" placeholder="l">
-            <label for="state">状态</label>
+            <label for="state">类型</label>
             <input type="text" id="state" name="state" v-model="state" placeholder="l">
-            <label for="date">创建时间</label>
+            <label for="date">颁布时间</label>
             <input type="text" id="date" name="date" v-model="date" placeholder="">
 <!-- <button type="submit">Submit</button> -->
 <button type="button" v-on:click="check">搜索</button>
 <button type="reset" v-on:click="click">重置</button>
+<hr>
+<el-button type="primary" plain>下载所选</el-button>
+<el-button type="primary" plain>预览所选</el-button>
+<hr>
         </form>
         
     </div>
@@ -57,19 +62,10 @@ export default {
 </script>
 <style>
     #di{
-        display: block;
-        width: 100%;
-        height: 100px;
-        margin: 0 auto;
         background-color: #fff;
     }
     #fm{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 100px;
-        margin: 0 auto;
+        padding: 20 !important;
         
        
     }
@@ -91,6 +87,9 @@ export default {
        
         position: relative;
         
+    }
+    .el-button{
+        padding: 20 !important;
     }
 
 </style>

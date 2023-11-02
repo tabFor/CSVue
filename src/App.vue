@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-    <router-link to="/">page1</router-link>
-    <router-link :to="{name: 'HelloWorld'}">page2</router-link>
-    <router-view></router-view>
+    <layout></layout>
   </div>
 </template>
 

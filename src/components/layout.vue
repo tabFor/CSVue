@@ -8,10 +8,7 @@
   <el-container>
     <el-aside width="150px"><Guide></Guide></el-aside>
     <el-main>
-      <MainGuide></MainGuide>
-      <Table></Table>
-      <Foot></Foot>
-      <router-link to="{'./HelloWorld'}">跳转到Hello</router-link>
+      <router-view></router-view>
     </el-main>
   </el-container>
 </el-container>
@@ -20,7 +17,6 @@
 
 <script>
 import Test from './test'
-import Card from './headcard'
 import Guide from './sideguide.vue'
 import MainGuide from './mainguide.vue'
 import Table from './maintable.vue'
@@ -29,7 +25,6 @@ export default {
   name: 'layout',
   components: {
       Test,
-      Card,
     Guide,
     MainGuide,
     Table,
@@ -60,6 +55,7 @@ export default {
     color: #333;
     text-align: center;
     line-height: 0px;
+    padding: 5px !important;
   }
   
   body > .el-container {
