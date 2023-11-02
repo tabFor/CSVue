@@ -11,6 +11,7 @@
       <MainGuide></MainGuide>
       <Table></Table>
       <Foot></Foot>
+      <router-link to="{'./HelloWorld'}">跳转到Hello</router-link>
     </el-main>
   </el-container>
 </el-container>

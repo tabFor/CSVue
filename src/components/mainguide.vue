@@ -13,6 +13,7 @@
 <button type="button" v-on:click="check">搜索</button>
 <button type="reset" v-on:click="click">重置</button>
         </form>
+        
     </div>
 </template>
 <script>
