@@ -133,6 +133,7 @@ export default {
       // called when the user clicks on the botton to close the chat
       this.isChatOpen = false
     },
+    
     handleScrollToTop () {
       // called when the user scrolls message list to top
       // leverage pagination for loading another page of messages

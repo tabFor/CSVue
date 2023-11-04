@@ -2,7 +2,7 @@
 	<el-menu :default-active="activeIndex2" class="el-menu-demo"  mode="horizontal" router="true" @select="handleSelect" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
 		<el-menu-item index="/">首页</el-menu-item>
 		<el-menu-item index="/query">查询界面</el-menu-item>
-		<el-menu-item index="">用户信息</el-menu-item>
+		<el-menu-item index="/user">用户信息</el-menu-item>
 	</el-menu>
 </template>
 <script>
