@@ -295,7 +295,7 @@
   }
 
   .box-card {
-    width: 1368px;
+    width: 1000px;
     border-radius: 30px;
   }
 </style>

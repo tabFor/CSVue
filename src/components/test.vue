@@ -3,6 +3,7 @@
 		<el-menu-item index="/">首页</el-menu-item>
 		<el-menu-item index="/query">查询界面</el-menu-item>
 		<el-menu-item index="/user">用户信息</el-menu-item>
+		<el-menu-item index="/dialog">对话记录</el-menu-item>
 	</el-menu>
 </template>
 <script>

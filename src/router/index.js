@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/homepage'
 import querypage from '@/components/querypage'
 import userpage from '@/components/userpage'
+import dialogpage from '@/components/dialogpage'
 
 Vue.use(Router)
 
@@ -22,6 +23,11 @@ export default new Router({
       path: '/user',
       name: 'user',
       component: userpage
+    },
+    {
+      path: '/dialog',
+      name: 'dialog',
+      component: dialogpage
     }
   ]
 })
