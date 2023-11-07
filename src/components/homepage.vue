@@ -23,6 +23,42 @@
                 <div class="chatpdfRow chatpdfAsk">
                     <div class="chatpdfContent">自建私有数据知识库 · 与知识库AI聊天</div>
                 </div>
+                <div class="chatpdfRow">
+                    <div class="chatpdfContent">我是知识库机器人，一个专门响应人类指令的大模型</div>
+                </div>
+                <div class="chatpdfRow">
+                    <div class="chatpdfContent">我是知识库机器人，一个专门响应人类指令的大模型</div>
+                </div>
+                <div class="chatpdfRow">
+                    <div class="chatpdfContent">我是知识库机器人，一个专门响应人类指令的大模型</div>
+                </div>
+                <div class="chatpdfRow">
+                    <div class="chatpdfContent">我是知识库机器人，一个专门响应人类指令的大模型</div>
+                </div>
+                <div class="chatpdfRow">
+                    <div class="chatpdfContent">我是知识库机器人，一个专门响应人类指令的大模型</div>
+                </div>
+                <div class="chatpdfRow">
+                    <div class="chatpdfContent">我是知识库机器人，一个专门响应人类指令的大模型</div>
+                </div>
+                <div class="chatpdfRow">
+                    <div class="chatpdfContent">我是知识库机器人，一个专门响应人类指令的大模型</div>
+                </div>
+                <div class="chatpdfRow">
+                    <div class="chatpdfContent">我是知识库机器人，一个专门响应人类指令的大模型</div>
+                </div>
+                <div class="chatpdfRow">
+                    <div class="chatpdfContent">我是知识库机器人，一个专门响应人类指令的大模型</div>
+                </div>
+                <div class="chatpdfRow">
+                    <div class="chatpdfContent">我是知识库机器人，一个专门响应人类指令的大模型</div>
+                </div>
+                <div class="chatpdfRow">
+                    <div class="chatpdfContent">我是知识库机器人，一个专门响应人类指令的大模型</div>
+                </div>
+                <div class="chatpdfRow">
+                    <div class="chatpdfContent">我是知识库机器人，一个专门响应人类指令的大模型</div>
+                </div>
             </div>
             <div class="chatpdfArea">
                 <textarea></textarea>
