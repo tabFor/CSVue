@@ -247,7 +247,7 @@ export default {
         height: 35px;
         line-height: 30px;
         color: #404040;
-        border-radius: 10px 0px 0px 10px;
+        border-radius: 10px 0px 0px 10px；
         transition: all 0.3s,height 0s;
     }
     .chatpdfArea textarea:hover{
