@@ -223,6 +223,7 @@ export default {
         border-radius: 8px;
         padding: 6px 12px;
         max-width: 500px;
+        line-height: 30px;
         background: rgba(255, 255, 255, 0.6);
         font-size: 14px;
         box-shadow:  0px 0.3px 0.9px rgba(0, 0, 0, 0.12), 0px 1.6px 3.6px rgba(0, 0, 0, 0.16);
@@ -274,6 +275,7 @@ export default {
         margin: 10px;
         font-size: 14px;
         cursor: pointer;
+        line-height: 40px;
     }
     @media (max-width: 768px) {
         .pannel{
