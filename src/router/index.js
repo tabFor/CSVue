@@ -6,6 +6,7 @@ import userpage from '@/components/userpage'
 import dialogpage from '@/components/dialogpage'
 import layout from '@/components/layout'
 import login from '@/components/login'
+import signin from '@/components/signin'
 
 Vue.use(Router)
 
@@ -43,6 +44,11 @@ export default new Router({
           }
 
       ]
+    },
+    {
+      path: '/signin',
+      name: 'signin',
+      component: signin
     }
   ]
 })

@@ -10,7 +10,7 @@
       </div>
       <div>
         <el-button type="primary" @click="login" class="login_style">登录</el-button>
-        <el-button type="primary" @click="login" class="login_style">注册</el-button>
+        <el-button type="primary" @click="signin" class="login_style">注册</el-button>
       </div>
       <div>
         <el-button type="text" @click="login">忘记密码</el-button>
@@ -19,25 +19,29 @@
   </template>
   
   <script>
-    export default {
-      name: "Login",
-      data(){
-        return {
+  export default {
+    name: "Login",
+    data() {
+      return {
+        name: '',
+        pwd: '',
+        error: {
           name: '',
-          pwd : '',
-          error : {
-            name: '',
-            pwd : ''
-          }
-        }
-      },
-      methods:{
-        login(){
-          const { name, pwd, $router} = this
-          this.$router.push('/layout/home');
+          pwd: ''
         }
       }
+    },
+    methods: {
+      login() {
+        const { name, pwd, $router } = this
+        this.
+          $router.push('/layout/home');
+      },
+      signin() {
+      this.$router.push('/signin')
+      }
     }
+  }
   </script>
   
   <style>
