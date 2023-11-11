@@ -16,7 +16,9 @@ export default new Router({
     {
       path: '/',
       name: 'login',
-      component: login
+      components: {
+        login:login
+      }
   },
     {
       path: '/layout',
@@ -49,12 +51,14 @@ export default new Router({
     {
       path: '/signin',
       name: 'signin',
-      component: signin
+      components: {
+        login:signin
+      }
     },
     {
       path: '/signsetting',
       name: 'signsetting',
-      component: signsetting
+      components: { login:signsetting }
     }
   ]
 })
