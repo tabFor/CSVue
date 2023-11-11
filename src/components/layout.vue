@@ -1,7 +1,7 @@
 <template>
 
     <el-container>
-  <el-header height="100px">
+  <el-header height="60px">
     <Test></Test>
     <Card></Card>
 </el-header>
@@ -39,7 +39,7 @@ export default {
     background-color: #fdfdff;
     color: #333;
     text-align: center;
-    line-height: 100px;
+    line-height: 60px;
     padding: 0px;
   }
   
