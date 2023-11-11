@@ -7,6 +7,7 @@ import dialogpage from '@/components/dialogpage'
 import layout from '@/components/layout'
 import login from '@/components/login'
 import signin from '@/components/signin'
+import signsetting from '@/components/signsetting'
 
 Vue.use(Router)
 
@@ -49,6 +50,11 @@ export default new Router({
       path: '/signin',
       name: 'signin',
       component: signin
+    },
+    {
+      path: '/signsetting',
+      name: 'signsetting',
+      component: signsetting
     }
   ]
 })

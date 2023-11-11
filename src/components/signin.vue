@@ -30,7 +30,7 @@
       methods:{
         login(){
           const { name, pwd, $router} = this
-          this.$router.push('/layout/home');
+          this.$router.push('/signsetting');
         }
       }
     }
