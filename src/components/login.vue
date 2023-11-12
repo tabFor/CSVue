@@ -35,10 +35,10 @@
       login() {
         const { name, pwd, $router } = this
         this.
-          $router.push('/layout/home');
+          $router.replace('/layout/home');
       },
       signin() {
-      this.$router.push('/signin')
+      this.$router.replace('/signin')
       }
     }
   }
