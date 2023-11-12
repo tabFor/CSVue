@@ -18,8 +18,9 @@
 				console.log(key, keyPath);
 				this.activeIndex2 = key;
 			}
-		}
-	}
+			
+	},
+}
 </script>
 
 <style>

@@ -30,12 +30,6 @@ export default {
     Table,
     Foot
   },
-    beforeRouteLeave(to, from) {
-    // 在导航离开渲染该组件的对应路由时调用
-      // 与 `beforeRouteUpdate` 一样，它可以访问组件实例 `this`
-    //当你在登录状态下是不能离开的，除非·你退出登录
-    return '/layout/home'
-  }
 }
 </script>
 

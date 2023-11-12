@@ -16,3 +16,14 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
+
+router.beforeEach((to, from,next) => {
+  // ...
+  // 返回 false 以取消导航
+  if (to.name === 'login'&&from.name!=='user') {
+    return false;
+  }
+  else {
+    next();
+  }
+})
