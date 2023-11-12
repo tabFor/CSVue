@@ -265,21 +265,21 @@
           this.$message('click on item ' + command);
           this.index = 'Yes';
           console.log(this.index);
-          this.$router.push({ path: '/' });
+          this.$router.replace({ path: '/' });
         }
       }
   },
-  beforeRouteLeave(to, from, next) { 
-    if (to.name === 'login' && this.index === 'Yes') {
-      next();
-    }
-    else if(to.name === 'login' && this.index === 'No'){
-      next(false);
-    }
-    else {
-      next();
-    }
-  }
+  // beforeRouteLeave(to, from, next) { 
+  //   if (to.name === 'login' && this.index === 'Yes') {
+  //     next();
+  //   }
+  //   else if(to.name === 'login' && this.index === 'No'){
+  //     next(false);
+  //   }
+  //   else {
+  //     next();
+  //   }
+  // }
 }
   
 </script>

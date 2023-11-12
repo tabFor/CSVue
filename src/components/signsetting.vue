@@ -15,6 +15,11 @@
     <el-button @click="resetForm('ruleForm2')">重置</el-button>
   </el-form-item>
 </el-form>
+<div>
+  <div>
+        <el-button type="text" @click="login" class="returnbutton">返回</el-button>
+      </div>
+</div>
     </div>
 </template>
 
@@ -80,7 +85,7 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
               alert('submit!');
-            this.$router.push('/layout/home');
+            this.$router.replace('/layout/home');
           } else {
             console.log('error submit!!');
             return false;
@@ -89,6 +94,9 @@
       },
       resetForm(formName) {
         this.$refs[formName].resetFields();
+      },
+      login() {
+        this.$router.replace('/signin')
       }
     }
     }
@@ -112,5 +120,10 @@ form{
             margin: auto;
             width: 50%;
             height: 50%;
+}
+.returnbutton{
+  position: absolute;
+  bottom: 35%;
+  right:45.8%;
 }
 </style>

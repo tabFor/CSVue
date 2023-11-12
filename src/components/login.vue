@@ -40,7 +40,17 @@
       signin() {
       this.$router.replace('/signin')
       }
-    }
+    },
+    // beforeRouteLeave (to, from, next) {
+    //   // ...
+    //     if (to.name !== 'user') {
+    //         next();
+    //   }
+    //       else {
+    //         next('/')
+    //   }
+      
+    // }
   }
   
   </script>
