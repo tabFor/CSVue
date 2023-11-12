@@ -60,7 +60,7 @@
       margin-top: 200px;
     }
     .input_style{
-      width: 200px;
+      width: 410px;
       margin-bottom: 10px;
     }
     .login_style{
