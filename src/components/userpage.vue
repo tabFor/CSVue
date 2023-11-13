@@ -2,7 +2,20 @@
 <template>
   <div class="personalCenter">
     <el-container>
-      <el-header>个人中心</el-header>
+      <el-header>个人中心
+        <el-dropdown @command="handleCommand" >
+  <span class="el-dropdown-link">
+    用户操作<i class="el-icon-arrow-down el-icon--right"></i>
+  </span>
+  <el-dropdown-menu slot="dropdown">
+    <el-dropdown-item command="a">修改密码</el-dropdown-item>
+    <el-dropdown-item command="b">换绑手机</el-dropdown-item>
+    <el-dropdown-item command="c">换绑邮箱</el-dropdown-item>
+    <el-dropdown-item command="d" >清除记录</el-dropdown-item>
+    <el-dropdown-item command="e" divided>退出登录</el-dropdown-item>
+  </el-dropdown-menu>
+</el-dropdown>
+      </el-header>
       <el-container>
         <el-aside width="400px">
           <el-col :span="12">
@@ -22,6 +35,7 @@
           </el-col>
           <el-input
             v-model="input1"
+            :disabled="true"
             type="text"
             placeholder="用户ID"
             maxlength="6"
@@ -29,35 +43,29 @@
           ></el-input>
           <el-input
             v-model="input2"
+            :disabled="true"
             type="text"
             placeholder="用户昵称"
             show-word-limit
           ></el-input>
           <el-input
             v-model="input3"
-            type="text"
-            placeholder="用户昵称"
-            show-word-limit
-          ></el-input>
-          <el-input
-            v-model="input4"
-            placeholder="请输入密码"
-            show-password
-          ></el-input>
-          <el-input
-            v-model="input5"
+            :disabled="true"
             type="text"
             placeholder="用户姓名"
             show-word-limit
           ></el-input>
           <el-input
-            v-model="input6"
+            v-model="input4"
+            :disabled="true"
             type="text"
             placeholder="用户权限"
             maxlength="2"
             show-word-limit
           ></el-input>
-          <el-input v-model="input7" placeholder="邮箱">
+          <el-input v-model="input7" 
+          :disabled="true"
+          placeholder="邮箱">
             <template slot="append">@163.com</template>
           </el-input>
           <el-input
@@ -221,6 +229,7 @@
     name: 'PersonalCenter',
     data() {
       return {
+        index:'No',
         text: '',
         input1: '',
         input2: '',
@@ -250,14 +259,35 @@
       handleDelete(index, row) {
         console.log(index, row)
       },
-    },
-  }
+      handleCommand(command) {
+        // this.$message('click on item ' + command);
+        if (command === 'e') {
+          this.$message('click on item ' + command);
+          this.index = 'Yes';
+          console.log(this.index);
+          this.$router.replace({ path: '/' });
+        }
+      }
+  },
+  // beforeRouteLeave(to, from, next) { 
+  //   if (to.name === 'login' && this.index === 'Yes') {
+  //     next();
+  //   }
+  //   else if(to.name === 'login' && this.index === 'No'){
+  //     next(false);
+  //   }
+  //   else {
+  //     next();
+  //   }
+  // }
+}
+  
 </script>
-<style>
+<style scoped>
   .el-header {
     line-height: 60px;
-    text-align: center;
     background-color: #b3c0d1;
+    text-align: center;
   }
   .el-aside {
     line-height: 44px;
@@ -297,6 +327,15 @@
   .box-card {
     width: 1000px;
     border-radius: 30px;
+  }
+  .el-dropdown {
+    cursor: pointer;
+    color: #409EFF;
+    position: absolute; 
+    right: 40px;
+  }
+  .el-icon-arrow-down {
+    font-size: 12px;
   }
 </style>
 

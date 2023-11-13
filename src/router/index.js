@@ -4,6 +4,10 @@ import HelloWorld from '@/components/homepage'
 import querypage from '@/components/querypage'
 import userpage from '@/components/userpage'
 import dialogpage from '@/components/dialogpage'
+import layout from '@/components/layout'
+import login from '@/components/login'
+import signin from '@/components/signin'
+import signsetting from '@/components/signsetting'
 
 Vue.use(Router)
 
@@ -11,23 +15,50 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'homepage',
-      component: HelloWorld
+      name: 'login',
+      components: {
+        login:login
+      }
+  },
+    {
+      path: '/layout',
+      name: 'layout',
+      component: layout,
+      children: [
+          {
+            path: '/layout/home',
+            name: 'homepage',
+            component: HelloWorld
+          },
+          {
+            path: '/layout/query',
+            name: 'query',
+            component: querypage
+          },
+          {
+            path: '/layout/user',
+            name: 'user',
+            component: userpage
+          },
+          {
+            path: '/layout/dialog',
+            name: 'dialog',
+            component: dialogpage
+          }
+
+      ]
     },
     {
-      path: '/query',
-      name: 'Layout',
-      component: querypage
+      path: '/signin',
+      name: 'signin',
+      components: {
+        login:signin
+      }
     },
     {
-      path: '/user',
-      name: 'user',
-      component: userpage
-    },
-    {
-      path: '/dialog',
-      name: 'dialog',
-      component: dialogpage
+      path: '/signsetting',
+      name: 'signsetting',
+      components: { login:signsetting }
     }
   ]
 })

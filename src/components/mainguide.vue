@@ -11,11 +11,11 @@
             <label for="date">颁布时间</label>
             <input type="text" id="date" name="date" v-model="date" placeholder="">
 <!-- <button type="submit">Submit</button> -->
-<button type="button" v-on:click="check">搜索</button>
-<button type="reset" v-on:click="click">重置</button>
+<el-button type="button" v-on:click="check">搜索</el-button>
+<el-button type="reset" v-on:click="click">重置</el-button>
 <hr>
-<el-button type="primary" plain>下载所选</el-button>
-<el-button type="primary" plain>预览所选</el-button>
+<el-button type="primary" >下载所选</el-button>
+<el-button type="primary" >预览所选</el-button>
 <hr>
         </form>
         

@@ -1,14 +1,14 @@
 <template>
 
     <el-container>
-  <el-header height="100px">
+  <el-header height="60px">
     <Test></Test>
     <Card></Card>
 </el-header>
   <el-container>
     <!-- <el-aside width="150px"><Guide></Guide></el-aside> -->
     <el-main>
-      <router-view></router-view>
+      <router-view ></router-view>
     </el-main>
   </el-container>
 </el-container>
@@ -29,7 +29,7 @@ export default {
     MainGuide,
     Table,
     Foot
-  }
+  },
 }
 </script>
 
@@ -39,7 +39,7 @@ export default {
     background-color: #fdfdff;
     color: #333;
     text-align: center;
-    line-height: 100px;
+    line-height: 60px;
     padding: 0px;
   }
   

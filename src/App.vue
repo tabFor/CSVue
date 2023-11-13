@@ -1,19 +1,20 @@
 <template>
   <div id="app">
-    <layout></layout>
+    <router-view name="login"></router-view>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
+import { RouterView } from 'vue-router';
 import layout from './components/layout'
 export default {
   components: {
-    layout
-  },
+    layout,
+    RouterView
+},
   name: 'App'
 }
-
-
 </script>
 
 <style>
@@ -24,6 +25,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 0px;
+  background-image: url();
 }
 </style>
 
