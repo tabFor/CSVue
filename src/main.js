@@ -6,6 +6,11 @@ import App from './App'
 import router from './router'
 import ElementUI from 'element-ui'
 import Chat from 'vue-beautiful-chat'
+import axios from 'axios'
+
+
+Vue.prototype.$ajax = axios
+axios.defaults.headers.post['Content-Type'] = 'text/plain'
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 Vue.use(Chat)

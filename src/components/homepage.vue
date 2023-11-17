@@ -11,88 +11,23 @@
         </div>
         <div class="chatpdfBox">
             <div class="chatpdfLine">
-                <div class="chatpdfRow">
-                    <div class="chatpdfContent">我是知识库机器人，一个专门响应人类指令的大模型</div>
+                <div v-for="item in items" v-bind:key="item">
+                    <div class="chatpdfRow chatpdfAsk" >
+                    <div class="chatpdfContent">{{ item.inputask }}</div>
                 </div>
-                <div class="chatpdfRow">
-                    <div class="chatpdfContent">我服务于人类，致力于让生活更美好</div>
+                <div class="chatpdfRow" >
+                    <div class="chatpdfContent">{{ item.massgge }}</div>
                 </div>
-                <div class="chatpdfRow">
-                    <div class="chatpdfContent">我是知识库机器人，一个专门响应人类指令的大模型</div>
-                </div>
-                <div class="chatpdfRow chatpdfAsk">
-                    <div class="chatpdfContent">自建私有数据知识库 · 与知识库AI聊天</div>
-                </div>
-                <div class="chatpdfRow">
-                    <div class="chatpdfContent">我是知识库机器人，一个专门响应人类指令的大模型</div>
-                </div>
-                <div class="chatpdfRow">
-                    <div class="chatpdfContent">我是知识库机器人，一个专门响应人类指令的大模型</div>
-                </div>
-                <div class="chatpdfRow">
-                    <div class="chatpdfContent">我是知识库机器人，一个专门响应人类指令的大模型</div>
-                </div>
-                <div class="chatpdfRow">
-                    <div class="chatpdfContent">我是知识库机器人，一个专门响应人类指令的大模型</div>
-                </div>
-                <div class="chatpdfRow">
-                    <div class="chatpdfContent">我是知识库机器人，一个专门响应人类指令的大模型</div>
-                </div>
-                <div class="chatpdfRow">
-                    <div class="chatpdfContent">我是知识库机器人，一个专门响应人类指令的大模型</div>
-                </div>
-                <div class="chatpdfRow">
-                    <div class="chatpdfContent">我是知识库机器人，一个专门响应人类指令的大模型</div>
-                </div>
-                <div class="chatpdfRow">
-                    <div class="chatpdfContent">我是知识库机器人，一个专门响应人类指令的大模型</div>
-                </div>
-                <div class="chatpdfRow">
-                    <div class="chatpdfContent">我是知识库机器人，一个专门响应人类指令的大模型</div>
-                </div>
-                <div class="chatpdfRow">
-                    <div class="chatpdfContent">我是知识库机器人，一个专门响应人类指令的大模型</div>
-                </div>
-                <div class="chatpdfRow">
-                    <div class="chatpdfContent">我是知识库机器人，一个专门响应人类指令的大模型</div>
-                </div>
-                <div class="chatpdfRow">
-                    <div class="chatpdfContent">我是知识库机器人，一个专门响应人类指令的大模型</div>
                 </div>
             </div>
             <div class="chatpdfArea">
-                <textarea></textarea>
-                <button>
-                    <svg t="1682141916531" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1271" width="16" height="16"><path d="M0 1024l106.496-474.112 588.8-36.864-588.8-39.936L0 0l1024 512z" fill="#ffffff" p-id="1272"></path></svg>
-                </button>
+              <input v-model="input" placeholder="请输入内容" class="inputbox">
+              <el-button type="primary" v-on:click="submit">提交</el-button>
             </div>
         </div>
     </div>
 
 
-    <beautiful-chat
-      :participants="participants"
-      :titleImageUrl="titleImageUrl"
-      :onMessageWasSent="onMessageWasSent"
-      :messageList="messageList"
-      :newMessagesCount="newMessagesCount"
-      :isOpen="isChatOpen"
-      :close="closeChat"
-      :icons="icons"
-      :open="openChat"
-      :showEmoji="true"
-      :showFile="true"
-      :showEdition="true"
-      :showDeletion="true"
-      :showTypingIndicator="showTypingIndicator"
-      :showLauncher="true"
-      :showCloseButton="true"
-      :colors="colors"
-      :alwaysScrollToBottom="alwaysScrollToBottom"
-      :disableUserListToggle="false"
-      :messageStyling="messageStyling"
-      @onType="handleOnType"
-      @edit="editMessage" />
   </div>
 </template>
 
@@ -100,87 +35,40 @@
 export default {
   name: 'app',
   data() {
-    return {
-      participants: [
-        {
-          id: 'user1',
-          name: 'Matteo',
-          imageUrl: 'https://avatars3.githubusercontent.com/u/1915989?s=230&v=4'
-        },
-        {
-          id: 'user2',
-          name: 'Support',
-          imageUrl: 'https://avatars3.githubusercontent.com/u/37018832?s=200&v=4'
-        }
-      ], // the list of all the participant of the conversation. `name` is the user name, `id` is used to establish the author of a message, `imageUrl` is supposed to be the user avatar.
-      titleImageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
-      messageList: [
-          { type: 'text', author: `me`, data: { text: `Say yes!` } },
-          { type: 'text', author: `user1`, data: { text: `No.` } }
-      ], // the list of the messages to show, can be paginated and adjusted dynamically
-      newMessagesCount: 0,
-      isChatOpen: false, // to determine whether the chat window should be open or closed
-      showTypingIndicator: '', // when set to a value matching the participant.id it shows the typing indicator for the specific user
-      colors: {
-        header: {
-          bg: '#4e8cff',
-          text: '#ffffff'
-        },
-        launcher: {
-          bg: '#4e8cff'
-        },
-        messageList: {
-          bg: '#ffffff'
-        },
-        sentMessage: {
-          bg: '#4e8cff',
-          text: '#ffffff'
-        },
-        receivedMessage: {
-          bg: '#eaeaea',
-          text: '#222222'
-        },
-        userInput: {
-          bg: '#f4f7f9',
-          text: '#565867'
-        }
-      }, // specifies the color scheme for the component
-      alwaysScrollToBottom: false, // when set to true always scrolls the chat to the bottom when new events are in (new message, user starts typing...)
-      messageStyling: true // enables *bold* /emph/ _underline_ and such (more info at github.com/mattezza/msgdown)
+      return {
+          items:[
+              {
+                  massgge:'hhhhhhhhhh',
+                inputask:'HHHHHHHHHHHHHHHH'
+            }
+          ]
+          
     }
   },
   methods: {
-    sendMessage (text) {
-      if (text.length > 0) {
-        this.newMessagesCount = this.isChatOpen ? this.newMessagesCount : this.newMessagesCount + 1
-        this.onMessageWasSent({ author: 'support', type: 'text', data: { text } })
-      }
-    },
-    onMessageWasSent (message) {
-      // called when the user sends a message
-      this.messageList = [ ...this.messageList, message ]
-    },
-    openChat () {
-      // called when the user clicks on the fab button to open the chat
-      this.isChatOpen = true
-      this.newMessagesCount = 0
-    },
-    closeChat () {
-      // called when the user clicks on the botton to close the chat
-      this.isChatOpen = false
-    },
-    
-    handleScrollToTop () {
-      // called when the user scrolls message list to top
-      // leverage pagination for loading another page of messages
-    },
-    handleOnType () {
-      console.log('Emit typing event')
-    },
-    editMessage(message){
-      const m = this.messageList.find(m=>m.id === message.id);
-      m.isEdited = true;
-      m.data.text = message.data.text;
+      submit() {
+        
+      console.log('Submit');
+      this.$ajax.post('http://localhost:8081/chat/userMessage', 
+  this.input,  // 发送的文本信息
+  { headers: { 'Content-Type': 'text/plain' } }  // 设置请求头
+)
+.then(res => {
+  console.log(res.data);
+  this.items.push({
+    massgge: res.data,
+    inputask:this.input
+  });
+  this.input = '';
+}, err => {
+  this.items.push({
+    massgge: err,
+    inputask:this.input
+  });
+  this.input = '';
+});
+
+          
     }
   }
 }
@@ -276,6 +164,9 @@ export default {
         font-size: 14px;
         cursor: pointer;
         line-height: 40px;
+    }
+    .inputbox{
+        width: 800px;
     }
     @media (max-width: 768px) {
         .pannel{
