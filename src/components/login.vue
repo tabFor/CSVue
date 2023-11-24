@@ -1,15 +1,17 @@
 <template>
     <div class="login">
       <div>
-        <el-input placeholder="请输入用户名" v-model="name" clearable class="input_style"></el-input>
-        <span v-if="error.name" class="err-msg">{{error.name}}</span>
+        <el-input placeholder="请输入邮箱" v-model="name" clearable class="input_style"></el-input>
+        <el-tag :type="isValidEmail(this.name) ? '' : 'danger'">{{namecheck}}</el-tag>
       </div>
+      
       <div>
         <el-input placeholder="请输入密码" v-model="pwd" show-password class="input_style"></el-input>
-        <span v-if="error.pwd" class="err-msg">{{error.pwd}}</span>
+        <el-tag :type="isValidPassword(this.pwd) ? '' : 'danger'">{{ passwordcheck }}</el-tag>
       </div>
+      
       <div>
-        <el-button type="primary" @click="login" class="login_style">登录</el-button>
+        <el-button :disabled="!(isValidEmail(this.name)&&isValidPassword(this.pwd))" type="primary" @click="login" class="login_style">登录</el-button>
         <el-button type="primary" @click="signin" class="login_style">注册</el-button>
       </div>
       <div>
@@ -25,32 +27,51 @@
       return {
         name: '',
         pwd: '',
-        error: {
-          name: '',
-          pwd: ''
-        }
       }
     },
     methods: {
       login() {
-        const { name, pwd, $router } = this
         this.
           $router.replace('/layout/home');
       },
       signin() {
       this.$router.replace('/signin')
-      }
+      },
+      isValidEmail(email) {
+    // 定义正则表达式
+    var regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    // 使用正则表达式测试email
+    return regex.test(email);
+        },
+       isValidPassword(password) {
+    // 定义正则表达式
+    var regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    // 使用正则表达式测试password
+    return regex.test(password);
+}
     },
-    // beforeRouteLeave (to, from, next) {
-    //   // ...
-    //     if (to.name !== 'user') {
-    //         next();
-    //   }
-    //       else {
-    //         next('/')
-    //   }
-      
-    // }
+    computed: {
+      namecheck: {
+        get() {
+          if (this.isValidEmail(this.name)) {
+                  return "邮箱格式正确"
+            }
+                else {
+              return "邮箱格式错误";
+            }
+        },
+      },
+      passwordcheck: {
+        get() {
+          if (this.isValidPassword(this.pwd)) {
+                  return "密码格式正确"
+            }
+                else {
+              return "密码格式错误";
+            }
+        },
+      },
+    }
   }
   
   </script>

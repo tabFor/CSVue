@@ -10,7 +10,7 @@ import axios from 'axios'
 
 
 Vue.prototype.$ajax = axios
-axios.defaults.headers.post['Content-Type'] = 'text/plain'
+axios.defaults.headers
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 Vue.use(Chat)

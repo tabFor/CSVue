@@ -49,7 +49,7 @@ export default {
       submit() {
         
       console.log('Submit');
-      this.$ajax.post('http://localhost:8081/chat/userMessage', 
+      this.$ajax.post('http://192.168.0.1:8081/chat/userMessage', 
   this.input,  // 发送的文本信息
   { headers: { 'Content-Type': 'text/plain' } }  // 设置请求头
 )
