@@ -6,12 +6,12 @@
       </div> 
         
       <div>
-        <el-input placeholder="验证码" v-model="pwd" show-password class="input_style2"></el-input>
-        <el-button type="primary">发送</el-button>
+        <el-input placeholder="6位验证码" v-model="pwd"  class="input_style2"></el-input>
+        <el-button :disabled="!isValidEmail(this.name)" type="primary">获取</el-button>
         <span v-if="error.pwd" class="err-msg">{{error.pwd}}</span>
       </div>
       <div>
-        <el-button type="primary" @click="login" class="login_style">注册</el-button>
+        <el-button :disabled="!(isValidEmail(this.name)&&(this.pwd.length===6))" type="primary" @click="login" class="login_style">注册</el-button>
       </div>
       <div>
         <el-button type="text" @click="login2">返回登录界面</el-button>
