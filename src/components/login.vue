@@ -53,7 +53,26 @@ export default {
   },
   methods: {
     login() {
-      this.$router.replace("/layout/home");
+      this.$session.set("email", this.name);
+      this.$ajax
+        .get("/user/login", {
+            headers: {
+            email:this.$session.get("email"),
+          },
+          params: {
+            email:this.$session.get("email"),
+            password: this.pwd
+          }
+        })
+        .then(res => {
+          console.log(res.data);
+          if (String(res.data) === "登录成功") {
+            this.$router.replace("/layout/home");
+          } else {
+            console.assert("密码错误");
+            this.$message(String(res.data));
+          }
+        });
     },
     signin() {
       this.$router.replace("/signin");

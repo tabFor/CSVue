@@ -59,6 +59,9 @@ export default {
       console.log(this.$session.get("email"));
       this.$ajax
         .get("/user/signup", {
+          headers: {
+            email: this.$session.get("email")
+          },
           params: {
             email: this.name
           }
@@ -81,6 +84,9 @@ export default {
     signin() {
       this.$ajax
         .get("/user/check", {
+          headers: {
+            email: this.$session.get("email")
+          },
           params: {
             code: this.pwd
           }
