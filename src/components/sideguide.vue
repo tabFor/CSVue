@@ -1,10 +1,11 @@
 <template>
-    <el-col :span="12">
+  <el-col :span="12">
     <el-menu
       default-active="2"
       class="el-menu-vertical-demo"
       @open="handleOpen"
-      @close="handleClose">
+      @close="handleClose"
+    >
       <el-submenu index="1">
         <template slot="title">
           <i class="el-icon-location"></i>
@@ -27,7 +28,10 @@
         <i class="el-icon-menu"></i>
         <span slot="title">导航二</span>
       </el-menu-item>
-      <el-menu-item index="3" disabled>
+      <el-menu-item
+        index="3"
+        disabled
+      >
         <i class="el-icon-document"></i>
         <span slot="title">导航三</span>
       </el-menu-item>
@@ -39,20 +43,20 @@
   </el-col>
 </template>
 <script>
-    export default {
-    methods: {
-      handleOpen(key, keyPath) {
-        console.log(key, keyPath);
-      },
-      handleClose(key, keyPath) {
-        console.log(key, keyPath);
-      }
+export default {
+  methods: {
+    handleOpen(key, keyPath) {
+      console.log(key, keyPath);
+    },
+    handleClose(key, keyPath) {
+      console.log(key, keyPath);
     }
   }
+};
 </script>
 <style>
-    .el-col{
-        width: 150px !important;
-        height: 640px !important;
-    }
+.el-col {
+  width: 150px !important;
+  height: 640px !important;
+}
 </style>

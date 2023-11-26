@@ -3,18 +3,21 @@
   <div class="personalCenter">
     <el-container>
       <el-header>个人中心
-        <el-dropdown @command="handleCommand" >
-  <span class="el-dropdown-link">
-    用户操作<i class="el-icon-arrow-down el-icon--right"></i>
-  </span>
-  <el-dropdown-menu slot="dropdown">
-    <el-dropdown-item command="a">修改密码</el-dropdown-item>
-    <el-dropdown-item command="b">换绑手机</el-dropdown-item>
-    <el-dropdown-item command="c">换绑邮箱</el-dropdown-item>
-    <el-dropdown-item command="d" >清除记录</el-dropdown-item>
-    <el-dropdown-item command="e" divided>退出登录</el-dropdown-item>
-  </el-dropdown-menu>
-</el-dropdown>
+        <el-dropdown @command="handleCommand">
+          <span class="el-dropdown-link">
+            用户操作<i class="el-icon-arrow-down el-icon--right"></i>
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item command="a">修改密码</el-dropdown-item>
+            <el-dropdown-item command="b">换绑手机</el-dropdown-item>
+            <el-dropdown-item command="c">换绑邮箱</el-dropdown-item>
+            <el-dropdown-item command="d">清除记录</el-dropdown-item>
+            <el-dropdown-item
+              command="e"
+              divided
+            >退出登录</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
       </el-header>
       <el-container>
         <el-aside width="400px">
@@ -63,9 +66,11 @@
             maxlength="2"
             show-word-limit
           ></el-input>
-          <el-input v-model="input7" 
-          :disabled="true"
-          placeholder="邮箱">
+          <el-input
+            v-model="input7"
+            :disabled="true"
+            placeholder="邮箱"
+          >
             <template slot="append">@163.com</template>
           </el-input>
           <el-input
@@ -82,14 +87,24 @@
             maxlength="20"
             show-word-limit
           ></el-input>
-          <el-button-group style="float: right; padding: 3px 0" type="text">
-            <el-button type="primary" size="medium" round>保存</el-button>
+          <el-button-group
+            style="float: right; padding: 3px 0"
+            type="text"
+          >
+            <el-button
+              type="primary"
+              size="medium"
+              round
+            >保存</el-button>
           </el-button-group>
         </el-aside>
         <el-container>
           <el-main>
             <el-card class="box-card">
-              <div slot="header" class="clearfix">
+              <div
+                slot="header"
+                class="clearfix"
+              >
                 <span style="float: left"><b>账号绑定</b></span>
                 <el-button-group
                   style="float: right; padding: 3px 0"
@@ -113,15 +128,31 @@
                   </el-button>
                 </el-button-group>
               </div>
-              <div v-for="o in 1" :key="o" class="text item">
-                <el-table :data="tableData" style="width: 100%">
-                  <el-table-column label="账号名" width="180">
+              <div
+                v-for="o in 1"
+                :key="o"
+                class="text item"
+              >
+                <el-table
+                  :data="tableData"
+                  style="width: 100%"
+                >
+                  <el-table-column
+                    label="账号名"
+                    width="180"
+                  >
                     <template slot-scope="scope">
                       <p>{{ scope.row.name1 }}</p>
-                      <div slot="reference" class="name-wrapper"></div>
+                      <div
+                        slot="reference"
+                        class="name-wrapper"
+                      ></div>
                     </template>
                   </el-table-column>
-                  <el-table-column label="操作" align="center">
+                  <el-table-column
+                    label="操作"
+                    align="center"
+                  >
                     <template slot-scope="scope">
                       <el-button
                         size="mini"
@@ -138,7 +169,10 @@
                       </el-button>
                     </template>
                   </el-table-column>
-                  <el-table-column label="更多" align="center">
+                  <el-table-column
+                    label="更多"
+                    align="center"
+                  >
                     <el-row>
                       <el-button
                         type="info"
@@ -159,15 +193,31 @@
                   </el-table-column>
                 </el-table>
               </div>
-              <div v-for="o in 1" :key="o" class="text item">
-                <el-table :data="tableData" style="width: 100%">
-                  <el-table-column label="账号名" width="180">
+              <div
+                v-for="o in 1"
+                :key="o"
+                class="text item"
+              >
+                <el-table
+                  :data="tableData"
+                  style="width: 100%"
+                >
+                  <el-table-column
+                    label="账号名"
+                    width="180"
+                  >
                     <template slot-scope="scope">
                       <p>{{ scope.row.name2 }}</p>
-                      <div slot="reference" class="name-wrapper"></div>
+                      <div
+                        slot="reference"
+                        class="name-wrapper"
+                      ></div>
                     </template>
                   </el-table-column>
-                  <el-table-column label="操作" align="center">
+                  <el-table-column
+                    label="操作"
+                    align="center"
+                  >
                     <template slot-scope="scope">
                       <el-button
                         size="mini"
@@ -184,7 +234,10 @@
                       </el-button>
                     </template>
                   </el-table-column>
-                  <el-table-column label="更多" align="center">
+                  <el-table-column
+                    label="更多"
+                    align="center"
+                  >
                     <el-row>
                       <el-button
                         type="info"
@@ -208,7 +261,10 @@
             </el-card>
             <el-card class="box-card">
               <div>
-                <span style="float: left" shadow="hover"><b>个人说明</b></span>
+                <span
+                  style="float: left"
+                  shadow="hover"
+                ><b>个人说明</b></span>
                 <br />
                 <br />
                 <span>螃蟹在剥我的壳</span>
@@ -225,51 +281,51 @@
   </div>
 </template>
 <script>
-  export default {
-    name: 'PersonalCenter',
-    data() {
-      return {
-        index:'No',
-        text: '',
-        input1: '',
-        input2: '',
-        input3: '',
-        input4: '',
-        input5: '',
-        input6: '',
-        input7: '',
-        input8: '',
-        input9: '',
-        circleUrl:
-          'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
-        sizeList: ['large'],
-        tableData: [
-          {
-            date: '2016-05-03',
-            name1: 'Wechat',
-            name2: 'Github',
-          },
-        ],
-      }
-    },
-    methods: {
-      handleEdit(index, row) {
-        console.log(index, row)
-      },
-      handleDelete(index, row) {
-        console.log(index, row)
-      },
-      handleCommand(command) {
-        // this.$message('click on item ' + command);
-        if (command === 'e') {
-          this.$message('click on item ' + command);
-          this.index = 'Yes';
-          console.log(this.index);
-          this.$router.replace({ path: '/' });
+export default {
+  name: "PersonalCenter",
+  data() {
+    return {
+      index: "No",
+      text: "",
+      input1: "",
+      input2: "",
+      input3: "",
+      input4: "",
+      input5: "",
+      input6: "",
+      input7: "",
+      input8: "",
+      input9: "",
+      circleUrl:
+        "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
+      sizeList: ["large"],
+      tableData: [
+        {
+          date: "2016-05-03",
+          name1: "Wechat",
+          name2: "Github"
         }
-      }
+      ]
+    };
   },
-  // beforeRouteLeave(to, from, next) { 
+  methods: {
+    handleEdit(index, row) {
+      console.log(index, row);
+    },
+    handleDelete(index, row) {
+      console.log(index, row);
+    },
+    handleCommand(command) {
+      // this.$message('click on item ' + command);
+      if (command === "e") {
+        this.$message("click on item " + command);
+        this.index = "Yes";
+        console.log(this.index);
+        this.$router.replace({ path: "/" });
+      }
+    }
+  }
+  // beforeRouteLeave(to, from, next) {
   //   if (to.name === 'login' && this.index === 'Yes') {
   //     next();
   //   }
@@ -280,62 +336,61 @@
   //     next();
   //   }
   // }
-}
-  
+};
 </script>
 <style scoped>
-  .el-header {
-    line-height: 60px;
-    background-color: #b3c0d1;
-    text-align: center;
-  }
-  .el-aside {
-    line-height: 44px;
-    text-align: center;
-    background-color: #d3dce6;
-  }
-  .el-main {
-    line-height: 36px;
-    text-align: center;
-    background-color: #e9eef3;
-  }
+.el-header {
+  line-height: 60px;
+  background-color: #b3c0d1;
+  text-align: center;
+}
+.el-aside {
+  line-height: 44px;
+  text-align: center;
+  background-color: #d3dce6;
+}
+.el-main {
+  line-height: 36px;
+  text-align: center;
+  background-color: #e9eef3;
+}
 
-  .demo-basic--circle {
-    align: 'center';
-    margin-top: 30px;
-    margin-left: 150px;
-  }
-  .block {
-    margin-left: 25px;
-    font-weight: bold;
-  }
-  .text {
-    font-size: 14px;
-  }
-  .item {
-    margin-bottom: 18px;
-  }
-  .clearfix:before,
-  .clearfix:after {
-    display: table;
-    content: '';
-  }
-  .clearfix:after {
-    clear: both;
-  }
+.demo-basic--circle {
+  align: "center";
+  margin-top: 30px;
+  margin-left: 150px;
+}
+.block {
+  margin-left: 25px;
+  font-weight: bold;
+}
+.text {
+  font-size: 14px;
+}
+.item {
+  margin-bottom: 18px;
+}
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
+.clearfix:after {
+  clear: both;
+}
 
-  .box-card {
-    width: 1000px;
-    border-radius: 30px;
-  }
-  .el-dropdown {
-    cursor: pointer;
-    color: #409EFF;
-    position: absolute; 
-    right: 40px;
-  }
-  .el-icon-arrow-down {
-    font-size: 12px;
-  }
+.box-card {
+  width: 1000px;
+  border-radius: 30px;
+}
+.el-dropdown {
+  cursor: pointer;
+  color: #409eff;
+  position: absolute;
+  right: 40px;
+}
+.el-icon-arrow-down {
+  font-size: 12px;
+}
 </style>
 
