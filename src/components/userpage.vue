@@ -356,7 +356,7 @@ export default {
 }
 
 .demo-basic--circle {
-  align: "center";
+  box-align: "center";
   margin-top: 30px;
   margin-left: 150px;
 }
