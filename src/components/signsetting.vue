@@ -62,10 +62,12 @@ export default {
   },
   methods: {
     signin() {
+      console.log(this.$session.get('email'));
       this.$ajax
-        .get("http://192.168.91.114:8081/user/register", {
+        .get("/user/register", {
           params: {
-            password: this.pwd
+            password: this.pwd,
+            email:this.$session.get('email')
           }
         })
         .then(

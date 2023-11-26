@@ -58,16 +58,20 @@ export default {
       this.$session.set("email", this.name);
       console.log(this.$session.get("email"));
       this.$ajax
-        .get("http://192.168.91.114:8081/user/signup", {
+        .get("/user/signup", {
           params: {
             email: this.name
           }
         })
         .then(
           res => {
-            console.log(res.data);
-            this.signcode = res.data;
-            console.log(this.signcode);
+            if (String(res.data) === "邮箱已注册") {
+              this.$message.error("邮箱已注册");
+            } else {
+              console.log(res.data);
+              this.signcode = res.data;
+              console.log(this.signcode);
+            }
           },
           err => {
             console.log(err);
@@ -76,7 +80,7 @@ export default {
     },
     signin() {
       this.$ajax
-        .get("http://192.168.91.114:8081/user/check", {
+        .get("/user/check", {
           params: {
             code: this.pwd
           }

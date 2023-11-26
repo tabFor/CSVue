@@ -10,6 +10,8 @@ import axios from "axios";
 import VueSession from "vue-session";
 Vue.use(VueSession);
 Vue.prototype.$ajax = axios;
+axios.defaults.baseURL = 'http://192.168.91.114:8081';
+
 // axios.defaults.withCredentials = true
 
 // // 添加请求拦截器
@@ -35,7 +37,7 @@ new Vue({
   components: { App },
   template: "<App/>"
 });
-// axios.defaults.headers.common['email'] = Vue.prototype.$session.get("email");
+axios.defaults.headers.common['email'] = Vue.prototype.$session.get("email");
 
 // router.beforeEach((to, from,next) => {
 //   // ...
