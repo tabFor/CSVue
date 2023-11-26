@@ -11,7 +11,7 @@
         <span v-if="error.pwd" class="err-msg">{{error.pwd}}</span>
       </div>
       <div>
-        <el-button type="primary" @click="login" class="login_style">注册</el-button>
+        <el-button :disabled="!(isValidEmail(this.name)&&(this.pwd.length===6))" type="primary" @click="login" class="login_style">注册</el-button>
       </div>
       <div>
         <el-button type="text" @click="login3">返回登录界面</el-button>
