@@ -6,3 +6,8 @@
   >
   </el-pagination>
 </template>
+<style>
+el-pagination{
+  margin-bottom: 0%;
+}
+</style>

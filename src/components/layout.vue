@@ -58,7 +58,7 @@ export default {
 }
 
 body > .el-container {
-  margin-bottom: 40px;
+  margin-bottom: 0px;
 }
 
 .el-container:nth-child(5) .el-aside,

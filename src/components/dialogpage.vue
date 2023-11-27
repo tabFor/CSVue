@@ -1,8 +1,11 @@
 <template>
-  <el-table
+  <div>
+    <el-table
     :data="tableData"
     border
     style="width: 100%"
+    class="table-content"
+    max-height="635"
   >
     <el-table-column
       fixed
@@ -58,6 +61,15 @@
       </template>
     </el-table-column>
   </el-table>
+  <el-pagination
+    background
+    layout="prev, pager, next"
+    :total="1000"
+  >
+  </el-pagination>
+  </div>
+  
+  
 </template>
   
   <script>
@@ -108,3 +120,8 @@ export default {
   }
 };
 </script>
+<style>
+.table-content {
+min-height: 635px;
+}
+</style>

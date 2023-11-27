@@ -1,4 +1,4 @@
-// 源码（版权所有）：
+
 <template>
   <div class="personalCenter">
     <el-container>
@@ -386,11 +386,15 @@ export default {
 .el-dropdown {
   cursor: pointer;
   color: #409eff;
-  position: absolute;
-  right: 40px;
+  position: relative;
+  left: 600px;
+  bottom: 0px;
 }
 .el-icon-arrow-down {
   font-size: 12px;
+}
+.personalCenter{
+  max-height: 668.5px;
 }
 </style>
 

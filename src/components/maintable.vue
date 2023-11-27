@@ -4,8 +4,10 @@
     ref="multipleTable"
     :data="tableData"
     tooltip-effect="dark"
-    style="width: 100%"
+    :max-height="503"
+    style="width: 100%,heighet: 100%"
     @selection-change="handleSelectionChange"
+    class="maintable"
   >
     <el-table-column
       type="selection"
@@ -76,6 +78,48 @@ export default {
           name: "王小虎",
           address: "上海市普陀区金沙江路 1518 弄"
         }
+        ,
+        {
+          date: "2016-05-07",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄"
+        }
+        ,
+        {
+          date: "2016-05-07",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄"
+        }
+        ,
+        {
+          date: "2016-05-07",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄"
+        }
+        ,
+        {
+          date: "2016-05-07",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄"
+        }
+        ,
+        {
+          date: "2016-05-07",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄"
+        }
+        ,
+        {
+          date: "2016-05-07",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄"
+        }
+        ,
+        {
+          date: "2016-05-07",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄"
+        }
       ],
       multipleSelection: []
     };
@@ -101,5 +145,8 @@ export default {
   <style>
 .table-header-cell {
   height: 100px !important;
+}
+.maintable{
+  min-height: 503px;
 }
 </style>

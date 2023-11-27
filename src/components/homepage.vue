@@ -103,7 +103,7 @@ export default {
 <style>
 .chatpdf {
   display: flex;
-  height: 100vh;
+  height: 90.5vh;
   flex-direction: row;
 }
 .chatpdf .pannel {
@@ -194,6 +194,9 @@ export default {
 }
 .inputbox {
   width: 800px;
+}
+body{
+  margin: 0;
 }
 @media (max-width: 768px) {
   .pannel {

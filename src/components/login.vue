@@ -22,9 +22,10 @@
 
     <div>
       <el-button
-        :disabled="!(isValidEmail(this.name)&&isValidPassword(this.pwd))"
+        :disabled="!(isValidEmail(this.name)&&isValidPassword(this.pwd)&&!discheck)"
         type="primary"
         @click="login"
+        v-loading="loading"
         class="login_style"
       >登录</el-button>
       <el-button
@@ -47,12 +48,16 @@ export default {
   name: "Login",
   data() {
     return {
+      discheck: false,
+      loading:false,
       name: "",
       pwd: ""
     };
   },
   methods: {
     login() {
+        this.loading = true;
+        this.discheck = true;
       this.$session.set("email", this.name);
       this.$ajax
         .get("/user/login", {
@@ -70,8 +75,15 @@ export default {
             this.$router.replace("/layout/home");
           } else {
             console.assert("密码错误");
-            this.$message(String(res.data));
+            this.$message('输入错误'+String(res.data));
           }
+          this.loading = false;
+          this.discheck = false;
+          }, err => {
+            console.log(err);
+            this.$message('网络错误');
+            this.loading = false;
+            this.discheck = false;
         });
     },
     signin() {
