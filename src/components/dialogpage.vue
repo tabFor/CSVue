@@ -1,87 +1,89 @@
 <template>
   <div>
     <el-table
-    :data="tableData"
-    border
-    style="width: 100%"
-    class="table-content"
-    max-height="635"
-  >
-    <el-table-column
-      fixed
-      prop="date"
-      label="日期"
-      width="150"
+      :data="tableData"
+      border
+      style="width: 100%"
+      class="table-content"
+      max-height="635"
     >
-    </el-table-column>
-    <el-table-column
-      prop="name"
-      label="姓名"
-      width="120"
+      <el-table-column
+        fixed
+        prop="date"
+        label="日期"
+        width="150"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="name"
+        label="姓名"
+        width="120"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="province"
+        label="省份"
+        width="120"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="city"
+        label="市区"
+        width="120"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="address"
+        label="地址"
+        width="300"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="zip"
+        label="邮编"
+        width="120"
+      >
+      </el-table-column>
+      <el-table-column
+        label="操作"
+        width="100"
+      >
+        <template slot-scope="scope">
+          <el-button
+            @click="handleClick(scope.row)"
+            type="text"
+            size="small"
+          >预览</el-button>
+          <el-button
+            type="text"
+            size="small"
+          >下载</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <el-pagination
+      background
+      layout="prev, pager, next"
+      :total="1000"
     >
-    </el-table-column>
-    <el-table-column
-      prop="province"
-      label="省份"
-      width="120"
-    >
-    </el-table-column>
-    <el-table-column
-      prop="city"
-      label="市区"
-      width="120"
-    >
-    </el-table-column>
-    <el-table-column
-      prop="address"
-      label="地址"
-      width="300"
-    >
-    </el-table-column>
-    <el-table-column
-      prop="zip"
-      label="邮编"
-      width="120"
-    >
-    </el-table-column>
-    <el-table-column
-      label="操作"
-      width="100"
-    >
-      <template slot-scope="scope">
-        <el-button
-          @click="handleClick(scope.row)"
-          type="text"
-          size="small"
-        >预览</el-button>
-        <el-button
-          type="text"
-          size="small"
-        >下载</el-button>
-      </template>
-    </el-table-column>
-  </el-table>
-  <el-pagination
-    background
-    layout="prev, pager, next"
-    :total="1000"
-  >
-  </el-pagination>
+    </el-pagination>
   </div>
-  
-  
+
 </template>
   
   <script>
 export default {
   methods: {
+    // 处理点击事件
     handleClick(row) {
+      // 打印出点击的行数据
       console.log(row);
     }
   },
 
   data() {
     return {
+      // 表格数据
       tableData: [
         {
           date: "2016-05-03",
@@ -122,6 +124,6 @@ export default {
 </script>
 <style>
 .table-content {
-min-height: 635px;
+  min-height: 635px;
 }
 </style>

@@ -8,6 +8,7 @@ import layout from '@/components/layout'
 import login from '@/components/login'
 import signin from '@/components/signin'
 import signsetting from '@/components/signsetting'
+import forget from '@/components/forgetpwd'
 
 Vue.use(Router)
 
@@ -59,6 +60,11 @@ export default new Router({
       path: '/signsetting',
       name: 'signsetting',
       components: { login:signsetting }
+    },
+    {
+      path: '/forget',
+      name: 'forget',
+      components: { login: forget }
     }
   ]
 })

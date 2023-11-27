@@ -19,7 +19,7 @@ export default {
 };
 </script>
 <style>
-body{
+body {
   margin: 0px;
 }
 </style>

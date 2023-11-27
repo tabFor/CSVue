@@ -45,6 +45,7 @@
 <script>
 export default {
   name: "app",
+  // 定义data函数，返回一个对象，包含loading、discheck、items属性
   data() {
     return {
       loading: false,
@@ -57,12 +58,16 @@ export default {
       ]
     };
   },
+  // 定义methods函数，包含submit函数
   methods: {
     submit() {
+      // 设置loading为true
       this.loading = true;
+      // 设置discheck为true
       this.discheck = true;
       console.log("Submit");
       try {
+        // 使用ajax发送post请求，请求地址为/chat/userMessage，请求头为text/plain，请求体为this.input
         this.$ajax
           .post(
             "/chat/userMessage",
@@ -70,6 +75,7 @@ export default {
             { headers: { "Content-Type": "text/plain" } } // 设置请求头
           )
           .then(
+            // 请求成功时，将返回的文本信息添加到items中，并将输入的文本信息设置为空，将loading和discheck设置为false
             res => {
               console.log(res.data);
               this.items.push({
@@ -80,6 +86,7 @@ export default {
               this.loading = false;
               this.discheck = false;
             },
+            // 请求失败时，将错误信息添加到items中，并将输入的文本信息设置为空，将loading和discheck设置为false
             err => {
               this.items.push({
                 massgge: err,
@@ -195,7 +202,7 @@ export default {
 .inputbox {
   width: 800px;
 }
-body{
+body {
   margin: 0;
 }
 @media (max-width: 768px) {

@@ -7,7 +7,7 @@
   </el-pagination>
 </template>
 <style>
-el-pagination{
+el-pagination {
   margin-bottom: 0%;
 }
 </style>

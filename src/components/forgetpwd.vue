@@ -5,7 +5,7 @@
         placeholder="请输入邮箱"
         v-model="name"
         clearable
-        class="input_style2"
+        class="input_style3"
       ></el-input>
       <el-tag :type="isValidEmail(this.name) ? '' : 'danger'">{{namecheck}}</el-tag>
     </div>
@@ -14,23 +14,23 @@
       <el-input
         placeholder="验证码"
         v-model="pwd"
-        class="input_style2"
+        class="input_style3"
       ></el-input>
       <el-button
         type="primary"
         @click="getcode"
         v-loading="loading"
-        :disabled="!(isValidEmail(this.name)&&!laoding)"
+        :disabled="!(isValidEmail(this.name)&&!loading)"
       >发送</el-button>
     </div>
     <div>
       <el-button
-        :disabled="!(isValidEmail(this.name)&&(this.pwd.length===6)&&!laoding)"
+        :disabled="!(isValidEmail(this.name)&&(this.pwd.length===6)&&!loading)"
         type="primary"
         @click="signin"
         class="login_style"
         v-loading="loading"
-      >注册</el-button>
+      >重置密码</el-button>
     </div>
     <div>
       <el-button
@@ -41,8 +41,8 @@
     </div>
   </div>
 </template>
-  
-  <script>
+    
+    <script>
 export default {
   name: "Login",
   data() {
@@ -55,12 +55,12 @@ export default {
   },
   methods: {
     getcode() {
-      this.loading = true;
       //发送验证码
+      this.loading = true;
       this.$session.set("email", this.name);
       console.log(this.$session.get("email"));
       this.$ajax
-        .get("/user/signup", {
+        .get("/user/findpassword", {
           headers: {
             email: this.$session.get("email")
           },
@@ -70,18 +70,19 @@ export default {
         })
         .then(
           res => {
-            if (String(res.data) === "邮箱已注册") {
-              this.$message.error("邮箱已注册");
+            if (String(res.data) === "邮箱未注册") {
+              this.$message.error("邮箱未注册");
             } else {
               console.log(res.data);
               this.signcode = res.data;
               console.log(this.signcode);
             }
-            this.laoding = false;
+
+            this.loading = false;
           },
-          err => {
-            console.log(err);
+                err => {
             this.$message.error(err);
+            console.log(err);
             this.loading = false;
           }
         );
@@ -106,10 +107,11 @@ export default {
               console.assert("密码错误");
               this.$message("验证码错误");
             }
-            this.laoding = false;
+            this.loading = false;
           },
-          err => {
+                err => {
             this.$message.error(err);
+            console.log(err);
             this.loading = false;
           }
         );
@@ -143,12 +145,12 @@ export default {
   }
 };
 </script>
-  
-  <style>
+    
+    <style >
 .signin {
   margin-top: 200px;
 }
-.input_style2 {
+.input_style3 {
   width: 280px;
   margin-bottom: 10px;
 }
@@ -156,5 +158,5 @@ export default {
   width: 200px;
 }
 </style>
-  
-  
+    
+    

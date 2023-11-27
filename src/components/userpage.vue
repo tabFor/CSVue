@@ -393,7 +393,7 @@ export default {
 .el-icon-arrow-down {
   font-size: 12px;
 }
-.personalCenter{
+.personalCenter {
   max-height: 668.5px;
 }
 </style>

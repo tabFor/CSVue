@@ -37,7 +37,7 @@
   
   <script>
 export default {
-  headerColor() {
+ headerColor() {
     return "height: 50px;background: #2d8cf0;color: #fff;line-height: 50px;";
   },
   data() {
@@ -77,44 +77,42 @@ export default {
           date: "2016-05-07",
           name: "王小虎",
           address: "上海市普陀区金沙江路 1518 弄"
-        }
-        ,
+        },
         {
           date: "2016-05-07",
           name: "王小虎",
           address: "上海市普陀区金沙江路 1518 弄"
-        }
-        ,
+        },
         {
           date: "2016-05-07",
           name: "王小虎",
           address: "上海市普陀区金沙江路 1518 弄"
-        }
-        ,
+        },
         {
           date: "2016-05-07",
           name: "王小虎",
           address: "上海市普陀区金沙江路 1518 弄"
-        }
-        ,
+        },
         {
           date: "2016-05-07",
           name: "王小虎",
           address: "上海市普陀区金沙江路 1518 弄"
-        }
-        ,
+        },
         {
           date: "2016-05-07",
           name: "王小虎",
           address: "上海市普陀区金沙江路 1518 弄"
-        }
-        ,
+        },
         {
           date: "2016-05-07",
           name: "王小虎",
           address: "上海市普陀区金沙江路 1518 弄"
-        }
-        ,
+        },
+        {
+          date: "2016-05-07",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄"
+        },
         {
           date: "2016-05-07",
           name: "王小虎",
@@ -146,7 +144,7 @@ export default {
 .table-header-cell {
   height: 100px !important;
 }
-.maintable{
+.maintable {
   min-height: 503px;
 }
 </style>
