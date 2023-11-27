@@ -57,12 +57,12 @@ export default {
     getcode() {
       //发送验证码
       this.loading = true;
-      this.$session.set("email", this.name);
+      this.$session.set("email", "");
       console.log(this.$session.get("email"));
       this.$ajax
         .get("/user/findpassword", {
           headers: {
-            email: this.$session.get("email")
+            email: this.name
           },
           params: {
             email: this.name
@@ -76,11 +76,11 @@ export default {
               console.log(res.data);
               this.signcode = res.data;
               console.log(this.signcode);
+              this.$session.set("email", this.name);
             }
-
             this.loading = false;
           },
-                err => {
+          err => {
             this.$message.error(err);
             console.log(err);
             this.loading = false;
@@ -102,14 +102,14 @@ export default {
           res => {
             console.log(res.data);
             if (String(res.data) === "验证码正确") {
-              this.$router.replace("/signsetting");
+              this.$router.replace("/forgetset");
             } else {
               console.assert("密码错误");
               this.$message("验证码错误");
             }
             this.loading = false;
           },
-                err => {
+          err => {
             this.$message.error(err);
             console.log(err);
             this.loading = false;

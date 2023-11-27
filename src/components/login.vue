@@ -71,15 +71,15 @@ export default {
       // 显示密码
       this.discheck = true;
       // 设置会话
-      this.$session.set("email", this.name);
+      this.$session.set("email", '');
       // 发起ajax请求
       this.$ajax
         .get("/user/login", {
           headers: {
-            email: this.$session.get("email")
+            email: this.name
           },
           params: {
-            email: this.$session.get("email"),
+            email: this.name,
             password: this.pwd,
             cookie:this.$session.get("session-id")
           }
@@ -89,6 +89,7 @@ export default {
             console.log(res.data);
             // 登录成功
             if (String(res.data) === "登录成功") {
+              this.$session.set("email", this.name);
               // 跳转到主页
               this.$router.replace("/layout/home");
             } else {

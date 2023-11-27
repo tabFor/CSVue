@@ -57,12 +57,11 @@ export default {
     getcode() {
       this.loading = true;
       //发送验证码
-      this.$session.set("email", this.name);
       console.log(this.$session.get("email"));
       this.$ajax
         .get("/user/signup", {
           headers: {
-            email: this.$session.get("email")
+            email: this.name
           },
           params: {
             email: this.name
@@ -72,12 +71,15 @@ export default {
           res => {
             if (String(res.data) === "邮箱已注册") {
               this.$message.error("邮箱已注册");
+              this.loading=false
             } else {
+              this.$session.set("email", this.name);
               console.log(res.data);
               this.signcode = res.data;
               console.log(this.signcode);
+              this.loading=false
             }
-            this.laoding = false;
+            
           },
           err => {
             console.log(err);

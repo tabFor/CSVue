@@ -39,7 +39,7 @@
         @click="signin"
         class="login_style"
         v-loading="loading"
-      >注册</el-button>
+      >重置密码</el-button>
     </div>
     <div>
       <el-button
@@ -66,8 +66,9 @@ export default {
   methods: {
     signin() {
       this.loading = true;
+      console.log(this.$session.get('email'));
       this.$ajax
-        .get("/user/register", {
+        .get("/user/changepassword", {
           params: {
             password: this.pwd,
             email:this.$session.get('email')
@@ -76,12 +77,11 @@ export default {
         .then(
           res => {
             console.log(res.data);
-            if (String(res.data) === "添加用户成功") {
+            if (String(res.data) === "修改密码成功") {
               this.$message({
-                message: "注册成功",
+                message: "重置密码成功",
                 type: "success"
               });
-              this.$session.set("email", this.name);
               this.$router.replace("/layout/home");
             }
             console.log(res.data);
