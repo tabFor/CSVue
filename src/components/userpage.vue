@@ -316,9 +316,12 @@ export default {
       console.log(index, row);
     },
     handleCommand(command) {
+      if (command === "a") {
+        this.$router.replace('/changepwd')
+      }
       // this.$message('click on item ' + command);
       if (command === "e") {
-        this.$message("click on item " + command);
+        this.$message("退出登录");
         this.$ajax.get(
           "user/deletelogged",
           {

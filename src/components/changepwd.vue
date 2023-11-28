@@ -2,7 +2,17 @@
   <div class="signin">
     <div>
       <el-input
-        placeholder="请输入密码"
+        placeholder="请输入原密码"
+        v-model="basePwd"
+        clearable
+        show-password
+        class="input_style"
+      ></el-input>
+      <el-tag :type="isValidPassword(this.basePwd) ? '' : 'danger'">{{pwdcheck2}}</el-tag>
+    </div>
+    <div>
+      <el-input
+        placeholder="请输入新密码"
         v-model="pwd"
         clearable
         show-password
@@ -13,7 +23,7 @@
 
     <div>
       <el-input
-        placeholder="请确认密码"
+        placeholder="请确认新密码"
         v-model="pwdCheck"
         clearable
         show-password
@@ -34,31 +44,32 @@
     </div>
     <div>
       <el-button
-        :disabled="!(isValidPassword(this.pwd)&&(this.pwd===this.pwdCheck)&&!loading)"
+        :disabled="!(isValidPassword(this.basePwd)&&isValidPassword(this.pwd)&&(this.pwd===this.pwdCheck)&&!loading)"
         type="primary"
         @click="signin"
         class="login_style"
         v-loading="loading"
-      >重置密码</el-button>
+      >修改密码</el-button>
     </div>
     <div>
       <el-button
         type="text"
         @click="backTLog"
         :disabled="loading"
-      >返回登录界面</el-button>
+      >返回用户页面</el-button>
     </div>
   </div>
 </template>
-
-<script>
+  
+  <script>
 import { Alert } from "element-ui";
 
 export default {
   name: "Login",
   data() {
     return {
-      loading: false,
+          loading: false,
+      basePwd:"",
       pwd: "",
       pwdCheck: ""
     };
@@ -66,31 +77,36 @@ export default {
   methods: {
     signin() {
       this.loading = true;
-      console.log(this.$session.get('email'));
+      console.log(this.$session.get("email"));
       this.$ajax
-        .get("/user/resetpassword", {
+        .get("/user/changepassword", {
           params: {
-            password: this.pwd,
-            email:this.$session.get('email')
+            oldpassword: this.basePwd,
+            newpassword: this.pwd,
+            email: this.$session.get("email")
           }
         })
         .then(
           res => {
             console.log(res.data);
-            if (String(res.data) === "修改密码成功") {
+            if (String(res.data) === "修改成功") {
               this.$message({
-                message: "重置密码成功",
+                message: "修改密码成功",
                 type: "success"
               });
               this.$router.replace("/layout/home");
+                this.loading = false;
+              } else {
+                this.$message.error("原密码错误");
+              console.log(res.data);
+            this.loading = false;
             }
-            console.log(res.data);
-            this.loading=false
+            
           },
           err => {
             this.$message({
               message: "失败",
-              type: "success"
+              type: "error"
             });
             console.log(err);
             this.loading = false;
@@ -98,7 +114,7 @@ export default {
         );
     },
     backTLog() {
-      this.$router.replace("/");
+      this.$router.replace("/layout/user");
     },
     isValidEmail(email) {
       // 定义正则表达式
@@ -123,6 +139,15 @@ export default {
         }
       }
     },
+    pwdcheck2: {
+      get() {
+        if (this.isValidPassword(this.basePwd)) {
+          return "格式正确";
+        } else {
+          return "格式错误";
+        }
+      }
+    },
     samecheck: {
       get() {
         if (this.pwd === this.pwdCheck) {
@@ -135,8 +160,8 @@ export default {
   }
 };
 </script>
-
-<style>
+  
+  <style>
 .signin {
   margin-top: 200px;
 }
@@ -157,4 +182,5 @@ export default {
   margin-left: -150px;
 }
 </style>
-
+  
+  
