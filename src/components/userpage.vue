@@ -319,6 +319,16 @@ export default {
       // this.$message('click on item ' + command);
       if (command === "e") {
         this.$message("click on item " + command);
+        this.$ajax.get(
+          "user/deletelogged",
+          {
+            params: {
+              cookie:this.$session.get("session-id")
+            }
+          }
+        )
+        this.$session.set("email",'');
+        this.$session.set("session-id",'');
         this.index = "Yes";
         console.log(this.index);
         this.$router.replace({ path: "/" });
