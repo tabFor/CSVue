@@ -1,150 +1,173 @@
 <template>
-  <el-table
-    header-cell-style="headerColor"
-    ref="multipleTable"
-    :data="tableData"
-    tooltip-effect="dark"
-    :max-height="503"
-    style="width: 100%,heighet: 100%"
-    @selection-change="handleSelectionChange"
-    class="maintable"
-  >
-    <el-table-column
-      type="selection"
-      width="55"
+  <div>
+    <!-- 表格 -->
+    <el-table
+      :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
+      style="width: 100%"
+      class="main_table"
     >
-    </el-table-column>
-    <el-table-column
-      label="日期"
-      width="120"
+      <el-table-column
+        prop="date"
+        label="日期"
+        width="180"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="name"
+        label="姓名"
+        width="180"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="address"
+        label="地址"
+      >
+      </el-table-column>
+    </el-table>
+    <!-- 分页器 -->
+    <div
+      class="block"
+      style="margin-top:15px;"
     >
-      <template slot-scope="scope">{{ scope.row.date }}</template>
-    </el-table-column>
-    <el-table-column
-      prop="name"
-      label="姓名"
-      width="120"
-    >
-    </el-table-column>
-    <el-table-column
-      prop="address"
-      label="地址"
-      show-overflow-tooltip
-    >
-    </el-table-column>
-  </el-table>
+      <el-pagination
+        align='center'
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="currentPage"
+        :page-sizes="[1,5,10,20]"
+        :page-size="pageSize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="tableData.length"
+      >
+      </el-pagination>
+    </div>
+  </div>
+
 </template>
-  
-  <script>
+
+<script>
 export default {
- headerColor() {
-    return "height: 50px;background: #2d8cf0;color: #fff;line-height: 50px;";
-  },
   data() {
     return {
       tableData: [
         {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
-        },
-        {
           date: "2016-05-02",
-          name: "王小虎",
+          name: "第一页",
           address: "上海市普陀区金沙江路 1518 弄"
         },
         {
           date: "2016-05-04",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
+          name: "第二页",
+          address: "上海市普陀区金沙江路 1517 弄"
         },
         {
           date: "2016-05-01",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
+          name: "第三页",
+          address: "上海市普陀区金沙江路 1519 弄"
         },
         {
-          date: "2016-05-08",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
+          date: "2016-05-03",
+          name: "第四页",
+          address: "上海市普陀区金沙江路 1516 弄"
         },
         {
-          date: "2016-05-06",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
+          date: "2016-05-01",
+          name: "第五页",
+          address: "上海市普陀区金沙江路 1519 弄"
         },
         {
-          date: "2016-05-07",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
+          date: "2016-05-03",
+          name: "第六页",
+          address: "上海市普陀区金沙江路 1516 弄"
         },
         {
-          date: "2016-05-07",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
+          date: "2016-05-03",
+          name: "第六页",
+          address: "上海市普陀区金沙江路 1516 弄"
         },
         {
-          date: "2016-05-07",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
+          date: "2016-05-03",
+          name: "第六页",
+          address: "上海市普陀区金沙江路 1516 弄"
         },
         {
-          date: "2016-05-07",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
+          date: "2016-05-03",
+          name: "第六页",
+          address: "上海市普陀区金沙江路 1516 弄"
         },
         {
-          date: "2016-05-07",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
+          date: "2016-05-03",
+          name: "第六页",
+          address: "上海市普陀区金沙江路 1516 弄"
         },
         {
-          date: "2016-05-07",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
+          date: "2016-05-03",
+          name: "第六页",
+          address: "上海市普陀区金沙江路 1516 弄"
         },
         {
-          date: "2016-05-07",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
+          date: "2016-05-03",
+          name: "第六页",
+          address: "上海市普陀区金沙江路 1516 弄"
         },
         {
-          date: "2016-05-07",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
+          date: "2016-05-03",
+          name: "第六页",
+          address: "上海市普陀区金沙江路 1516 弄"
         },
         {
-          date: "2016-05-07",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
+          date: "2016-05-03",
+          name: "第六页",
+          address: "上海市普陀区金沙江路 1516 弄"
+        },
+        {
+          date: "2016-05-03",
+          name: "第六页",
+          address: "上海市普陀区金沙江路 1516 弄"
+        },
+        {
+          date: "2016-05-03",
+          name: "第六页",
+          address: "上海市普陀区金沙江路 1516 弄"
+        },
+        {
+          date: "2016-05-03",
+          name: "第六页",
+          address: "上海市普陀区金沙江路 1516 弄"
+        },
+        {
+          date: "2016-05-03",
+          name: "第六页",
+          address: "上海市普陀区金沙江路 1516 弄"
+        },
+        {
+          date: "2016-05-03",
+          name: "第六页",
+          address: "上海市普陀区金沙江路 1516 弄"
         }
       ],
-      multipleSelection: []
+      currentPage: 1, // 当前页码
+      total: 20, // 总条数
+      pageSize: 1 // 每页的数据条数
     };
   },
-
   methods: {
-    toggleSelection(rows) {
-      if (rows) {
-        rows.forEach(row => {
-          this.$refs.multipleTable.toggleRowSelection(row);
-        });
-      } else {
-        this.$refs.multipleTable.clearSelection();
-      }
+    //每页条数改变时触发 选择一页显示多少行
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`);
+      this.currentPage = 1;
+      this.pageSize = val;
     },
-    handleSelectionChange(val) {
-      this.multipleSelection = val;
+    //当前页改变时触发 跳转其他页
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`);
+      this.currentPage = val;
     }
-  },
-  name: "table"
+  }
 };
 </script>
-  <style>
-.table-header-cell {
-  height: 100px !important;
-}
-.maintable {
-  min-height: 503px;
+<style>
+.main_table {
+  min-height: 493px;
 }
 </style>
