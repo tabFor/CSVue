@@ -2,7 +2,7 @@
   <div class="login">
     <div>
       <el-input
-        placeholder="请输入邮箱"
+        placeholder="请输入Email"
         v-model="name"
         clearable
         class="input_style"
