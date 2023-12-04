@@ -1,19 +1,39 @@
 
 <template>
   <div class="personalCenter">
+    <el-dialog
+      title="对话内容"
+      :visible.sync="dialogVisible"
+      :fullscreen="false"
+    >
+      <h1>
+        请输入您的昵称
+      </h1>
+      <el-input
+        v-model="nickname"
+        placeholder="请输入昵称"
+      ></el-input>
+      <i class="el-icon-edit"></i>
+      <div>
+        <el-button @click="dialogVisible = false">取 消</el-button>
+      <el-button
+        type="primary"
+        @click="setNickname"
+      >确 定</el-button>
+      </div>
+    </el-dialog>
     <el-container>
-      <el-header>个人中心
-        <el-dropdown @command="handleCommand">
+      <el-header class="title"><span class="title2">个人中心</span>
+        <el-dropdown @command="handleCommand" class="userset">
           <span class="el-dropdown-link">
             用户操作<i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="a">修改密码</el-dropdown-item>
-            <el-dropdown-item command="b">换绑手机</el-dropdown-item>
-            <el-dropdown-item command="c">换绑邮箱</el-dropdown-item>
-            <el-dropdown-item command="d">清除记录</el-dropdown-item>
+            <el-dropdown-item command="b">反馈问题</el-dropdown-item>
+            <el-dropdown-item command="c">设置昵称</el-dropdown-item>
             <el-dropdown-item
-              command="e"
+              command="d"
               divided
             >退出登录</el-dropdown-item>
           </el-dropdown-menu>
@@ -32,59 +52,30 @@
                 ></el-avatar>
               </div>
               <div class="block">
-                <span>ADMIN</span>
+                <span>USER</span>
               </div>
             </div>
           </el-col>
           <el-input
             v-model="input1"
-            :disabled="true"
+            :readonly="true"
             type="text"
-            placeholder="用户ID"
-            maxlength="6"
+            placeholder="用户邮箱"
             show-word-limit
           ></el-input>
           <el-input
-            v-model="input2"
-            :disabled="true"
+            v-model="nickname"
+            :readonly="true"
             type="text"
             placeholder="用户昵称"
             show-word-limit
           ></el-input>
           <el-input
             v-model="input3"
-            :disabled="true"
-            type="text"
-            placeholder="用户姓名"
-            show-word-limit
-          ></el-input>
-          <el-input
-            v-model="input4"
-            :disabled="true"
+            :readonly="true"
             type="text"
             placeholder="用户权限"
             maxlength="2"
-            show-word-limit
-          ></el-input>
-          <el-input
-            v-model="input7"
-            :disabled="true"
-            placeholder="邮箱"
-          >
-            <template slot="append">@163.com</template>
-          </el-input>
-          <el-input
-            v-model="input8"
-            type="text"
-            placeholder="手机号码"
-            maxlength="20"
-            show-word-limit
-          ></el-input>
-          <el-input
-            v-model="input9"
-            type="text"
-            placeholder="固定电话"
-            maxlength="20"
             show-word-limit
           ></el-input>
           <el-button-group
@@ -95,186 +86,25 @@
               type="primary"
               size="medium"
               round
-            >保存</el-button>
+              @click="dialogVisible=true"
+            >修改昵称</el-button>
           </el-button-group>
         </el-aside>
-        <el-container>
-          <el-main>
-            <el-card class="box-card">
-              <div
-                slot="header"
-                class="clearfix"
+        <el-container class="mainMenu">
+          <div class="show">
+
+            <el-carousel height="600px">
+              <el-carousel-item
+                v-for="item in imgurl"
+                :key="item"
               >
-                <span style="float: left"><b>账号绑定</b></span>
-                <el-button-group
-                  style="float: right; padding: 3px 0"
-                  type="text"
+                <img
+                  :src="item"
+                  alt="logo"
                 >
-                  <el-button
-                    type="primary"
-                    icon="el-icon-edit"
-                    size="medium"
-                    round
-                  >
-                    修改信息
-                  </el-button>
-                  <el-button
-                    type="primary"
-                    icon="el-icon-check"
-                    size="medium"
-                    round
-                  >
-                    确认修改
-                  </el-button>
-                </el-button-group>
-              </div>
-              <div
-                v-for="o in 1"
-                :key="o"
-                class="text item"
-              >
-                <el-table
-                  :data="tableData"
-                  style="width: 100%"
-                >
-                  <el-table-column
-                    label="账号名"
-                    width="180"
-                  >
-                    <template slot-scope="scope">
-                      <p>{{ scope.row.name1 }}</p>
-                      <div
-                        slot="reference"
-                        class="name-wrapper"
-                      ></div>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                    label="操作"
-                    align="center"
-                  >
-                    <template slot-scope="scope">
-                      <el-button
-                        size="mini"
-                        @click="handleEdit(scope.$index, scope.row)"
-                      >
-                        编辑
-                      </el-button>
-                      <el-button
-                        size="mini"
-                        type="danger"
-                        @click="handleDelete(scope.$index, scope.row)"
-                      >
-                        解绑
-                      </el-button>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                    label="更多"
-                    align="center"
-                  >
-                    <el-row>
-                      <el-button
-                        type="info"
-                        icon="el-icon-message"
-                        circle
-                      ></el-button>
-                      <el-button
-                        type="warning"
-                        icon="el-icon-star-off"
-                        circle
-                      ></el-button>
-                      <el-button
-                        type="share"
-                        icon="el-icon-share"
-                        circle
-                      ></el-button>
-                    </el-row>
-                  </el-table-column>
-                </el-table>
-              </div>
-              <div
-                v-for="o in 1"
-                :key="o"
-                class="text item"
-              >
-                <el-table
-                  :data="tableData"
-                  style="width: 100%"
-                >
-                  <el-table-column
-                    label="账号名"
-                    width="180"
-                  >
-                    <template slot-scope="scope">
-                      <p>{{ scope.row.name2 }}</p>
-                      <div
-                        slot="reference"
-                        class="name-wrapper"
-                      ></div>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                    label="操作"
-                    align="center"
-                  >
-                    <template slot-scope="scope">
-                      <el-button
-                        size="mini"
-                        @click="handleEdit(scope.$index, scope.row)"
-                      >
-                        编辑
-                      </el-button>
-                      <el-button
-                        size="mini"
-                        type="danger"
-                        @click="handleDelete(scope.$index, scope.row)"
-                      >
-                        解绑
-                      </el-button>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                    label="更多"
-                    align="center"
-                  >
-                    <el-row>
-                      <el-button
-                        type="info"
-                        icon="el-icon-message"
-                        circle
-                      ></el-button>
-                      <el-button
-                        type="warning"
-                        icon="el-icon-star-off"
-                        circle
-                      ></el-button>
-                      <el-button
-                        type="share"
-                        icon="el-icon-share"
-                        circle
-                      ></el-button>
-                    </el-row>
-                  </el-table-column>
-                </el-table>
-              </div>
-            </el-card>
-            <el-card class="box-card">
-              <div>
-                <span
-                  style="float: left"
-                  shadow="hover"
-                ><b>个人说明</b></span>
-                <br />
-                <br />
-                <span>螃蟹在剥我的壳</span>
-                <el-divider></el-divider>
-                <span>笔记本在写我</span>
-                <el-divider></el-divider>
-                <span>漫天的我落在枫叶的雪花上</span>
-              </div>
-            </el-card>
-          </el-main>
+              </el-carousel-item>
+            </el-carousel>
+          </div>
         </el-container>
       </el-container>
     </el-container>
@@ -285,17 +115,22 @@ export default {
   name: "PersonalCenter",
   data() {
     return {
+      dialogVisible: false,
+      nickname: "",
+      imgurl: [
+        require("@/assets/14.png"),
+        require("@/assets/11.jpg"),
+        require("@/assets/12.png"),
+        require("@/assets/13.jpg"),
+
+        require("@/assets/15.jpg"),
+        require("@/assets/16.jpg")
+      ],
       index: "No",
       text: "",
-      input1: "",
-      input2: "",
-      input3: "",
-      input4: "",
-      input5: "",
-      input6: "",
-      input7: "",
-      input8: "",
-      input9: "",
+      input1: this.$session.get("email"),
+      input2: this.getNickname,
+      input3: "普通用户",
       circleUrl:
         "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
       sizeList: ["large"],
@@ -308,7 +143,47 @@ export default {
       ]
     };
   },
+  mounted() {
+    this.getNickname();
+  },
   methods: {
+    getNickname() {
+      this.$ajax
+        .get("/user/getname", {
+          params: {
+            "cookie": this.$session.get("session-id")
+          }
+        })
+        .then(res => {
+          console.log(res);
+          this.nickname = res.data;
+          return res.data
+        })
+        .catch(err => {
+          console.log(err);
+          this.$message.error("获取昵称失败");
+        });
+    },
+    setNickname() {
+      this.$ajax
+        .get("/user/setname", {
+          params: {
+            newname: this.nickname,
+            "cookie": this.$session.get("session-id")
+          }
+        })
+        .then(res => {
+          console.log(res);
+          this.$message.success("修改成功");
+          console.log(res.data);
+          console.log(res.data.length);
+          this.dialogVisible = false;
+        })
+        .catch(err => {
+          console.log(err);
+          this.$message.error("修改失败");
+        });
+    },
     handleEdit(index, row) {
       console.log(index, row);
     },
@@ -317,50 +192,41 @@ export default {
     },
     handleCommand(command) {
       if (command === "a") {
-        this.$router.replace('/changepwd')
+        this.$router.replace("/changepwd");
+      }
+      if (command === "c") {
+        this.dialogVisible = true;
       }
       // this.$message('click on item ' + command);
-      if (command === "e") {
+      if (command === "d") {
         this.$message("退出登录");
-        this.$ajax.get(
-          "user/deletelogged",
-          {
-            params: {
-              cookie:this.$session.get("session-id")
-            }
+        this.$ajax.get("user/deletelogged", {
+          params: {
+            cookie: this.$session.get("session-id")
           }
-        )
-        this.$session.set("email",'');
-        this.$session.set("session-id",'');
+        });
+        this.$session.set("email", "");
+        this.$session.set("session-id", "");
         this.index = "Yes";
         console.log(this.index);
         this.$router.replace({ path: "/" });
       }
     }
   }
-  // beforeRouteLeave(to, from, next) {
-  //   if (to.name === 'login' && this.index === 'Yes') {
-  //     next();
-  //   }
-  //   else if(to.name === 'login' && this.index === 'No'){
-  //     next(false);
-  //   }
-  //   else {
-  //     next();
-  //   }
-  // }
 };
 </script>
 <style scoped>
 .el-header {
   line-height: 60px;
-  background-color: #b3c0d1;
+  background-color: #ffffff;
   text-align: center;
+  font-size: 20px;
 }
 .el-aside {
   line-height: 44px;
   text-align: center;
   background-color: #d3dce6;
+  height: 82.1vh;
 }
 .el-main {
   line-height: 36px;
@@ -377,37 +243,70 @@ export default {
   margin-left: 25px;
   font-weight: bold;
 }
-.text {
-  font-size: 14px;
-}
-.item {
-  margin-bottom: 18px;
-}
-.clearfix:before,
-.clearfix:after {
-  display: table;
-  content: "";
-}
-.clearfix:after {
-  clear: both;
+.show {
+  margin: auto;
 }
 
-.box-card {
-  width: 1000px;
-  border-radius: 30px;
-}
 .el-dropdown {
   cursor: pointer;
   color: #409eff;
-  position: relative;
-  left: 600px;
-  bottom: 0px;
 }
 .el-icon-arrow-down {
   font-size: 12px;
 }
 .personalCenter {
   max-height: 668.5px;
+}
+.mainMenu {
+  background-color: #e9eef3;
+  text-align: center;
+  display: flex;
+}
+
+.el-carousel__item h3 {
+  color: #475669;
+  font-size: 14px;
+  opacity: 0.75;
+  line-height: 150px;
+  margin: 0;
+}
+
+.el-carousel__item:nth-child(2n) {
+  background-color: #99a9bf;
+}
+
+.el-carousel__item:nth-child(2n + 1) {
+  background-color: #d3dce6;
+}
+.el-carousel {
+  width: 1000px;
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+body {
+  margin: 0;
+}
+.userset{
+  position: absolute;
+  width: 100px;
+  right:  0px;
+}
+.title{
+  position: relative;
+  display: flex;
+  text-align: center;
+}
+.title2{
+  font-size: 30px;
+  position: absolute;
+  left: 50%;
+  color: #5aa1f8;
+  font-weight: bold;
 }
 </style>
 

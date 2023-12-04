@@ -156,5 +156,8 @@ export default {
   left: 50%;
   margin-left: -150px;
 }
+body {
+  margin: 0;
+}
 </style>
 

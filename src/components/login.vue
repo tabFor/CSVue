@@ -176,6 +176,9 @@ export default {
 .login_style {
   width: 200px;
 }
+body {
+  margin: 0;
+}
 </style>
   
   

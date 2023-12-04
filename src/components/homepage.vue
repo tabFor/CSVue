@@ -4,9 +4,47 @@
     <div class="chatpdf">
       <div class="pannel">
         <div class="fileList">
-          <div class="fileTitle">合同1.docx</div>
-          <div class="fileTitle">工商法.pdf</div>
-          <div class="fileTitle">好好好.xlsx</div>
+          <el-button
+            round
+            class="fileTitle"
+            @click="newtalk"
+          >新建对话</el-button>
+          <br>
+          <el-button
+            round
+            class="fileTitle"
+            @click="savetalk"
+          >保存对话</el-button>
+          <br>
+          <el-button
+            round
+            class="fileTitle"
+            @click="mytalk"
+          >自定义对话</el-button>
+        </div>
+        <div class="fileList">
+          <div v-if="ifset">
+            <el-input
+              type="textarea"
+              :rows="2"
+              :autosize="{ minRows: 10, maxRows: 16}"
+              v-model="talksetting"
+              placeholder="请输入你希望的回答风格"
+            ></el-input>
+            <br>
+            <hr>
+            <el-button @click="changestyle">确定</el-button>
+          </div>
+          <div v-if="!ifset">
+            <img
+              :src="require('@/assets/AI.png')"
+              alt="logo"
+            >
+            <img
+              :src="require('@/assets/co.png')"
+              alt="logo"
+            >
+          </div>
         </div>
       </div>
       <div class="chatpdfBox">
@@ -22,13 +60,27 @@
               <div class="chatpdfContent">{{ item.massgge }}</div>
             </div>
           </div>
+          <div v-if="nowcheck">
+            <div class="chatpdfRow chatpdfAsk">
+              <div class="chatpdfContent">{{ nowask }}</div>
+            </div>
+            <div class="chatpdfRow">
+              <div
+                class="chatpdfContent"
+                v-loading="loading"
+              >{{ nowanswer }}</div>
+            </div>
+          </div>
         </div>
         <div class="chatpdfArea">
-          <input
+          <el-input
+            :disabled="nowcheck"
+            type="textarea"
+            :rows="2"
             v-model="input"
             placeholder="请输入内容"
-            class="inputbox"
-          >
+            :autosize="{ minRows: 1, maxRows: 5}"
+          ></el-input>
           <el-button
             v-loading="loading"
             type="primary"
@@ -38,7 +90,6 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -48,8 +99,14 @@ export default {
   // 定义data函数，返回一个对象，包含loading、discheck、items属性
   data() {
     return {
+      ifset: false,
+      talksetting: "",
+      input: "",
       loading: false,
       discheck: false,
+      nowask: "你好",
+      nowanswer: "你好",
+      nowcheck: false,
       items: [
         {
           massgge: "欢迎使用",
@@ -60,7 +117,37 @@ export default {
   },
   // 定义methods函数，包含submit函数
   methods: {
+    changestyle() {
+      this.talksetting;
+      this.$message.success("设置成功" + this.talksetting);
+    },
+    newtalk() {
+      this.$router.go(0);
+    },
+    savetalk() {
+      this.$ajax
+        .post("/user/savedialogue", JSON.stringify(this.items), {
+          headers: {
+            "session-id": this.$session.get("session-id"),
+            "Content-Type": "application/json"
+          }
+        })
+        .then(response => {
+          console.log(response);
+          this.$message.success("保存成功");
+        })
+        .catch(error => {
+          console.log(error);
+          this.$message.error("保存失败");
+        });
+    },
+    mytalk() {
+      this.ifset = !this.ifset;
+    },
     submit() {
+      this.nowask = this.input;
+      this.nowanswer = "加载中...";
+      this.nowcheck = true;
       // 设置loading为true
       this.loading = true;
       // 设置discheck为true
@@ -71,13 +158,16 @@ export default {
         this.$ajax
           .post(
             "/chat/userMessage",
-            this.input, // 发送的文本信息
+            "" + this.input, // 发送的文本信息
             { headers: { "Content-Type": "text/plain" } } // 设置请求头
           )
           .then(
             // 请求成功时，将返回的文本信息添加到items中，并将输入的文本信息设置为空，将loading和discheck设置为false
             res => {
               console.log(res.data);
+              this.nowcheck = false;
+              this.nowanswer = "";
+              this.nowask = "";
               this.items.push({
                 massgge: res.data,
                 inputask: this.input
@@ -88,6 +178,9 @@ export default {
             },
             // 请求失败时，将错误信息添加到items中，并将输入的文本信息设置为空，将loading和discheck设置为false
             err => {
+              this.nowcheck = false;
+              this.nowanswer = "";
+              this.nowask = "";
               this.items.push({
                 massgge: err,
                 inputask: this.input
@@ -115,7 +208,7 @@ export default {
 }
 .chatpdf .pannel {
   width: 255px;
-  background-color: rgb(0, 21, 41);
+  background-color: #66a6ff;
 }
 .chatpdfBox {
   display: flex;
@@ -158,7 +251,9 @@ export default {
   display: flex;
   padding: 5px 10px;
   max-width: 1000px;
-  margin: 0 auto;
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
   width: 100%;
 }
 .chatpdfArea textarea {
@@ -190,14 +285,10 @@ export default {
   background-color: #388aff;
 }
 .chatpdf .fileTitle {
-  background-color: #1677ff;
-  color: #fff;
-  border-radius: 8px;
   padding: 10px;
   margin: 10px;
   font-size: 14px;
-  cursor: pointer;
-  line-height: 40px;
+  width: 150px;
 }
 .inputbox {
   width: 800px;
@@ -211,25 +302,3 @@ body {
   }
 }
 </style>
-<!-- vue-beautiful-chat聊天组件的可用配置参数有：
-
-participants：聊天用户信息，包括id, name, imageUrl等。
-onMessageWasSent：消息发送后的回调函数，参数是一个message对象。
-isOpen：聊天窗口是否打开。
-open：用于打开聊天窗口的函数。
-close：用于关闭聊天窗口的函数。
-messageList：一个数组，代表初始聊天信息。
-showEmoji：是否显示打开表情面板按钮。
-showFile： 是否显示打开文件按钮。
-showDeletion：是否显示消息删除按钮。
-showEdition：是否显示消息编辑按钮。
-showTypingIndicator：一个字符串，可以设置为用户的participant.id以显示用户的键入指示符。
-showHeader：是否显示聊天窗口的头部信息。
-disableUserListToggle：是否允许用户在消息列表和参与者列表之间切换。
-colors：一个对象，永不指定聊天窗口的颜色。
-messageStyling：布尔值，用于表明是否允许聊天窗口的msgdown格式。
- 事件
-vue-beautiful-chat聊天组件的可用事件有：
-
-onType：用户在消息输入框中键入文字时触发。
-edit：用户在编辑消息时触发。 -->

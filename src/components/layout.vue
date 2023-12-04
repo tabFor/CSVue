@@ -3,7 +3,6 @@
   <el-container>
     <el-header height="60px">
       <Test></Test>
-      <Card></Card>
     </el-header>
     <el-container>
       <!-- <el-aside width="150px"><Guide></Guide></el-aside> -->
@@ -17,18 +16,10 @@
 
 <script>
 import Test from "./test";
-import Guide from "./sideguide.vue";
-import MainGuide from "./mainguide.vue";
-import Table from "./maintable.vue";
-import Foot from "./mainfoot.vue";
 export default {
   name: "layout",
   components: {
     Test,
-    Guide,
-    MainGuide,
-    Table,
-    Foot
   }
 };
 </script>
@@ -68,5 +59,8 @@ body > .el-container {
 
 .el-container:nth-child(7) .el-aside {
   line-height: 320px;
+}
+body {
+  margin: 0;
 }
 </style>
