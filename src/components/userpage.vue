@@ -206,10 +206,14 @@ export default {
           }
         });
         this.$session.set("email", "");
-        this.$session.set("session-id", "");
+        this.$session.set("session-id", "114514");
+        this.$session.remove('session-id');
+        sessionStorage.setItem('session-id', '');
+        
         this.index = "Yes";
         console.log(this.index);
         this.$router.replace({ path: "/" });
+        this.$session.destory();
       }
     }
   }

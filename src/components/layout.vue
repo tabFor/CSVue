@@ -20,6 +20,20 @@ export default {
   name: "layout",
   components: {
     Test,
+  },
+  mounted() {
+     this.checklog();
+  },
+  methods: {
+    checklog() {
+      console.log(this.$session.get("session-id"));
+      if (this.$session.get("session-id") === undefined || this.$session.get("session-id") === null){  
+        this.$router.replace("/");
+      } else {
+        console.log("session-id is not null");
+      }
+        
+    }
   }
 };
 </script>
