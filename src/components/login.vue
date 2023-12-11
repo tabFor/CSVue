@@ -41,6 +41,11 @@
         @click="forget"
         :disabled="discheck"
       >忘记密码</el-button>
+      <el-button
+        type="text"
+        @click="tohello"
+      >返回主页</el-button>
+
     </div>
   </div>
 </template>
@@ -61,7 +66,12 @@ export default {
     };
   },
   methods: {
+    tohello(){
+      // 跳转到主页
+      this.$router.replace("/")
+    },
       forget() {
+      // 跳转到忘记密码页面
       this.$router.replace("/forget")
     },
     // 登录
@@ -179,6 +189,6 @@ export default {
 body {
   margin: 0;
 }
+
+
 </style>
-  
-  

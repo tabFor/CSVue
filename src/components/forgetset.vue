@@ -98,7 +98,7 @@ export default {
         );
     },
     backTLog() {
-      this.$router.replace("/");
+      this.$router.replace("/login");
     },
     isValidEmail(email) {
       // 定义正则表达式
