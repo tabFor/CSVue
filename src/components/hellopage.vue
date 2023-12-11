@@ -3,7 +3,8 @@
   <div>
     <!-- 头部 -->
     <header class="header">Hello</header>
-    <el-button @click="golog">login</el-button>
+    <el-button @click="gologUser">用户登录</el-button>
+    <el-button @click="gologAdmin">管理员登录</el-button>
   </div>
 </template>
 
@@ -19,7 +20,7 @@ export default {
   // 定义一个methods函数，返回一个对象
   methods: {
     // 定义一个golog函数，用于跳转到登录页面
-    golog() {
+    gologUser() {
       this.$router.replace("/login");
     }
   }

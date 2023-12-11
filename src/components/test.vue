@@ -9,8 +9,8 @@
     text-color="#fff"
     active-text-color="#ffd04b"
   >
-    <el-menu-item index="/layout/home">首页</el-menu-item>
     <el-menu-item index="/layout/query">查询界面</el-menu-item>
+    <el-menu-item index="/layout/home">AI对话</el-menu-item>
     <el-menu-item index="/layout/user">用户信息</el-menu-item>
     <el-menu-item index="/layout/dialog">对话记录</el-menu-item>
   </el-menu>

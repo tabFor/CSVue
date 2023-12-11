@@ -32,7 +32,9 @@ export default new Router({
     {
       path: "/layout",
       name: "layout",
-      component: layout,
+      components:{
+        layout:layout
+      } ,
       children: [
         {
           path: "/layout/home",
