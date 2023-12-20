@@ -122,14 +122,20 @@ export default {
       this.$message.success("设置成功" + this.talksetting);
     },
     newtalk() {
-      this.$router.go(0);
+      this.items = {
+        massgge: "欢迎",
+        inputask: "AI"
+      };
+      this.$global.dialogueID = "0";
+      // this.$router.go(0);
     },
     savetalk() {
       this.$ajax
         .post("/user/savedialogue", JSON.stringify(this.items), {
           headers: {
             "session-id": this.$session.get("session-id"),
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            dialogueid: this.$global.dialogueID
           }
         })
         .then(response => {
@@ -153,13 +159,21 @@ export default {
       // 设置discheck为true
       this.discheck = true;
       console.log("Submit");
+      console.log(this.$global.dialogueID);
+      console.log(this.$session.get("session-id"));
       try {
         // 使用ajax发送post请求，请求地址为/chat/userMessage，请求头为text/plain，请求体为this.input
         this.$ajax
-          .post(
-            "/chat/userMessage",
-            "" + this.input, // 发送的文本信息
-            { headers: { "Content-Type": "text/plain" } } // 设置请求头
+          .get(
+            "/chat/NewUserMessage",
+            // "" + this.input, // 发送的文本信息
+            {
+              params: {
+                cookie: this.$session.get("session-id"),
+                dialogueid: this.$global.dialogueID,
+                userMessage: this.input + this.talksetting
+              }
+            } // 设置请求头
           )
           .then(
             // 请求成功时，将返回的文本信息添加到items中，并将输入的文本信息设置为空，将loading和discheck设置为false
@@ -191,11 +205,17 @@ export default {
             }
           );
       } catch (error) {
-        console.log("error");
+        console.log(error);
+        this.$message.error(error);
+        this.loading = false;
       } finally {
         //   this.loading = false;
       }
     }
+  },
+  mounted() {
+    this.items = this.$global.items;
+    console.log(sessionStorage.getItem("items"));
   }
 };
 </script>

@@ -99,4 +99,7 @@ export default {
   transform: translateY(-1px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
+.el-main {
+  background-color: rgba(255, 255, 255, 0);
+}
 </style>

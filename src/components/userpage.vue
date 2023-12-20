@@ -2,7 +2,7 @@
 <template>
   <div class="personalCenter">
     <el-dialog
-      title="对话内容"
+      title="修改昵称"
       :visible.sync="dialogVisible"
       :fullscreen="false"
     >
@@ -16,15 +16,18 @@
       <i class="el-icon-edit"></i>
       <div>
         <el-button @click="dialogVisible = false">取 消</el-button>
-      <el-button
-        type="primary"
-        @click="setNickname"
-      >确 定</el-button>
+        <el-button
+          type="primary"
+          @click="setNickname"
+        >确 定</el-button>
       </div>
     </el-dialog>
     <el-container>
       <el-header class="title"><span class="title2">个人中心</span>
-        <el-dropdown @command="handleCommand" class="userset">
+        <el-dropdown
+          @command="handleCommand"
+          class="userset"
+        >
           <span class="el-dropdown-link">
             用户操作<i class="el-icon-arrow-down el-icon--right"></i>
           </span>
@@ -108,7 +111,27 @@
         </el-container>
       </el-container>
     </el-container>
+    <div>
+      <el-dialog
+        title="对话内容"
+        :visible.sync="submitVisible"
+        :fullscreen="false"
+      >
+        <div>
+          <el-input
+            type="textarea"
+            :rows="2"
+            v-model="submission"
+            :readonly="false"
+            placeholder="请输入需要反馈的问题"
+          >
+          </el-input>
+        </div>
+        <el-button @click="submiterror">提交反馈</el-button>
+      </el-dialog>
+    </div>
   </div>
+
 </template>
 <script>
 export default {
@@ -116,7 +139,9 @@ export default {
   data() {
     return {
       dialogVisible: false,
+      submitVisible: false,
       nickname: "",
+      submission: "",
       imgurl: [
         require("@/assets/14.png"),
         require("@/assets/11.jpg"),
@@ -147,17 +172,37 @@ export default {
     this.getNickname();
   },
   methods: {
+    submiterror() {
+      this.$ajax
+        .get("/user/send", {
+          params: {
+            cookie: this.$session.get("session-id"),
+            advice: this.submission
+          }
+        })
+        .then(res => {
+          console.log(res);
+          this.$message.success(res.data);
+          return res.data;
+        })
+        .catch(err => {
+          console.log(err);
+          this.$message.error("失败");
+        });
+      this.$message.success("提交反馈成功");
+      this.submission = "";
+    },
     getNickname() {
       this.$ajax
         .get("/user/getname", {
           params: {
-            "cookie": this.$session.get("session-id")
+            "session-id": this.$session.get("session-id")
           }
         })
         .then(res => {
           console.log(res);
           this.nickname = res.data;
-          return res.data
+          return res.data;
         })
         .catch(err => {
           console.log(err);
@@ -169,7 +214,7 @@ export default {
         .get("/user/setname", {
           params: {
             newname: this.nickname,
-            "cookie": this.$session.get("session-id")
+            "session-id": this.$session.get("session-id")
           }
         })
         .then(res => {
@@ -194,6 +239,9 @@ export default {
       if (command === "a") {
         this.$router.replace("/changepwd");
       }
+      if (command === "b") {
+        this.submitVisible = true;
+      }
       if (command === "c") {
         this.dialogVisible = true;
       }
@@ -207,9 +255,9 @@ export default {
         });
         this.$session.set("email", "");
         this.$session.set("session-id", "114514");
-        this.$session.remove('session-id');
-        sessionStorage.setItem('session-id', '');
-        
+        this.$session.remove("session-id");
+        sessionStorage.setItem("session-id", "");
+
         this.index = "Yes";
         console.log(this.index);
         this.$router.replace({ path: "/" });
@@ -259,7 +307,7 @@ export default {
   font-size: 12px;
 }
 .personalCenter {
-  max-height: 668.5px;
+  height: auto;
 }
 .mainMenu {
   background-color: #e9eef3;
@@ -295,17 +343,17 @@ img {
 body {
   margin: 0;
 }
-.userset{
+.userset {
   position: absolute;
   width: 100px;
-  right:  0px;
+  right: 0px;
 }
-.title{
+.title {
   position: relative;
   display: flex;
   text-align: center;
 }
-.title2{
+.title2 {
   font-size: 30px;
   position: absolute;
   left: 50%;

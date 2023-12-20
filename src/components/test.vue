@@ -42,6 +42,7 @@ export default {
   margin-left: 0% !important;
   border: #1d1d1d !important;
   padding-inline-start: 0% !important;
+  /* height: 8vh; */
 }
 .el-menu-item {
   background-color: #5793e6 !important ;
