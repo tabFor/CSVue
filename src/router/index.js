@@ -12,15 +12,45 @@ import forget from "@/components/forgetpwd";
 import forgetset from "@/components/forgetset";
 import changepwd from "@/components/changepwd";
 import hellopage from "@/components/hellopage";
+import Main from "@/views/home"
+import User from "@/views/user"
+import Law from "@/views/law"
+import show from "@/views/showLaw"
+import advice from "@/views/adminAdvice"
+
 
 Vue.use(Router);
 
 export default new Router({
   routes: [
+
     {
       path: "/",
       name: "hello",
       components: { login: hellopage }
+    },
+    {
+      path: "/admin",
+      components: { admin: Main },
+      children: [
+        {
+          path: '/admin/user',
+          component: User
+        },
+        {
+          path: '/admin/show',
+          name: 'showpage',
+          component: show
+        },
+        {
+          path: '/admin/law',
+          component: Law
+        },
+        {
+          path: '/admin/advice',
+          component: advice
+        }
+      ]
     },
     {
       path: "/login",
@@ -32,9 +62,9 @@ export default new Router({
     {
       path: "/layout",
       name: "layout",
-      components:{
-        layout:layout
-      } ,
+      components: {
+        layout: layout
+      },
       children: [
         {
           path: "/layout/home",

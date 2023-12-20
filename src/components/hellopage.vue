@@ -22,10 +22,12 @@ export default {
     // 定义一个golog函数，用于跳转到登录页面
     gologUser() {
       this.$router.replace("/login");
+    },
+    gologAdmi() {
+      this.$router.replace("/login");
     }
   }
 };
 </script>
 
-<style>
-</style>
+<style></style>
