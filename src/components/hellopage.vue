@@ -48,14 +48,22 @@ export default {
       console.log("用户登录");
       this.$router.replace("/login");
     },
+<<<<<<< HEAD
+    gologAdmi() {
+      this.$router.replace("/login");
+=======
     adminLogin() {
       // 这里添加管理员登录的代码
       console.log("管理员登录");
+>>>>>>> faa5a102b3769b6ecb1c572c3d1c7d3a21991926
     }
   }
 };
 </script>
 
+<<<<<<< HEAD
+<style></style>
+=======
 <style scoped>
 @import url("https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css");
 
@@ -103,3 +111,4 @@ export default {
   background-color: rgba(255, 255, 255, 0);
 }
 </style>
+>>>>>>> faa5a102b3769b6ecb1c572c3d1c7d3a21991926

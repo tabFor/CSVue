@@ -2,6 +2,7 @@
   <div id="app">
     <router-view name="login"></router-view>
     <router-view name="layout"></router-view>
+    <router-view name="admin"></router-view>
   </div>
 </template>
 
@@ -25,7 +26,6 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 0px;
-  background-image: url();
 }
 </style>
 
