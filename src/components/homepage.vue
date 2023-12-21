@@ -188,7 +188,7 @@ export default {
             "/chat/NewUserMessage",
             // "" + this.input, // 发送的文本信息
             {
-              timeout: 200000,
+              timeout: 200000000,
               params: {
                 cookie: this.$session.get("session-id"),
                 dialogueid: this.$global.dialogueID,
