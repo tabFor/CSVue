@@ -6,11 +6,21 @@
         :model="formInline"
         class="demo-form-inline"
       >
-        <el-form-item label="关键词搜索">
+        <el-form-item label="法律搜索">
           <el-input
             :disabled="isload"
             v-model="keyword"
             placeholder="输入法律关键词"
+          ></el-input>
+          <el-input
+            :disabled="isload"
+            v-model="lawname"
+            placeholder="输入法律名"
+          ></el-input>
+          <el-input
+            :disabled="isload"
+            v-model="lawcontent"
+            placeholder="输入法律条例"
           ></el-input>
         </el-form-item>
         <el-form-item label="搜索">
@@ -89,6 +99,8 @@ export default {
     return {
       isload: false,
       keyword: "",
+      lawname: "",
+      lawcontent: "",
       content: "",
       tableData: [
         {
@@ -106,9 +118,11 @@ export default {
     searchKeyLaw() {
       this.isload = true;
       this.$ajax
-        .get("/user/findlaws", {
+        .get("/user/findlaw", {
           params: {
-            keyword: this.keyword,
+            name: this.lawname,
+            content: this.lawcontent,
+            explain: this.keyword,
             "session-id": this.$session.get("session-id")
           }
         })
@@ -193,7 +207,8 @@ export default {
 </script>
 <style>
 .main_table {
-  min-height: 74vh;
+  min-height: 60vh;
+  /* max-height: 60vh; */
 }
 .demo-form-inline {
   margin-top: 20px;

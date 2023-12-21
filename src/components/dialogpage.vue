@@ -7,8 +7,14 @@
       class="table_content"
     >
       <el-table-column
-        prop="date"
+        prop="time"
         label="对话日期"
+        width="180"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="dialogueId"
+        label="对话ID"
         width="180"
       >
       </el-table-column>
@@ -51,7 +57,6 @@
       title="对话内容"
       :visible.sync="dialogVisible"
       :fullscreen="true"
-      
     >
       <div
         v-for="index in items"
@@ -78,6 +83,7 @@
         >
         </el-input>
       </div>
+      <el-button @click="continuedia">继续对话</el-button>
     </el-dialog>
   </div>
 
@@ -90,26 +96,31 @@ export default {
       dialogVisible: false,
       items: [
         {
-          massgge: "欢迎",
+          massgge: "欢迎使用",
           inputask: "AI"
         }
       ],
       tableData: [
         {
-          date: "2016-05-02",
-          name: "第一页",
-          address: "上海市普陀区金沙江路 1518 弄"
+          time: "",
+          name: "",
+          dialogueId: ""
         }
       ],
       currentPage: 1, // 当前页码
       total: 20, // 总条数
-      pageSize: 5 // 每页的数据条数
+      pageSize: 10 // 每页的数据条数
     };
   },
   mounted() {
     this.fetchData();
   },
   methods: {
+    continuedia() {
+      this.$global.items = this.items;
+      console.log(this.$global.items);
+      this.$router.replace("/layout/home");
+    },
     open(a, b) {
       this.$confirm("此操作将永久删除该对话, 是否继续?", "提示", {
         confirmButtonText: "确定",
@@ -138,7 +149,11 @@ export default {
           console.log(this.$session.get("session-id"));
           console.log(res.data);
           console.log(res);
-          this.tableData = res.data.map(date => ({ date }));
+          this.tableData.length = 0;
+          for (let i = 0; i < res.data.length; i++) {
+            this.tableData.push(res.data[i]);
+            console.log(this.tableData[i]);
+          }
           this.$message.success("加载成功");
         })
         .catch(err => {
@@ -158,12 +173,16 @@ export default {
       this.currentPage = val;
     },
     handleLook(index, row) {
-      console.log(index, row, row.date);
+      // console.log(this.$global.dialogueID);
+      this.$global.dialogueID = row.id;
+      // console.log(this.$global.dialogueID);
+      console.log(index, row, row.time);
       this.$ajax
         .get("/user/showdialogue", {
           params: {
-            time: row.date,
-            "session-id": this.$session.get("session-id")
+            time: row.time,
+            "session-id": this.$session.get("session-id"),
+            id: row.dialogueId
           }
         })
         .then(res => {
@@ -189,7 +208,7 @@ export default {
       this.$ajax
         .get("/user/deletedialogue", {
           params: {
-            time: row.date,
+            time: row.time,
             "session-id": this.$session.get("session-id")
           }
         })

@@ -5,12 +5,13 @@ import Vue from "vue";
 import App from "./App";
 import router from "./router";
 import ElementUI from "element-ui";
+import Global from "./global.js";
 import Chat from "vue-beautiful-chat";
 import axios from "axios";
 import VueSession from "vue-session";
 Vue.use(VueSession);
 Vue.prototype.$ajax = axios;
-axios.defaults.baseURL = 'http://192.168.13.114:8080';
+axios.defaults.baseURL = "http://192.168.13.114:8080";
 //这是用来测试的一句话
 
 // axios.defaults.withCredentials = true
@@ -31,6 +32,7 @@ axios.defaults.baseURL = 'http://192.168.13.114:8080';
 Vue.use(ElementUI);
 Vue.config.productionTip = false;
 Vue.use(Chat);
+Vue.prototype.$global = Global;
 /* eslint-disable no-new */
 new Vue({
   el: "#app",
@@ -38,7 +40,7 @@ new Vue({
   components: { App },
   template: "<App/>"
 });
-axios.defaults.headers.common['email'] = Vue.prototype.$session.get("email");
+axios.defaults.headers.common["email"] = Vue.prototype.$session.get("email");
 
 // router.beforeEach((to, from,next) => {
 //   // ...

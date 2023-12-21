@@ -19,20 +19,22 @@ import Test from "./test";
 export default {
   name: "layout",
   components: {
-    Test,
+    Test
   },
   mounted() {
-    //  this.checklog();
+    // this.checklog();
   },
   methods: {
     checklog() {
       console.log(this.$session.get("session-id"));
-      if (this.$session.get("session-id") === undefined || this.$session.get("session-id") === null){  
+      if (
+        this.$session.get("session-id") === undefined ||
+        this.$session.get("session-id") === null
+      ) {
         this.$router.replace("/");
       } else {
         console.log("session-id is not null");
       }
-        
     }
   }
 };
@@ -45,6 +47,7 @@ export default {
   text-align: center;
   line-height: 60px;
   padding: 0px;
+  min-height: 8vh;
 }
 
 .el-aside {
@@ -60,6 +63,7 @@ export default {
   text-align: center;
   line-height: 0px;
   padding: 5px !important;
+  min-height: 92vh;
 }
 
 body > .el-container {
