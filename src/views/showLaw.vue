@@ -29,7 +29,7 @@
 export default {
     data() {
         return {
-            lawName: '',
+            lawName: '法律名称',
             title: '法律名称',
             content: '法律条文完整内容',
             explainText: '法律条文解释文本',
@@ -42,6 +42,7 @@ export default {
     created() {
         this.lawName = this.$route.params.lawName;
         this.content = this.$route.params.lawContent;
+        this.explainText = this.$route.params.lawExplain;
     },
     methods: {
         goBack() {

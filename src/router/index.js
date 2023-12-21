@@ -26,9 +26,8 @@ import admininfo from "@/views/info";
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   routes: [
-
     {
       path: "/",
       name: "hello",
@@ -36,6 +35,7 @@ export default new Router({
     },
     {
       path: "/admin",
+      name: "admin",
       components: { layout: Main },
       children: [
         {
@@ -154,4 +154,43 @@ export default new Router({
       components: { login: changepwd }
     }
   ]
+
 });
+const pathsBeforeLogin = ['/adminlogin', '/adminregister', '/', '/adminsignin', '/adminsignsetting', "/adminforget", "/adminforgetset", "/forget", "/forgetset", "/signin", "/login"];
+const pathsForNormalUser = ["/changepwd", '/layout'];
+const pathsForAdminUser = ['/admin'];
+const userType = sessionStorage.getItem('userType');
+router.beforeEach((to, from, next) => {
+  // 获取token
+  const isLoggedin = Vue.prototype.$session.exists('isLoggedin') && Vue.prototype.$session.get('isLoggedin');
+  // if (pathsBeforeLogin.includes(to.path) || isLoggedin) {
+  //   next()
+  // } else {
+  //   next({ name: 'hello' })
+  // }
+  if (!isLoggedin) {
+    // 未登录状态下的导航守卫逻辑
+    if (pathsBeforeLogin.includes(to.path)) {
+      // 允许登录前可跳转的路径
+      next();
+    } else {
+      // 非法路径，重定向到根路径
+      next('/');
+    }
+  } else {
+    // 已登录状态下的导航守卫逻辑
+    if (userType === 'normal' && pathsForNormalUser.includes(to.path)) {
+      // 普通用户可跳转的路径
+      next();
+    } else if (userType === 'admin' && pathsForAdminUser.includes(to.path)) {
+      // 管理员用户可跳转的路径
+      next();
+    } else {
+      // 非法路径，重定向到根路径
+      next('/');
+    }
+  }
+})
+
+export default router;
+

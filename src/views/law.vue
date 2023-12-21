@@ -54,6 +54,11 @@
                     <span>{{ row.lawContent }}</span>
                 </template>
             </el-table-column>
+            <el-table-column prop="lawExplain" label="解释">
+                <template slot-scope="{ row }">
+                    <span>{{ row.lawExplain }}</span>
+                </template>
+            </el-table-column>
         </el-table>
         <!-- 分页器 -->
         <div class="block" style="margin-top:15px;">
@@ -97,7 +102,8 @@ export default {
                 name: 'showpage',
                 params: {
                     lawName: row.lawName,
-                    lawContent: row.lawContent
+                    lawContent: row.lawContent,
+                    lawExplain: row.lawExplain
                 }
             })
         },

@@ -33,6 +33,7 @@ export default {
                         })
                         .then(res => {
                             console.log(res);
+                            this.$session.remove("isLogedin");
                             this.$message.success("退出登录");
                         })
                         .catch(err => {
