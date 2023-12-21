@@ -51,13 +51,13 @@ export default {
     adminLogin() {
       // 这里添加管理员登录的代码
       console.log("管理员登录");
-      this.$router.replace("admin/adminlogin");
+      this.$router.replace("/adminlogin");
     }
   }
 };
 </script>
 
-<style scoped>
+<style>
 @import url("https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css");
 
 #app {

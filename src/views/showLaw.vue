@@ -1,6 +1,8 @@
 <template>
     <div class="legal-text">
-        <h2>{{ title }}</h2>
+        <el-page-header @back="goBack" content="详情页面">
+        </el-page-header>
+        <h2>{{ lawName }}</h2>
         <p>{{ content }}</p>
         <el-divider></el-divider>
         <div class="explain">
@@ -42,9 +44,12 @@ export default {
         this.content = this.$route.params.lawContent;
     },
     methods: {
+        goBack() {
+            this.$router.back()
+        },
         handleDelete() {
             this.$ajax
-                .get("/deletelaw", {
+                .get("/user/deletelaw", {
                     // headers: {
                     //     "Content-Type": "application/json"
                     // },
@@ -55,7 +60,7 @@ export default {
                 })
                 .then(
                     res => {
-                        resData = res.data;
+                        var resData = res.data;
                         if (resData === '已成功删除1q') {
                             this.$message.success("删除成功");
                         } else {
@@ -75,21 +80,24 @@ export default {
         },
         submitEdit() {
             console.log(this.content);
+            console.log(this.form.explain);
             this.$ajax
-                .get("/update", {
+                .get("/user/updatelaw", {
                     // headers: {
                     //     "Content-Type": "application/json"
                     // },
                     params: {
                         name: this.lawName,
-                        content: this.form.explain
+                        content: this.content,
+                        explain: this.form.explain
                     }
                 })
                 .then(
                     res => {
-                        resData = res.data;
+                        var resData = res.data;
                         if (resData === '已修改') {
                             this.$message.success("修改成功");
+                            this.explainText = this.form.explain;
                         } else {
 
                             this.$message.error("法律不存在");
@@ -102,7 +110,7 @@ export default {
                 );
 
             // 在此处发送请求将编辑后的解释文本提交到后端进行保存
-            this.explainText = this.form.explain;
+
             this.dialogVisible = false;
         }
     }

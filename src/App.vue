@@ -2,7 +2,7 @@
   <div id="app">
     <router-view name="login"></router-view>
     <router-view name="layout"></router-view>
-    <router-view name="admin"></router-view>
+    <router-view name="adlogin"></router-view>
   </div>
 </template>
 

@@ -11,6 +11,8 @@ import signsetting from "@/components/signsetting";
 import forget from "@/components/forgetpwd";
 import forgetset from "@/components/forgetset";
 import changepwd from "@/components/changepwd";
+import adforgetset from "@/views/adminforgetset";
+import adforgetpwd from "@/views/adminforgetpwd";
 import hellopage from "@/components/hellopage";
 import Main from "@/views/home";
 import User from "@/views/user";
@@ -18,6 +20,9 @@ import Law from "@/views/law";
 import show from "@/views/showLaw";
 import advice from "@/views/adminAdvice";
 import adminlogin from "@/views/adminlogin";
+import adsignin from "@/views/adminregister";
+import adsignsetting from "@/views/adminsignsetting";
+import admininfo from "@/views/info";
 
 Vue.use(Router);
 
@@ -29,54 +34,12 @@ export default new Router({
       components: { login: hellopage }
     },
     {
-      path: "/admin/adminlogin",
-      components: { login: adminlogin }
-    },
-    {
-      path: "/login",
-      name: "login",
-      components: {
-        login: login
-      }
-    },
-    {
-      path: "/signin",
-      name: "signin",
-      components: {
-        login: signin
-      }
-    },
-    {
-      path: "/signsetting",
-      name: "signsetting",
-      components: { login: signsetting }
-    },
-    {
-      path: "/forget",
-      name: "forget",
-      components: { login: forget }
-    },
-    {
-      path: "/forgetset",
-      name: "forgetset",
-      components: { login: forgetset }
-    },
-    {
-      path: "/changepwd",
-      name: "changepwd",
-      components: { login: changepwd }
-    },
-    {
       path: "/admin",
-      components: { admin: Main },
+      components: { layout: Main },
       children: [
         {
           path: "/admin/user",
           component: User
-        },
-        {
-          path: "/admin/adminlogin",
-          component: adminlogin
         },
         {
           path: "/admin/show",
@@ -90,8 +53,26 @@ export default new Router({
         {
           path: "/admin/advice",
           component: advice
+        },
+        {
+          path: "/admin/info",
+          component: admininfo
         }
       ]
+    },
+    {
+      path: "/login",
+      name: "login",
+      components: {
+        login: login
+      }
+    },
+    {
+      path: "/adminlogin",
+      name: "adlogin",
+      components: {
+        adlogin: adminlogin
+      }
     },
     {
       path: "/layout",
@@ -121,6 +102,55 @@ export default new Router({
           component: dialogpage
         }
       ]
+    },
+    {
+      path: "/signin",
+      name: "signin",
+      components: {
+        login: signin
+      }
+    },
+    {
+      path: "/signsetting",
+      name: "signsetting",
+      components: { login: signsetting }
+    },
+    {
+      path: "/adminsignin",
+      name: "adminsignin",
+      components: {
+        adlogin: adsignin
+      }
+    },
+    {
+      path: "/adminsignsetting",
+      name: "adminsignsetting",
+      components: { adlogin: adsignsetting }
+    },
+    {
+      path: "/forget",
+      name: "forget",
+      components: { login: forget }
+    },
+    {
+      path: "/forgetset",
+      name: "forgetset",
+      components: { login: forgetset }
+    },
+    {
+      path: "/adminforget",
+      name: "adforget",
+      components: { adlogin: adforgetpwd }
+    },
+    {
+      path: "/adminforgetset",
+      name: "adforgetset",
+      components: { adlogin: adforgetset }
+    },
+    {
+      path: "/changepwd",
+      name: "changepwd",
+      components: { login: changepwd }
     }
   ]
 });

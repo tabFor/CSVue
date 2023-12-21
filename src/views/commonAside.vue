@@ -1,7 +1,7 @@
 <template>
     <div>
-        <el-menu default-active="1-4-1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
-            :collapse="isCollapse" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
+        <el-menu class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse"
+            background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
             <!-- 要放到导航栏里面 -->
             <h3 class="aside">通用后台管理系统</h3>
             <!-- 观察数据,我们发现name是唯一标识 -->
@@ -47,12 +47,13 @@
 export default {
     data() {
         return {
+            defaultActive: "home",
             isCollapse: false,
             MenuData: [
                 {
-                    path: '/admin',
+                    path: '/admin/advice',
                     name: 'home',
-                    label: '首页',
+                    label: '留言',
                     icon: 's-home',
                     url: 'Home/Home'
                 },
