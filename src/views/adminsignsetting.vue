@@ -25,7 +25,6 @@
 </template>
 
 <script>
-
 export default {
     name: "Login",
     data() {
@@ -42,7 +41,7 @@ export default {
                 .get("/user/managerregister", {
                     params: {
                         password: this.pwd,
-                        email: this.$session.get('email'),
+                        email: this.$session.get("email"),
                         cookie: this.$session.get("session-id")
                     }
                 })
@@ -60,7 +59,7 @@ export default {
                             this.$router.replace("/admin/advice");
                         }
                         console.log(res.data);
-                        this.loading = false
+                        this.loading = false;
                     },
                     err => {
                         this.$message({
@@ -111,7 +110,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .signin {
     margin-top: 200px;
 }

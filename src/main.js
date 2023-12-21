@@ -11,7 +11,7 @@ import axios from "axios";
 import VueSession from "vue-session";
 Vue.use(VueSession);
 Vue.prototype.$ajax = axios;
-axios.defaults.baseURL = "http://192.168.13.114:8080";
+axios.defaults.baseURL = "http://110.238.65.174:8080";
 //这是用来测试的一句话
 
 // axios.defaults.withCredentials = true

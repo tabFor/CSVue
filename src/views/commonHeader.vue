@@ -3,10 +3,10 @@
         <div class="r-content">
             <el-dropdown @command="handleCommand">
                 <span class="el-dropdown-link">
-                    <img class="user" src="../assets/logo.png" alt="">
+                    <img class="user" src="../assets/co.png" alt="">
                 </span>
                 <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item command="info">个人信息</el-dropdown-item>
+                    <!-- <el-dropdown-item command="info">个人信息</el-dropdown-item> -->
                     <el-dropdown-item command="logout">退出</el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
@@ -20,11 +20,11 @@ export default {
         handleCommand(command) {
             // 处理菜单项点击事件的逻辑
             switch (command) {
-                case 'info':
+                case "info":
                     // 选项1的点击事件处理逻辑
-                    this.$router.replace("/admin/info")
+                    this.$router.replace("/admin/info");
                     break;
-                case 'logout':
+                case "logout":
                     this.$ajax
                         .get("/user/deletelogged", {
                             params: {
@@ -33,14 +33,13 @@ export default {
                         })
                         .then(res => {
                             console.log(res);
-                            this.$session.remove("isLogedin");
                             this.$message.success("退出登录");
                         })
                         .catch(err => {
                             console.log(err);
                             this.$message.error("修改失败");
                         });
-                    this.$router.replace("/adminlogin")
+                    this.$router.replace("/adminlogin");
                     // 选项2的点击事件处理逻辑
                     break;
                 default:
@@ -49,29 +48,24 @@ export default {
             }
         }
     }
-}
+};
 </script>
 
-<style >
+<style scoped>
 .header-container {
     background-color: #333;
     height: 60px;
-
 
     display: flex;
     justify-content: space-between;
     align-items: center;
 
     padding: 0 20px;
-
-
 }
 
 .el-dropdown-link {
     cursor: pointer;
-    color: #409EFF;
-
-
+    color: #409eff;
 }
 
 .user {

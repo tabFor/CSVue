@@ -68,8 +68,8 @@ export default {
   name: "Login",
   data() {
     return {
-          loading: false,
-      basePwd:"",
+      loading: false,
+      basePwd: "",
       pwd: "",
       pwdCheck: ""
     };
@@ -95,13 +95,12 @@ export default {
                 type: "success"
               });
               this.$router.replace("/layout/home");
-                this.loading = false;
-              } else {
-                this.$message.error("原密码错误");
+              this.loading = false;
+            } else {
+              this.$message.error("原密码错误");
               console.log(res.data);
-            this.loading = false;
+              this.loading = false;
             }
-            
           },
           err => {
             this.$message({
@@ -161,7 +160,7 @@ export default {
 };
 </script>
   
-  <style>
+  <style scoped>
 .signin {
   margin-top: 200px;
 }

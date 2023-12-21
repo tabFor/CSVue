@@ -2,17 +2,36 @@
   <div id="app">
     <el-container class="container">
       <el-header>
-        <el-row type="flex" justify="center" align="middle">
+        <el-row
+          type="flex"
+          justify="center"
+          align="middle"
+        >
           <el-col :span="24">
             <h1 class="title animated fadeInDown">欢迎来到合同智审平台！</h1>
           </el-col>
         </el-row>
       </el-header>
       <el-main>
-        <el-row type="flex" justify="center" align="middle">
-          <el-col :span="12" class="button-group">
-            <el-button class="custom-button animated fadeInUp" type="primary" @click="userLogin">用户登录</el-button>
-            <el-button class="custom-button animated fadeInUp" type="success" @click="adminLogin">管理员登录</el-button>
+        <el-row
+          type="flex"
+          justify="center"
+          align="middle"
+        >
+          <el-col
+            :span="12"
+            class="button-group"
+          >
+            <el-button
+              class="custom-button animated fadeInUp"
+              type="primary"
+              @click="userLogin"
+            >用户登录</el-button>
+            <el-button
+              class="custom-button animated fadeInUp"
+              type="success"
+              @click="adminLogin"
+            >管理员登录</el-button>
           </el-col>
         </el-row>
       </el-main>
@@ -38,7 +57,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @import url("https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css");
 
 #app {
@@ -46,8 +65,8 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  /* color: #2c3e50; */
+  /* margin-top: 60px; */
 }
 
 .container {

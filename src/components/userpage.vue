@@ -120,13 +120,14 @@ export default {
         .then(res => {
           console.log(res);
           this.$message.success(res.data);
+          this.$message.success("提交反馈成功");
           return res.data;
         })
         .catch(err => {
           console.log(err);
           this.$message.error("失败");
         });
-      this.$message.success("提交反馈成功");
+
       this.submission = "";
     },
     getNickname() {

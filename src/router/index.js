@@ -14,12 +14,12 @@ import changepwd from "@/components/changepwd";
 import adforgetset from "@/views/adminforgetset";
 import adforgetpwd from "@/views/adminforgetpwd";
 import hellopage from "@/components/hellopage";
-import Main from "@/views/home"
-import User from "@/views/user"
-import Law from "@/views/law"
-import show from "@/views/showLaw"
-import advice from "@/views/adminAdvice"
-import adminlogin from "@/views/adminlogin"
+import Main from "@/views/home";
+import User from "@/views/user";
+import Law from "@/views/law";
+import show from "@/views/showLaw";
+import advice from "@/views/adminAdvice";
+import adminlogin from "@/views/adminlogin";
 import adsignin from "@/views/adminregister";
 import adsignsetting from "@/views/adminsignsetting";
 import admininfo from "@/views/info";
@@ -39,24 +39,24 @@ const router = new Router({
       components: { layout: Main },
       children: [
         {
-          path: '/admin/user',
+          path: "/admin/user",
           component: User
         },
         {
-          path: '/admin/show',
-          name: 'showpage',
+          path: "/admin/show",
+          name: "showpage",
           component: show
         },
         {
-          path: '/admin/law',
+          path: "/admin/law",
           component: Law
         },
         {
-          path: '/admin/advice',
+          path: "/admin/advice",
           component: advice
         },
         {
-          path: '/admin/info',
+          path: "/admin/info",
           component: admininfo
         }
       ]
@@ -140,12 +140,12 @@ const router = new Router({
     },
     {
       path: "/adminforget",
-      name: "forget",
+      name: "adforget",
       components: { adlogin: adforgetpwd }
     },
     {
       path: "/adminforgetset",
-      name: "forgetset",
+      name: "adforgetset",
       components: { adlogin: adforgetset }
     },
     {

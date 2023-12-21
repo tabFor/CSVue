@@ -41,11 +41,85 @@ export default {
     methods: {
         tohello() {
             // 跳转到主页
-            this.$router.replace("/")
+            this.$router.replace("/");
         },
-        forget() {
-            // 跳转到忘记密码页面
-            this.$router.replace("/adminforget")
+        methods: {
+            tohello() {
+                // 跳转到主页
+                this.$router.replace("/")
+            },
+            forget() {
+                // 跳转到忘记密码页面
+                this.$router.replace("/adminforget")
+            },
+            // 登录
+            login() {
+                // 正在加载
+                this.loading = true;
+                // 显示密码
+                this.discheck = true;
+                // 设置会话
+                this.$session.set("email", '');
+                // 发起ajax请求
+                this.$ajax
+                    .get("/user/managerlogin", {
+                        params: {
+                            email: this.name,
+                            password: this.pwd,
+                            cookie: this.$session.get("session-id")
+                        }
+                    })
+                    .then(
+                        res => {
+                            console.log(res.data);
+                            // 登录成功
+                            if (String(res.data) === "登录成功") {
+                                this.$session.set("email", this.name);
+                                this.$session.set("isLogedin", true);
+                                sessionStorage.setItem('userType', 'admin');
+                                // 跳转到主页
+                                this.$router.replace("/admin");
+                            } else {
+                                // 输入错误
+                                console.assert("密码错误");
+                                // 提示错误信息
+                                this.$message("输入错误" + String(res.data));
+                            }
+                            // 加载结束
+                            this.loading = false;
+                            // 隐藏密码
+                            this.discheck = false;
+                        },
+                        err => {
+                            console.log(err);
+                            // 网络错误
+                            this.$message(err);
+                            // 加载结束
+                            this.loading = false;
+                            // 隐藏密码
+                            this.discheck = false;
+                        }
+                    );
+            },
+            // 注册
+            signin() {
+                // 跳转到注册页面
+                this.$router.replace("/adminsignin");
+            },
+            // 判断邮箱格式
+            isValidEmail(email) {
+                // 定义正则表达式
+                var regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                // 使用正则表达式测试email
+                return regex.test(email);
+            },
+            // 判断密码格式
+            isValidPassword(password) {
+                // 定义正则表达式
+                var regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+                // 使用正则表达式测试password
+                return regex.test(password);
+            }
         },
         // 登录
         login() {
@@ -54,7 +128,7 @@ export default {
             // 显示密码
             this.discheck = true;
             // 设置会话
-            this.$session.set("email", '');
+            this.$session.set("email", "");
             // 发起ajax请求
             this.$ajax
                 .get("/user/managerlogin", {
@@ -70,10 +144,8 @@ export default {
                         // 登录成功
                         if (String(res.data) === "登录成功") {
                             this.$session.set("email", this.name);
-                            this.$session.set("isLogedin", true);
-                            sessionStorage.setItem('userType', 'admin');
                             // 跳转到主页
-                            this.$router.replace("/admin");
+                            this.$router.replace("/admin/advice");
                         } else {
                             // 输入错误
                             console.assert("密码错误");
@@ -147,7 +219,7 @@ export default {
 };
 </script>
   
-<style>
+<style scoped>
 .login {
     margin-top: 200px;
 }
