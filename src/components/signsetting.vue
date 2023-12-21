@@ -1,52 +1,25 @@
 <template>
   <div class="signin">
     <div>
-      <el-input
-        placeholder="请输入密码"
-        v-model="pwd"
-        clearable
-        show-password
-        class="input_style"
-      ></el-input>
-      <el-tag :type="isValidPassword(this.pwd) ? '' : 'danger'">{{pwdcheck}}</el-tag>
+      <el-input placeholder="请输入密码" v-model="pwd" clearable show-password class="input_style"></el-input>
+      <el-tag :type="isValidPassword(this.pwd) ? '' : 'danger'">{{ pwdcheck }}</el-tag>
     </div>
 
     <div>
-      <el-input
-        placeholder="请确认密码"
-        v-model="pwdCheck"
-        clearable
-        show-password
-        class="input_style2"
-      ></el-input>
-      <el-tag :type="isValidPassword(this.pwdCheck) ? '' : 'danger'">{{samecheck}}</el-tag>
+      <el-input placeholder="请确认密码" v-model="pwdCheck" clearable show-password class="input_style2"></el-input>
+      <el-tag :type="isValidPassword(this.pwdCheck) ? '' : 'danger'">{{ samecheck }}</el-tag>
     </div>
-    <el-alert
-      class="alert_style"
-      title="密码格式为八位以上字母加数字"
-      type="success"
-      :center="true"
-      :closable="false"
-    >
+    <el-alert class="alert_style" title="密码格式为八位以上字母加数字" type="success" :center="true" :closable="false">
     </el-alert>
     <div>
       <i class="el-icon-edit"></i>
     </div>
     <div>
-      <el-button
-        :disabled="!(isValidPassword(this.pwd)&&(this.pwd===this.pwdCheck)&&!loading)"
-        type="primary"
-        @click="signin"
-        class="login_style"
-        v-loading="loading"
-      >注册</el-button>
+      <el-button :disabled="!(isValidPassword(this.pwd) && (this.pwd === this.pwdCheck) && !loading)" type="primary"
+        @click="signin" class="login_style" v-loading="loading">注册</el-button>
     </div>
     <div>
-      <el-button
-        type="text"
-        @click="backTLog"
-        :disabled="loading"
-      >返回登录界面</el-button>
+      <el-button type="text" @click="backTLog" :disabled="loading">返回登录界面</el-button>
     </div>
   </div>
 </template>
@@ -83,6 +56,8 @@ export default {
                 type: "success"
               });
               this.$session.set("email", this.name);
+              this.$session.set("isLogedin", true);
+              sessionStorage.setItem('userType', 'normal');
               this.$router.replace("/layout/home");
             }
             console.log(res.data);
@@ -141,22 +116,27 @@ export default {
 .signin {
   margin-top: 200px;
 }
+
 .input_style {
   width: 280px;
   margin-bottom: 10px;
 }
+
 .input_style2 {
   width: 280px;
   margin-bottom: 10px;
 }
+
 .login_style {
   width: 200px;
 }
+
 .alert_style {
   width: 300px;
   left: 50%;
   margin-left: -150px;
 }
+
 body {
   margin: 0;
 }

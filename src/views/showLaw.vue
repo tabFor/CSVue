@@ -1,9 +1,6 @@
 <template>
   <div class="legal-text">
-    <el-page-header
-      @back="goBack"
-      content="详情页面"
-    >
+    <el-page-header @back="goBack" content="详情页面">
     </el-page-header>
     <h2>{{ lawName }}</h2>
     <p>{{ content }}</p>
@@ -11,41 +8,18 @@
     <div class="explain">
       <h3>解释：</h3>
       <p>{{ explainText }}</p>
-      <el-button
-        type="primary"
-        @click="handleEdit"
-      >编辑</el-button>
-      <el-button
-        type="primary"
-        @click="handleDelete"
-      >删除</el-button>
+      <el-button type="primary" @click="handleEdit">编辑</el-button>
+      <el-button type="primary" @click="handleDelete">删除</el-button>
     </div>
-    <el-dialog
-      title="编辑解释"
-      :visible.sync="dialogVisible"
-    >
-      <el-form
-        :model="form"
-        label-position="left"
-        label-width="80px"
-      >
+    <el-dialog title="编辑解释" :visible.sync="dialogVisible">
+      <el-form :model="form" label-position="left" label-width="80px">
         <el-form-item label="解释文本">
-          <el-input
-            type="textarea"
-            v-model="form.explain"
-            rows="5"
-          ></el-input>
+          <el-input type="textarea" v-model="form.explain" rows="5"></el-input>
         </el-form-item>
       </el-form>
-      <div
-        slot="footer"
-        class="dialog-footer"
-      >
+      <div slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取消</el-button>
-        <el-button
-          type="primary"
-          @click="submitEdit"
-        >提交</el-button>
+        <el-button type="primary" @click="submitEdit">提交</el-button>
       </div>
     </el-dialog>
   </div>
