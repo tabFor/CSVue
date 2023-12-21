@@ -128,7 +128,7 @@ export default {
         })
         .then(
           res => {
-            console.log(res.data);
+            console.log(res);
             console.log(this.tableData);
             console.log(res.data.length);
             if (res.data.length === 0) {

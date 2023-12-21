@@ -12,45 +12,25 @@ import forget from "@/components/forgetpwd";
 import forgetset from "@/components/forgetset";
 import changepwd from "@/components/changepwd";
 import hellopage from "@/components/hellopage";
-import Main from "@/views/home"
-import User from "@/views/user"
-import Law from "@/views/law"
-import show from "@/views/showLaw"
-import advice from "@/views/adminAdvice"
-
+import Main from "@/views/home";
+import User from "@/views/user";
+import Law from "@/views/law";
+import show from "@/views/showLaw";
+import advice from "@/views/adminAdvice";
+import adminlogin from "@/views/adminlogin";
 
 Vue.use(Router);
 
 export default new Router({
   routes: [
-
     {
       path: "/",
       name: "hello",
       components: { login: hellopage }
     },
     {
-      path: "/admin",
-      components: { admin: Main },
-      children: [
-        {
-          path: '/admin/user',
-          component: User
-        },
-        {
-          path: '/admin/show',
-          name: 'showpage',
-          component: show
-        },
-        {
-          path: '/admin/law',
-          component: Law
-        },
-        {
-          path: '/admin/advice',
-          component: advice
-        }
-      ]
+      path: "/admin/adminlogin",
+      components: { login: adminlogin }
     },
     {
       path: "/login",
@@ -58,6 +38,60 @@ export default new Router({
       components: {
         login: login
       }
+    },
+    {
+      path: "/signin",
+      name: "signin",
+      components: {
+        login: signin
+      }
+    },
+    {
+      path: "/signsetting",
+      name: "signsetting",
+      components: { login: signsetting }
+    },
+    {
+      path: "/forget",
+      name: "forget",
+      components: { login: forget }
+    },
+    {
+      path: "/forgetset",
+      name: "forgetset",
+      components: { login: forgetset }
+    },
+    {
+      path: "/changepwd",
+      name: "changepwd",
+      components: { login: changepwd }
+    },
+    {
+      path: "/admin",
+      components: { admin: Main },
+      children: [
+        {
+          path: "/admin/user",
+          component: User
+        },
+        {
+          path: "/admin/adminlogin",
+          component: adminlogin
+        },
+        {
+          path: "/admin/show",
+          name: "showpage",
+          component: show
+        },
+        {
+          path: "/admin/law",
+          component: Law
+        },
+        {
+          path: "/admin/advice",
+          component: advice
+        }
+      ]
     },
     {
       path: "/layout",
@@ -87,33 +121,6 @@ export default new Router({
           component: dialogpage
         }
       ]
-    },
-    {
-      path: "/signin",
-      name: "signin",
-      components: {
-        login: signin
-      }
-    },
-    {
-      path: "/signsetting",
-      name: "signsetting",
-      components: { login: signsetting }
-    },
-    {
-      path: "/forget",
-      name: "forget",
-      components: { login: forget }
-    },
-    {
-      path: "/forgetset",
-      name: "forgetset",
-      components: { login: forgetset }
-    },
-    {
-      path: "/changepwd",
-      name: "changepwd",
-      components: { login: changepwd }
     }
   ]
 });

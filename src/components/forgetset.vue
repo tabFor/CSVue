@@ -66,12 +66,12 @@ export default {
   methods: {
     signin() {
       this.loading = true;
-      console.log(this.$session.get('email'));
+      console.log(this.$session.get("email"));
       this.$ajax
         .get("/user/resetpassword", {
           params: {
             password: this.pwd,
-            email:this.$session.get('email')
+            email: this.$session.get("email")
           }
         })
         .then(
@@ -85,7 +85,7 @@ export default {
               this.$router.replace("/layout/home");
             }
             console.log(res.data);
-            this.loading=false
+            this.loading = false;
           },
           err => {
             this.$message({

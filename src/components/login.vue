@@ -66,13 +66,13 @@ export default {
     };
   },
   methods: {
-    tohello(){
+    tohello() {
       // 跳转到主页
-      this.$router.replace("/")
+      this.$router.replace("/");
     },
-      forget() {
+    forget() {
       // 跳转到忘记密码页面
-      this.$router.replace("/forget")
+      this.$router.replace("/forget");
     },
     // 登录
     login() {
@@ -81,7 +81,7 @@ export default {
       // 显示密码
       this.discheck = true;
       // 设置会话
-      this.$session.set("email", '');
+      this.$session.set("email", "");
       // 发起ajax请求
       this.$ajax
         .get("/user/login", {
@@ -91,7 +91,7 @@ export default {
           params: {
             email: this.name,
             password: this.pwd,
-            cookie:this.$session.get("session-id")
+            cookie: this.$session.get("session-id")
           }
         })
         .then(
@@ -189,6 +189,4 @@ export default {
 body {
   margin: 0;
 }
-
-
 </style>

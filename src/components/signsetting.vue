@@ -70,7 +70,8 @@ export default {
         .get("/user/register", {
           params: {
             password: this.pwd,
-            email:this.$session.get('email')
+            email: this.$session.get("email"),
+            cookie: this.$session.get("session-id")
           }
         })
         .then(
@@ -85,7 +86,7 @@ export default {
               this.$router.replace("/layout/home");
             }
             console.log(res.data);
-            this.loading=false
+            this.loading = false;
           },
           err => {
             this.$message({

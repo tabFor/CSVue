@@ -14,6 +14,8 @@
             round
             class="fileTitle"
             @click="savetalk"
+            v-loading="loading"
+            :disabled="discheck"
           >保存对话</el-button>
           <br>
           <el-button
@@ -122,14 +124,32 @@ export default {
       this.$message.success("设置成功" + this.talksetting);
     },
     newtalk() {
-      this.items = {
-        massgge: "欢迎",
-        inputask: "AI"
-      };
-      this.$global.dialogueID = "0";
+      this.$global.dialogueID = "";
+      this.$ajax
+        .post("/chat/startDialogue", JSON.stringify(this.items), {
+          params: {
+            cookie: this.$session.get("session-id")
+          }
+        })
+        .then(response => {
+          console.log(response);
+          this.$message.success("新建成功");
+        })
+        .catch(error => {
+          console.log(error);
+          this.$message.error("出现错误");
+        });
+      this.items = [
+        {
+          massgge: "欢迎使用",
+          inputask: "AI对话"
+        }
+      ];
+      // this.$global.dialogueID = "0";
       // this.$router.go(0);
     },
     savetalk() {
+      console.log(this.$global.dialogueID);
       this.$ajax
         .post("/user/savedialogue", JSON.stringify(this.items), {
           headers: {

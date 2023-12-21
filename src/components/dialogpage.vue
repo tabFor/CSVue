@@ -154,6 +154,7 @@ export default {
             this.tableData.push(res.data[i]);
             console.log(this.tableData[i]);
           }
+          this.tableData.reverse();
           this.$message.success("加载成功");
         })
         .catch(err => {
@@ -173,9 +174,10 @@ export default {
       this.currentPage = val;
     },
     handleLook(index, row) {
-      // console.log(this.$global.dialogueID);
-      this.$global.dialogueID = row.id;
-      // console.log(this.$global.dialogueID);
+      console.log(this.$global.dialogueID);
+      this.$global.dialogueID = row.dialogueId;
+      console.log(row.dialogueId);
+      console.log(this.$global.dialogueID);
       console.log(index, row, row.time);
       this.$ajax
         .get("/user/showdialogue", {
