@@ -14,14 +14,14 @@
                 <el-form :inline="true" :model="form" :rules="rules" ref="form" label-width="80px">
                     <!-- 每一项表单域:el-form-item -->
                     <el-form-item label="姓名" prop="name">
-                        <el-input placeholder="请输入姓名" v-model="form.name"></el-input>
+                        <el-input placeholder="请输入姓名" v-model="form.userName"></el-input>
                     </el-form-item>
 
                     <el-form-item label="邮箱" prop="email">
-                        <el-input placeholder="请输入年龄" v-model="form.email"></el-input>
+                        <el-input placeholder="请输入邮箱" v-model="form.userEmail"></el-input>
                     </el-form-item>
                     <el-form-item label="密码" prop="password">
-                        <el-input placeholder="请输入密码" v-model="form.password"></el-input>
+                        <el-input placeholder="请输入密码" v-model="form.userPassword"></el-input>
                     </el-form-item>
                 </el-form>
                 <div slot="footer" class="dialog-footer">
@@ -36,7 +36,7 @@
                     <el-input v-model="searchForm.name" placeholder="请输入名称"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-input v-model="searchForm.name" placeholder="请输入名称"></el-input>
+                    <el-input v-model="searchForm.email" placeholder="请输入邮箱"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="search">查询</el-button>
@@ -48,11 +48,11 @@
                 @selection-change="handleSelectionChange">
                 <el-table-column type="selection" width="55">
                 </el-table-column>
-                <el-table-column prop="email" label="邮箱" width="180">
+                <el-table-column prop="userEmail" label="邮箱" width="180">
                 </el-table-column>
-                <el-table-column prop="name" label="用户名" width="120">
+                <el-table-column prop="userName" label="用户名" width="120">
                 </el-table-column>
-                <el-table-column prop="password" label="密码" show-overflow-tooltip>
+                <el-table-column prop="userPassword" label="密码" show-overflow-tooltip>
                 </el-table-column>
                 <el-table-column label="操作">
                     <template slot-scope="scope">
@@ -76,22 +76,29 @@
 export default {
     data() {
         return {
-            tableData: [{
-                email: '1262577702@qq.com',
-                name: '王小虎',
-                password: 'Lxy203513'
-            }],
+            tableData: [
+                {
+                    userEmail: '1262577702',
+                    userName: '王小虎',
+                    userPassword: 'Lxy2035'
+                },
+                {
+                    userEmail: '1262577702',
+                    userName: '王小虎',
+                    userPassword: 'Lxy2035'
+                }
+            ],
             multipleSelection: [],
             form: {
-                name: '',
-                email: '',
-                password: ''
+                userName: '',
+                userEmail: '',
+                userPassword: ''
             },
             // 表单验证规则
             rules: {
-                name: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-                email: [{ required: true, message: '请输入邮箱', trigger: 'blur' }],
-                password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+                userName: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+                userEmail: [{ required: true, message: '请输入邮箱', trigger: 'blur' }],
+                userPassword: [{ required: true, message: '请输入密码', trigger: 'blur' }],
             },
             // 表单是否打开
             dialogVisible: false,
@@ -125,18 +132,19 @@ export default {
         handleSelectionChange(val) {
             this.multipleSelection = val;
         },
-        createUser(form) {
-            return this.$ajax.get("/adduser", {
+        createUser() {
+            return this.$ajax.get("/user/adduser", {
                 params: {
-                    email: form.email,
-                    password: form.password
+                    email: this.form.userEmail,
+                    password: this.form.userPassword
                 }
             })
                 .then(response => {
 
                     var responseData = response.data;
-                    if (responseData === '添加删除') {
+                    if (responseData === '添加成功') {
                         this.$message.success('添加成功');
+                        this.form = {}
                     }
 
                     else {
@@ -152,11 +160,12 @@ export default {
                     console.error(error);
                 });
         },
-        updateUser(form) {
-            return this.$ajax.get("/updateuser", {
+        updateUser() {
+            return this.$ajax.get("/user/updateuser", {
                 params: {
-                    email: form.email,
-                    password: form.password
+                    name: this.form.userName,
+                    email: this.form.userEmail,
+                    password: this.form.userPassword
                 }
             })
                 .then(response => {
@@ -164,13 +173,13 @@ export default {
                     var responseData = response.data;
                     if (responseData === '修改成功') {
                         this.$message.success('修改成功');
+                        this.form = {}
                     }
 
                     else {
                         this.$message.error('用户不存在');
                     }
                     // 请求成功，获取返回的数据
-                    console.log(response.data);
                     // ...
                 })
                 .catch(error => {
@@ -188,12 +197,12 @@ export default {
                     // 提交数据
                     if (this.modalType === 0) {
                         // 新增
-                        this.createUser(this.form).then(() => {
+                        this.createUser().then(() => {
                             this.getList()
                         })
                     } else {
                         // 编辑
-                        this.updateUser(this.form).then(() => {
+                        this.updateUser().then(() => {
                             this.getList()
                         })
                     }
@@ -217,7 +226,7 @@ export default {
             this.form = JSON.parse(JSON.stringify(index))
         },
         deleteUser(email) {
-            this.$ajax.get("/deletuser", {
+            this.$ajax.get("/user/deletuser", {
                 params: {
                     email: email
                 }
@@ -275,7 +284,35 @@ export default {
             this.dialogVisible = true
         },
         getList() {
-            this.$message('获得数据')
+            this.$ajax
+                .get("/user/findall", {
+                    // headers: {
+                    //     "Content-Type": "application/json"
+                    // },
+                })
+                .then(
+                    res => {
+                        this.tableData = []
+                        if (res.data.length === 0) {
+
+                            this.$message.error("未找到相关数据");
+                            this.isload = false;
+                            // this.$router.go(0);
+                        } else {
+                            for (let i = 0; i < res.data.length; i++) {
+                                this.tableData.push(res.data[i]);
+                            }
+                            // this.$message.success("查询成功");
+                            this.isload = false;
+                        }
+                    },
+                    err => {
+                        this.$message.error(err);
+                        console.log(err);
+                        this.isload = false;
+                    }
+                );
+            //this.$message('获得数据')
         },
         // 改变页码
         currentChange(val) {
@@ -284,8 +321,43 @@ export default {
         },
         // 搜索
         search() {
-            this.getList()
+            this.$ajax
+                .get("/user/finduser", {
+                    // headers: {
+                    //     "Content-Type": "application/json"
+                    // },
+                    params: {
+                        email: this.searchForm.email,
+                        name: this.searchForm.name
+                    }
+                })
+                .then(
+                    res => {
+                        this.tableData = []
+                        if (res.data.length === 0) {
+
+                            this.$message.error("未找到相关数据");
+                            this.isload = false;
+                            // this.$router.go(0);
+                        } else {
+                            for (let i = 0; i < res.data.length; i++) {
+                                this.tableData.push(res.data[i]);
+                            }
+                            this.searchForm = {}
+                            this.$message.success("查询成功");
+                            this.isload = false;
+                        }
+                    },
+                    err => {
+                        this.$message.error(err);
+                        console.log(err);
+                        this.isload = false;
+                    }
+                );
         }
+    },
+    mounted() {
+        this.getList()
     }
 }
 </script>

@@ -45,7 +45,7 @@ export default {
         },
         forget() {
             // 跳转到忘记密码页面
-            this.$router.replace("/forget")
+            this.$router.replace("/adminforget")
         },
         // 登录
         login() {
@@ -57,7 +57,7 @@ export default {
             this.$session.set("email", '');
             // 发起ajax请求
             this.$ajax
-                .get("/managerlogin", {
+                .get("/user/managerlogin", {
                     params: {
                         email: this.name,
                         password: this.pwd,
@@ -97,7 +97,7 @@ export default {
         // 注册
         signin() {
             // 跳转到注册页面
-            this.$router.replace("/signin");
+            this.$router.replace("/adminsignin");
         },
         // 判断邮箱格式
         isValidEmail(email) {

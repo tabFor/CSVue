@@ -1,13 +1,13 @@
 <template>
     <div>
         <div>
-            <el-button type="primary" @click="showDialog">新增法律条文</el-button>
+            <el-button type="primary" @click="showDialog">+新增法律条文</el-button>
             <el-dialog title="新增法律条文" :visible.sync="dialogVisible">
                 <el-form ref="lawForm" :model="lawForm" label-width="100px">
                     <el-form-item label="法律名称">
                         <el-input v-model="lawForm.name"></el-input>
                     </el-form-item>
-                    <el-form-item label="法容">
+                    <el-form-item label="法律内容">
                         <el-input v-model="lawForm.content" type="textarea" placeholder="输入合同内容"
                             :autosize="{ minRows: 10, maxRows: 20 }"></el-input>
                     </el-form-item>
@@ -27,7 +27,7 @@
             </el-dialog>
         </div>
         <div class="formdiv">
-            <el-form @row-click="handleRowClick" :inline="true" :model="formInline" class="demo-form-inline">
+            <el-form :inline="true" class="demo-form-inline">
                 <el-form-item label="名称搜索">
                     <el-input :disabled="isload" v-model="keyword" placeholder="输入法律名称"></el-input>
                 </el-form-item>
@@ -35,7 +35,11 @@
                     <el-input :disabled="isload" v-model="content" type="textarea" placeholder="输入合同内容"
                         :autosize="{ minRows: 2, maxRows: 16 }"></el-input>
                 </el-form-item>
-                <el-form-item label="搜索">
+                <el-form-item>
+                    <el-form-item label="解释搜索">
+                        <el-input :disabled="isload" v-model="explain" type="textarea" placeholder="输入合同内容"
+                            :autosize="{ minRows: 2, maxRows: 16 }"></el-input>
+                    </el-form-item>
                     <el-button @click="searchLaw" :disabled="isload">搜索</el-button>
                 </el-form-item>
             </el-form>
@@ -74,6 +78,7 @@ export default {
             isload: false,
             keyword: "",
             content: "",
+            explain: "",
             tableData: [
                 {
                     lawName: "输入关键词",
@@ -86,6 +91,7 @@ export default {
         };
     },
     methods: {
+
         handleClick(row) {
             this.$router.push({
                 name: 'showpage',
@@ -99,13 +105,14 @@ export default {
             this.isload = true;
             console.log(this.content);
             this.$ajax
-                .get("/addlaw", {
+                .get("/user/findlaw", {
                     // headers: {
                     //     "Content-Type": "application/json"
                     // },
                     params: {
                         name: this.keyword,
-                        content: this.content
+                        content: this.content,
+                        explain: this.explain
                     }
                 })
                 .then(
@@ -125,6 +132,9 @@ export default {
                                 this.tableData.push(res.data[i]);
                                 console.log(this.tableData[i]);
                             }
+                            this.explain = ''
+                            this.content = ''
+                            this.keyword = ''
                             this.$message.success("查询成功");
                             this.isload = false;
                         }
@@ -154,11 +164,10 @@ export default {
             // 提交表单，处理新增法律条文的逻辑
             console.log('新增法律名称：', this.lawForm.name);
             console.log('法律内容：', this.lawForm.content);
-            this.$ajax.get("/addlaw", {
+            this.$ajax.get("/user/addlaw", {
                 params: {
                     name: this.lawForm.name,
                     content: this.lawForm.content,
-                    files: this.fileList
                 }
             })
                 .then(response => {
@@ -207,10 +216,6 @@ export default {
 };
 </script>
 <style>
-.main_table {
-    min-height: 74vh;
-}
-
 .demo-form-inline {
     margin-top: 20px;
 }

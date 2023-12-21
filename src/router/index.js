@@ -11,13 +11,18 @@ import signsetting from "@/components/signsetting";
 import forget from "@/components/forgetpwd";
 import forgetset from "@/components/forgetset";
 import changepwd from "@/components/changepwd";
+import adforgetset from "@/views/adminforgetset";
+import adforgetpwd from "@/views/adminforgetpwd";
 import hellopage from "@/components/hellopage";
 import Main from "@/views/home"
 import User from "@/views/user"
 import Law from "@/views/law"
 import show from "@/views/showLaw"
 import advice from "@/views/adminAdvice"
-
+import adminlogin from "@/views/adminlogin"
+import adsignin from "@/views/adminregister";
+import adsignsetting from "@/views/adminsignsetting";
+import admininfo from "@/views/info";
 
 Vue.use(Router);
 
@@ -31,7 +36,7 @@ export default new Router({
     },
     {
       path: "/admin",
-      components: { admin: Main },
+      components: { layout: Main },
       children: [
         {
           path: '/admin/user',
@@ -49,6 +54,10 @@ export default new Router({
         {
           path: '/admin/advice',
           component: advice
+        },
+        {
+          path: '/admin/info',
+          component: admininfo
         }
       ]
     },
@@ -57,6 +66,13 @@ export default new Router({
       name: "login",
       components: {
         login: login
+      }
+    },
+    {
+      path: "/adminlogin",
+      name: "adlogin",
+      components: {
+        adlogin: adminlogin
       }
     },
     {
@@ -101,6 +117,18 @@ export default new Router({
       components: { login: signsetting }
     },
     {
+      path: "/adminsignin",
+      name: "adminsignin",
+      components: {
+        adlogin: adsignin
+      }
+    },
+    {
+      path: "/adminsignsetting",
+      name: "adminsignsetting",
+      components: { adlogin: adsignsetting }
+    },
+    {
       path: "/forget",
       name: "forget",
       components: { login: forget }
@@ -109,6 +137,16 @@ export default new Router({
       path: "/forgetset",
       name: "forgetset",
       components: { login: forgetset }
+    },
+    {
+      path: "/adminforget",
+      name: "forget",
+      components: { adlogin: adforgetpwd }
+    },
+    {
+      path: "/adminforgetset",
+      name: "forgetset",
+      components: { adlogin: adforgetset }
     },
     {
       path: "/changepwd",

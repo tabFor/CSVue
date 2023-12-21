@@ -14,6 +14,14 @@
     </el-container>
 </template>
 <style>
+body {
+    margin: 0;
+}
+
+.el-main {
+    background-color: aliceblue;
+}
+
 .el-header {
     padding: 0;
 }

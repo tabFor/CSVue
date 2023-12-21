@@ -12,7 +12,7 @@
             <el-date-picker v-model="createTime" :default-time="['00:00:00', '23:59:59']" type="daterange"
                 range-separator=":" size="small" class="date-item" value-format="yyyy-MM-dd HH:mm:ss"
                 start-placeholder="开始日期" end-placeholder="结束日期" />
-            <el-button class="filter-item" size="mini" type="success" icon="el-icon-search" @click="search">搜索</el-button>
+            <el-button class="filter-item" size="mini" type="success" icon="el-icon-search" @click="getList">搜索</el-button>
             <el-button class="filter-item" size="mini" type="danger" icon="el-icon-circle-plus-outline"
                 :disabled="selections.length === 0" @click="doDelete">删除</el-button>
         </div>
@@ -47,15 +47,16 @@
                 <el-table-column :show-overflow-tooltip="true" prop="userAdvice" width="200" label="留言内容" />
 
 
-                <el-table-column prop="replied" width="80" label="是否回复">
+                <el-table-column prop="code" width="80" label="是否回复">
                     <template slot-scope="scope">
-                        <el-switch v-model="scope.row.replied" :disabled="true" />
+                        <el-switch v-model="scopeRowCodeReply[scope.$index]" :disabled="true" />
                     </template>
                 </el-table-column>
-                <el-table-column :show-overflow-tooltip="true" prop="replyContent" width="200" label="回复内容" />
-                <el-table-column label="操作" width="120" align="center" fixed="right">
+                <el-table-column :show-overflow-tooltip="true" prop="managerReceive" width="200" label="回复内容" />
+                <el-table-column label="操作" width="160" align="center" fixed="right">
                     <template slot-scope="scope">
                         <el-button size="mini" type="text" round @click="doReply(scope.row)">回复</el-button>
+                        <el-button size="mini" type="text" round @click="handleDelete(scope.row)">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -77,6 +78,7 @@ export default {
             showDialog: false,
             loading: false,
             formLoading: true,
+            scopeRowCodeReply: [],
             form: {
                 nickName: '',
                 content: '',
@@ -92,11 +94,14 @@ export default {
             pageSize: 5,
             bbsList: [],
             selections: [],
-            allmessages: [{
-                adviceID: 0,
-                userEmail: '12625',
-                userAdvice: '哈哈哈哈'
-            }],
+            allmessages: [
+                {
+                    adviceID: 0,
+                    userEmail: '12625',
+                    userAdvice: '哈哈哈哈',
+                    code: 1
+                }
+            ],
             nickName: '',
             replied: null,
             options: [{
@@ -115,9 +120,62 @@ export default {
 
     },
     methods: {
+        deleteRow(row) {
+            this.$ajax
+                .get("/user/deleteresponse", {
+                    params: {
+                        adviceID: row.adviceID
+                    }
+                })
+                .then(
+                    res => {
+                        console.log(res.data);
+                        // 登录成功
+                        var responseData = res.data;
+                        if (responseData === '已删除') {
+                            this.$message.success('已删除');
+                            this.form = {}
+                            const index = this.allmessages.indexOf(row);
+                            if (index > -1) {
+                                this.allmessages.splice(index, 1);
+                            }
+                        }
+
+                        else {
+                            this.$message.error('留言尚未回复');
+                        }
+                        // 请求成功，获取返回的数据
+                        console.log(response.data);
+                    },
+                    err => {
+                        console.log(err);
+                        // 网络错误
+                    }
+                );
+            // 执行删除操作的逻辑
+            // 示例代码，将 row 从 allmessages 数组中删除
+
+        },
+        handleDelete(row) {
+            this.$confirm('确定要删除吗？', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            })
+                .then(() => {
+                    // 确认删除后的操作
+                    this.deleteRow(row);
+                })
+                .catch(() => {
+                    // 取消删除后的操作
+                });
+        },
+        isCodeReply(code) {
+            return code === 1;
+        },
         getList() {
             this.$ajax
-                .get("/receive", {
+                .get("/user/receive", {
                     params: {
                         cookie: this.$session.get("session-id")
                     }
@@ -136,8 +194,8 @@ export default {
                             this.allmessages.length = 0;
                             for (let i = 0; i < res.data.length; i++) {
                                 this.allmessages.push(res.data[i]);
-                                console.log(this.tableData[i]);
                             }
+                            this.scopeRowCodeReply = this.allmessages.map(message => message.code === 1);
                             this.$message.success("获取列表成功");
                         }
                     },
@@ -178,7 +236,7 @@ export default {
         },
         doSubmit() {
             this.$ajax
-                .get("/sendresponse", {
+                .get("/user/sendresponse", {
                     // headers: {
                     //     "Content-Type": "application/json"
                     // },
@@ -189,12 +247,13 @@ export default {
                 })
                 .then(
                     res => {
-                        resData = res.data;
-                        if (resData === '已修改') {
-                            this.$message.success("修改成功");
+                        console.log(res.data)
+                        if (res.data === "上传成功") {
+                            this.$message.success("上传成功");
+                            this.showDialog = false
                         } else {
 
-                            this.$message.error("法律不存在");
+                            this.$message.error("请输入回复");
                         }
                     },
                     err => {
@@ -203,6 +262,9 @@ export default {
                     }
                 );
         }
+    },
+    mounted() {
+        this.scopeRowCodeReply = this.allmessages.map(message => message.code === 1);
     }
 }
 
@@ -234,5 +296,9 @@ export default {
 <style rel="stylesheet/scss" lang="scss" scoped>
 ::v-deep .el-input-number .el-input__inner {
     text-align: left;
+}
+
+body {
+    margin: 0;
 }
 </style>
