@@ -7,5 +7,6 @@ export default {
       inputask: "AI"
     }
   ],
-  dialogueID: ""
+  dialogueID: "",
+  lawTable: [] // 法律库
 };

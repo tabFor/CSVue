@@ -228,7 +228,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .table_content {
   min-height: 84.2vh;
 }

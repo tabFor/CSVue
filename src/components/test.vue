@@ -34,7 +34,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .el-menu {
   background-color: #5793e6 !important;
   width: 100% !important;

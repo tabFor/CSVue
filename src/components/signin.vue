@@ -71,15 +71,14 @@ export default {
           res => {
             if (String(res.data) === "邮箱已注册") {
               this.$message.error("邮箱已注册");
-              this.loading=false
+              this.loading = false;
             } else {
               this.$session.set("email", this.name);
               console.log(res.data);
               this.signcode = res.data;
               console.log(this.signcode);
-              this.loading=false
+              this.loading = false;
             }
-            
           },
           err => {
             console.log(err);
@@ -146,7 +145,7 @@ export default {
 };
 </script>
   
-  <style>
+  <style scoped>
 .signin {
   margin-top: 200px;
 }

@@ -205,7 +205,7 @@ export default {
   }
 };
 </script>
-<style>
+<style scoped>
 .main_table {
   min-height: 60vh;
   /* max-height: 60vh; */

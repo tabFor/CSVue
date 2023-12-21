@@ -373,6 +373,7 @@ export default {
             if (res.data === "上传成功") {
               this.$message.success("上传成功");
               this.showDialog = false;
+              this.getList();
             } else {
               this.$message.error("请输入回复");
             }
@@ -385,14 +386,12 @@ export default {
     }
   },
   mounted() {
-    this.scopeRowCodeReply = this.allmessages.map(
-      message => message.code === 1
-    );
+    this.getList();
   }
 };
 </script>
 
-<style>
+<style scoped>
 .el-card-m {
   height: 100px;
 }

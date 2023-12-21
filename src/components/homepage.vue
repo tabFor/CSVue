@@ -188,10 +188,12 @@ export default {
             "/chat/NewUserMessage",
             // "" + this.input, // 发送的文本信息
             {
+              timeout: 200000,
               params: {
                 cookie: this.$session.get("session-id"),
                 dialogueid: this.$global.dialogueID,
-                userMessage: this.input + this.talksetting
+                userMessage: this.input,
+                userAdditionalRequest: this.talksetting
               }
             } // 设置请求头
           )
@@ -240,7 +242,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .chatpdf {
   display: flex;
   height: 90.5vh;
