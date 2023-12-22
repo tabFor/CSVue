@@ -240,7 +240,7 @@ export default {
   mounted() {
     this.items = this.$global.items;
     console.log(sessionStorage.getItem("items"));
-    this.newtalk();
+    // this.newtalk();
   }
 };
 </script>
