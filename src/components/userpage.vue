@@ -195,7 +195,8 @@ export default {
         this.$session.set("session-id", "114514");
         this.$session.remove("session-id");
         sessionStorage.setItem("session-id", "");
-        this.$session.remove("isLogedin");
+        sessionStorage.setItem('isLogedin', false);
+        sessionStorage.setItem('userType', '');
         this.index = "Yes";
         console.log(this.index);
         this.$router.replace({ path: "/" });

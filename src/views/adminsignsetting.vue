@@ -54,7 +54,7 @@ export default {
                                 type: "success"
                             });
                             this.$session.set("email", this.name);
-                            this.$session.set("isLogedin", true);
+                            sessionStorage.setItem('isLogedin', true);
                             sessionStorage.setItem('userType', 'admin');
                             this.$router.replace("/admin/advice");
                         }

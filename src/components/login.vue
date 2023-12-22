@@ -73,7 +73,7 @@ export default {
             // 登录成功
             if (String(res.data) === "登录成功") {
               this.$session.set("email", this.name);
-              this.$session.set("isLogedin", true);
+              sessionStorage.setItem('isLogedin', true);
               sessionStorage.setItem('userType', 'normal');
               // 跳转到主页
               this.$router.replace("/layout/home");

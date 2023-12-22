@@ -56,7 +56,7 @@ export default {
                 type: "success"
               });
               this.$session.set("email", this.name);
-              this.$session.set("isLogedin", true);
+              sessionStorage.setItem('isLogedin', true);
               sessionStorage.setItem('userType', 'normal');
               this.$router.replace("/layout/home");
             }

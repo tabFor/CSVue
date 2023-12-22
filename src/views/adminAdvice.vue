@@ -2,191 +2,54 @@
   <div class="app-container">
     <!--工具栏-->
     <div class="head-container">
-      <!-- 搜索 -->
-      <el-input
-        v-model="nickName"
-        size="small"
-        clearable
-        placeholder="输入用户昵称搜索"
-        style="width: 200px"
-        class="filter-item"
-        @keyup.enter.native="search"
-      />
-      <el-select
-        v-model="replied"
-        placeholder="是否已回复"
-        clearable
-        size="small"
-        style="width: 120px"
-        class="filter-item"
-      >
-        <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        />
-      </el-select>
-      <el-date-picker
-        v-model="createTime"
-        :default-time="['00:00:00', '23:59:59']"
-        type="daterange"
-        range-separator=":"
-        size="small"
-        class="date-item"
-        value-format="yyyy-MM-dd HH:mm:ss"
-        start-placeholder="开始日期"
-        end-placeholder="结束日期"
-      />
-      <el-button
-        class="filter-item"
-        size="mini"
-        type="success"
-        icon="el-icon-search"
-        @click="getList"
-      >搜索</el-button>
-      <el-button
-        class="filter-item"
-        size="mini"
-        type="danger"
-        icon="el-icon-circle-plus-outline"
-        :disabled="selections.length === 0"
-        @click="doDelete"
-      >删除</el-button>
+      <el-button class="filter-item" size="mini" type="success" icon="el-icon-search" @click="getList">刷新</el-button>
     </div>
 
     <el-row>
       <!--回复留言表单-->
-      <el-dialog
-        append-to-body
-        :close-on-click-modal="false"
-        :visible.sync="showDialog"
-        width="600px"
-      >
-        <el-form
-          ref="form"
-          :model="form"
-          size="small"
-          label-width="76px"
-        >
-          <el-form-item
-            label="留言信息"
-            prop=""
-          >
+      <el-dialog append-to-body :close-on-click-modal="false" :visible.sync="showDialog" width="600px">
+        <el-form ref="form" :model="form" size="small" label-width="76px">
+          <el-form-item label="留言信息" prop="">
             <el-card class="el-card-m">
               <span class="el-card-m-content">{{ form.content }}</span>
               <span class="el-card-m-nick-name">{{ form.nickName }}
               </span>
             </el-card>
           </el-form-item>
-          <el-form-item
-            label="回复留言"
-            prop="replyContent"
-          >
-            <el-input
-              v-model="form.replyContent"
-              rows="5"
-              type="textarea"
-            />
+          <el-form-item label="回复留言" prop="replyContent">
+            <el-input v-model="form.replyContent" rows="5" type="textarea" />
           </el-form-item>
 
         </el-form>
-        <div
-          slot="footer"
-          class="dialog-footer"
-        >
-          <el-button
-            type="text"
-            @click="doCancel"
-          >取消</el-button>
-          <el-button
-            type="primary"
-            @click="doSubmit"
-          >确认</el-button>
+        <div slot="footer" class="dialog-footer">
+          <el-button type="text" @click="doCancel">取消</el-button>
+          <el-button type="primary" @click="doSubmit">确认</el-button>
         </div>
       </el-dialog>
-      <el-table
-        ref="table"
-        v-loading="loading"
-        :data="allmessages"
-        style="width: 100%; font-size: 12px"
-        @selection-change="selectionChangeHandler"
-      >
-        <el-table-column
-          type="selection"
-          width="55"
-        />
-        <el-table-column
-          :show-overflow-tooltip="true"
-          width="120"
-          prop="userEmail"
-          label="留言用户"
-        />
-        <el-table-column
-          :show-overflow-tooltip="true"
-          width="120"
-          prop="adviceID"
-          label="留言ID"
-        />
+      <el-table ref="table" v-loading="loading" :data="allmessages" style="width: 100%; font-size: 12px"
+        @selection-change="selectionChangeHandler">
+        <el-table-column type="selection" width="55" />
+        <el-table-column :show-overflow-tooltip="true" width="120" prop="userEmail" label="留言用户" />
+        <el-table-column :show-overflow-tooltip="true" width="120" prop="adviceID" label="留言ID" />
 
-        <el-table-column
-          :show-overflow-tooltip="true"
-          prop="userAdvice"
-          width="200"
-          label="留言内容"
-        />
+        <el-table-column :show-overflow-tooltip="true" prop="userAdvice" width="200" label="留言内容" />
 
-        <el-table-column
-          prop="code"
-          width="80"
-          label="是否回复"
-        >
+        <el-table-column prop="code" width="80" label="是否回复">
           <template slot-scope="scope">
-            <el-switch
-              v-model="scopeRowCodeReply[scope.$index]"
-              :disabled="true"
-            />
+            <el-switch v-model="scopeRowCodeReply[scope.$index]" :disabled="true" />
           </template>
         </el-table-column>
-        <el-table-column
-          :show-overflow-tooltip="true"
-          prop="managerReceive"
-          width="200"
-          label="回复内容"
-        />
-        <el-table-column
-          label="操作"
-          width="160"
-          align="center"
-          fixed="right"
-        >
+        <el-table-column :show-overflow-tooltip="true" prop="managerReceive" width="200" label="回复内容" />
+        <el-table-column label="操作" width="160" align="center" fixed="right">
           <template slot-scope="scope">
-            <el-button
-              size="mini"
-              type="text"
-              round
-              @click="doReply(scope.row)"
-            >回复</el-button>
-            <el-button
-              size="mini"
-              type="text"
-              round
-              @click="handleDelete(scope.row)"
-            >删除</el-button>
+            <el-button size="mini" type="text" round @click="doReply(scope.row)">回复</el-button>
+            <el-button size="mini" type="text" round @click="handleDelete(scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
-      <el-pagination
-        class="page"
-        background
-        :current-page="currentPage"
-        :page-sizes="[5, 10, 15, 20]"
-        :page-size="pageSize"
-        layout="sizes,prev, pager, next"
-        :total="total"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-      />
+      <el-pagination class="page" background :current-page="currentPage" :page-sizes="[5, 10, 15, 20]"
+        :page-size="pageSize" layout="sizes,prev, pager, next" :total="total" @size-change="handleSizeChange"
+        @current-change="handleCurrentChange" />
     </el-row>
   </div>
 </template>
