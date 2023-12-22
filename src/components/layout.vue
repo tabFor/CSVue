@@ -22,7 +22,7 @@ export default {
     Test
   },
   mounted() {
-    // this.checklog();
+    this.checklog();
   },
   methods: {
     checklog() {

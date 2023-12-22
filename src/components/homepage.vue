@@ -182,23 +182,26 @@ export default {
       console.log(this.$global.dialogueID);
       console.log(this.$session.get("session-id"));
       try {
-        // 使用ajax发送post请求，请求地址为/chat/userMessage，请求头为text/plain，请求体为this.input
         this.$ajax
-          .get(
+          .post(
             "/chat/NewUserMessage",
-            // "" + this.input, // 发送的文本信息
+            {
+              sessionId: this.$session.get("session-id"),
+              dialogueId: this.$global.dialogueID,
+              userMessage: this.input,
+              userAdditionalRequest: this.talksetting
+            },
             {
               timeout: 200000000,
-              params: {
-                cookie: this.$session.get("session-id"),
-                dialogueid: this.$global.dialogueID,
-                userMessage: this.input,
-                userAdditionalRequest: this.talksetting
+
+              // Add headers if necessary
+              headers: {
+                "Content-Type": "application/json"
+                // other headers...
               }
-            } // 设置请求头
+            }
           )
           .then(
-            // 请求成功时，将返回的文本信息添加到items中，并将输入的文本信息设置为空，将loading和discheck设置为false
             res => {
               console.log(res.data);
               this.nowcheck = false;
@@ -212,7 +215,6 @@ export default {
               this.loading = false;
               this.discheck = false;
             },
-            // 请求失败时，将错误信息添加到items中，并将输入的文本信息设置为空，将loading和discheck设置为false
             err => {
               this.nowcheck = false;
               this.nowanswer = "";
@@ -231,13 +233,14 @@ export default {
         this.$message.error(error);
         this.loading = false;
       } finally {
-        //   this.loading = false;
+        // this.loading = false;
       }
     }
   },
   mounted() {
     this.items = this.$global.items;
     console.log(sessionStorage.getItem("items"));
+    this.newtalk();
   }
 };
 </script>
