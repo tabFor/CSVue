@@ -105,7 +105,7 @@ export default {
               console.assert("密码错误");
               this.$message("验证码错误");
             }
-            this.laoding = false;
+            this.loading = false;
           },
           err => {
             this.$message.error(err);

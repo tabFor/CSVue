@@ -87,6 +87,7 @@ export default {
         );
     },
     signin() {
+      this.$session.set("email", this.name);
       this.loading = true;
       this.$ajax
         .get("/user/check", {
@@ -100,18 +101,22 @@ export default {
         .then(
           res => {
             if (String(res.data) === "验证码正确") {
+              this.$session.set("email", this.name);
+              this.$global.email = this.name;
               this.$router.replace("/signsetting");
             } else {
               console.assert("密码错误");
               this.$message("验证码错误");
+              this.loading = false;
             }
-            this.laoding = false;
+            this.loading = false;
           },
           err => {
             this.$message.error(err);
             this.loading = false;
           }
         );
+      // .finally((this.loading = false));
     },
     backTLog() {
       this.$router.replace("/login");

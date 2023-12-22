@@ -81,7 +81,7 @@ export default {
                 message: "注册成功",
                 type: "success"
               });
-              this.$session.set("email", this.name);
+              // this.$session.set("email", this.name);
               sessionStorage.setItem("isLogedin", true);
               sessionStorage.setItem("userType", "normal");
               this.$router.replace("/layout/home");

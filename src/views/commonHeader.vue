@@ -36,14 +36,14 @@ export default {
               }
             })
             .then(res => {
-              sessionStorage.setItem("isLogedin", false);
-              sessionStorage.setItem("userType", "");
               this.$message.success("退出登录");
             })
             .catch(err => {
               this.$message.error("错误");
             });
-          this.$router.replace("/adminlogin");
+          sessionStorage.setItem("isLogedin", false);
+          sessionStorage.setItem("userType", "");
+          this.$router.replace("/");
           // 选项2的点击事件处理逻辑
           break;
         default:

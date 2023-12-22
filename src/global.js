@@ -8,5 +8,6 @@ export default {
     }
   ],
   dialogueID: "",
-  lawTable: [] // 法律库
+  lawTable: [],
+  email: "" // 法律库
 };

@@ -168,7 +168,7 @@ export default {
     };
   },
   mounted() {
-    this.getNickname();
+    (this.input1 = this.$session.get("email")), this.getNickname();
   },
   methods: {
     submiterror() {

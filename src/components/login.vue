@@ -105,9 +105,9 @@ export default {
               this.$router.replace("/layout/home");
             } else {
               // 输入错误
-              console.assert("密码错误");
+              // console.assert("密码错误");
               // 提示错误信息
-              this.$message("输入错误" + String(res.data));
+              this.$message.error("输入错误" + String(res.data));
             }
             // 加载结束
             this.loading = false;
@@ -116,7 +116,7 @@ export default {
           },
           err => {
             // 网络错误
-            this.$message(err);
+            this.$message.error(err);
             // 加载结束
             this.loading = false;
             // 隐藏密码
