@@ -226,7 +226,7 @@ export default {
             this.$message.error("用户已存在");
           }
           // 请求成功，获取返回的数据
-          console.log(response.data);
+
           // ...
         })
         .catch(error => {
@@ -313,7 +313,7 @@ export default {
             this.$message.error("用户不存在");
           }
           // 请求成功，获取返回的数据
-          console.log(response.data);
+
           // ...
         })
         .catch(error => {
@@ -380,7 +380,7 @@ export default {
           },
           err => {
             this.$message.error(err);
-            console.log(err);
+
             this.isload = false;
           }
         );
@@ -421,7 +421,7 @@ export default {
           },
           err => {
             this.$message.error(err);
-            console.log(err);
+
             this.isload = false;
           }
         );

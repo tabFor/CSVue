@@ -58,7 +58,7 @@ export default {
       //发送验证码
       this.loading = true;
       this.$session.set("email", "");
-      console.log(this.$session.get("email"));
+
       this.$ajax
         .get("/user/findpassword", {
           headers: {
@@ -73,16 +73,15 @@ export default {
             if (String(res.data) === "邮箱未注册") {
               this.$message.error("邮箱未注册");
             } else {
-              console.log(res.data);
               this.signcode = res.data;
-              console.log(this.signcode);
+
               this.$session.set("email", this.name);
             }
             this.loading = false;
           },
           err => {
             this.$message.error(err);
-            console.log(err);
+
             this.loading = false;
           }
         );
@@ -100,7 +99,6 @@ export default {
         })
         .then(
           res => {
-            console.log(res.data);
             if (String(res.data) === "验证码正确") {
               this.$router.replace("/forgetset");
             } else {
@@ -111,7 +109,7 @@ export default {
           },
           err => {
             this.$message.error(err);
-            console.log(err);
+
             this.loading = false;
           }
         );

@@ -77,7 +77,7 @@ export default {
   methods: {
     signin() {
       this.loading = true;
-      console.log(this.$session.get("email"));
+
       this.$ajax
         .get("/user/changepassword", {
           params: {
@@ -88,7 +88,6 @@ export default {
         })
         .then(
           res => {
-            console.log(res.data);
             if (String(res.data) === "修改成功") {
               this.$message({
                 message: "修改密码成功",
@@ -98,7 +97,7 @@ export default {
               this.loading = false;
             } else {
               this.$message.error("原密码错误");
-              console.log(res.data);
+
               this.loading = false;
             }
           },
@@ -107,7 +106,7 @@ export default {
               message: "失败",
               type: "error"
             });
-            console.log(err);
+
             this.loading = false;
           }
         );

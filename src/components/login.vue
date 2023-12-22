@@ -1,23 +1,50 @@
 <template>
   <div class="login">
     <div>
-      <el-input placeholder="请输入邮箱" v-model="name" clearable class="input_style"></el-input>
+      <el-input
+        placeholder="请输入邮箱"
+        v-model="name"
+        clearable
+        class="input_style"
+      ></el-input>
       <el-tag :type="isValidEmail(this.name) ? '' : 'danger'">{{ namecheck }}</el-tag>
     </div>
 
     <div>
-      <el-input placeholder="请输入密码" v-model="pwd" show-password class="input_style"></el-input>
+      <el-input
+        placeholder="请输入密码"
+        v-model="pwd"
+        show-password
+        class="input_style"
+      ></el-input>
       <el-tag :type="isValidPassword(this.pwd) ? '' : 'danger'">{{ passwordcheck }}</el-tag>
     </div>
 
     <div>
-      <el-button :disabled="!(isValidEmail(this.name) && isValidPassword(this.pwd) && !discheck)" type="primary"
-        @click="login" v-loading="loading" class="login_style">登录</el-button>
-      <el-button type="primary" @click="signin" class="login_style" :disabled="discheck">注册</el-button>
+      <el-button
+        :disabled="!(isValidEmail(this.name) && isValidPassword(this.pwd) && !discheck)"
+        type="primary"
+        @click="login"
+        v-loading="loading"
+        class="login_style"
+      >登录</el-button>
+      <el-button
+        type="primary"
+        @click="signin"
+        class="login_style"
+        :disabled="discheck"
+      >注册</el-button>
     </div>
     <div>
-      <el-button type="text" @click="forget" :disabled="discheck">忘记密码</el-button>
-      <el-button type="text" @click="tohello">返回主页</el-button>
+      <el-button
+        type="text"
+        @click="forget"
+        :disabled="discheck"
+      >忘记密码</el-button>
+      <el-button
+        type="text"
+        @click="tohello"
+      >返回主页</el-button>
 
     </div>
   </div>
@@ -69,12 +96,11 @@ export default {
         })
         .then(
           res => {
-            console.log(res.data);
             // 登录成功
             if (String(res.data) === "登录成功") {
               this.$session.set("email", this.name);
-              sessionStorage.setItem('isLogedin', true);
-              sessionStorage.setItem('userType', 'normal');
+              sessionStorage.setItem("isLogedin", true);
+              sessionStorage.setItem("userType", "normal");
               // 跳转到主页
               this.$router.replace("/layout/home");
             } else {
@@ -89,7 +115,6 @@ export default {
             this.discheck = false;
           },
           err => {
-            console.log(err);
             // 网络错误
             this.$message(err);
             // 加载结束

@@ -24,9 +24,6 @@ export default {
   },
   methods: {
     handleSelect(key, keyPath) {
-      console.log("当前路由信息对象", this.$router.currentRoute);
-      console.log("当前路由路径", this.$router.currentRoute.path);
-      console.log(key, keyPath);
       this.activeIndex2 = key;
       this.$router.replace(this.activeIndex2);
     }
