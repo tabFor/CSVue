@@ -10,17 +10,17 @@
           <el-input
             :disabled="isload"
             v-model="keyword"
-            placeholder="输入法律关键词"
+            placeholder="输入法律关键词，如：专利，合同"
           ></el-input>
           <el-input
             :disabled="isload"
             v-model="lawname"
-            placeholder="输入法律名"
+            placeholder="输入法律名，如：专利法"
           ></el-input>
           <el-input
             :disabled="isload"
             v-model="lawcontent"
-            placeholder="输入法律条例"
+            placeholder="输入法律条例，如：第十一条"
           ></el-input>
         </el-form-item>
         <el-form-item label="搜索">

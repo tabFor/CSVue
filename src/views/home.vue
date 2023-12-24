@@ -20,6 +20,7 @@ body {
 
 .el-main {
   background-color: aliceblue;
+  height: 90vh;
 }
 
 .el-header {
