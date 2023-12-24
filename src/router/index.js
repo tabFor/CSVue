@@ -176,7 +176,7 @@ const pathsForNormalUser = [
   "/layout/dialog",
   "/layout/user"
 ];
-const pathsForAdminUser = ["/admin/user", "/admin/law", "/admin/advice"];
+const pathsForAdminUser = ["/admin/user", "/admin/law", "/admin/advice", "/admin/show"];
 
 router.beforeEach((to, from, next) => {
   // 获取token

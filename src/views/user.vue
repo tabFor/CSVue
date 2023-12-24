@@ -3,139 +3,66 @@
     <h3>用户界面</h3>
     <div class="manage-header">
       <!-- 新增按钮 -->
-      <el-button
-        type="primary"
-        @click="handlecreate"
-      >+ 新增</el-button>
+      <el-button type="primary" @click="handlecreate">+ 新增</el-button>
 
       <!-- 对话框:点击新增或编辑才会弹出表单 -->
       <!-- :before-close="closeDialog" 点击关闭的x之前要做的事情 -->
-      <el-dialog
-        :title="modalType == 0 ? '新建' : '编辑'"
-        :visible.sync="dialogVisible"
-        width="50%"
-        :before-close="closeDialog"
-      >
+      <el-dialog :title="modalType == 0 ? '新建' : '编辑'" :visible.sync="dialogVisible" width="50%"
+        :before-close="closeDialog">
         <!-- 表单Form -->
         <!-- ref=form:为了通过this.$refs调用组件的方法 -->
-        <el-form
-          :inline="true"
-          :model="form"
-          :rules="rules"
-          ref="form"
-          label-width="80px"
-        >
+        <el-form :inline="true" :model="form" :rules="rules" ref="form" label-width="80px">
           <!-- 每一项表单域:el-form-item -->
-          <el-form-item
-            label="姓名"
-            prop="name"
-          >
-            <el-input
-              placeholder="请输入姓名"
-              v-model="form.userName"
-            ></el-input>
+          <el-form-item label="姓名" prop="name">
+            <el-input placeholder="请输入姓名" v-model="form.userName"></el-input>
           </el-form-item>
 
-          <el-form-item
-            label="邮箱"
-            prop="email"
-          >
-            <el-input
-              placeholder="请输入邮箱"
-              v-model="form.userEmail"
-            ></el-input>
+          <el-form-item label="邮箱" prop="email">
+            <el-input placeholder="请输入邮箱" v-model="form.userEmail"></el-input>
           </el-form-item>
-          <el-form-item
-            label="密码"
-            prop="password"
-          >
-            <el-input
-              placeholder="请输入密码"
-              v-model="form.userPassword"
-            ></el-input>
+          <el-form-item label="密码" prop="password">
+            <el-input placeholder="请输入密码" v-model="form.userPassword"></el-input>
           </el-form-item>
         </el-form>
-        <div
-          slot="footer"
-          class="dialog-footer"
-        >
+        <div slot="footer" class="dialog-footer">
           <el-button @click="closeDialog">取 消</el-button>
-          <el-button
-            type="primary"
-            @click="submit"
-          >确 定</el-button>
+          <el-button type="primary" @click="submit">确 定</el-button>
         </div>
       </el-dialog>
 
       <!-- 搜索框 -->
       <el-form :inline="true">
         <el-form-item>
-          <el-input
-            v-model="searchForm.name"
-            placeholder="请输入名称"
-          ></el-input>
+          <el-input v-model="searchForm.name" placeholder="请输入用户名"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-input
-            v-model="searchForm.email"
-            placeholder="请输入邮箱"
-          ></el-input>
+          <el-input v-model="searchForm.email" placeholder="请输入邮箱"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button
-            type="primary"
-            @click="search"
-          >查询</el-button>
+          <el-button type="primary" @click="search">查询</el-button>
         </el-form-item>
       </el-form>
     </div>
     <div>
-      <el-table
-        ref="multipleTable"
-        :data="tableData"
-        tooltip-effect="dark"
-        style="width: 100%"
-        @selection-change="handleSelectionChange"
-      >
-        <el-table-column
-          type="selection"
-          width="55"
-        >
+      <el-table ref="multipleTable" :data="tableData.slice((currentPage - 1) * pageSize, currentPage * pageSize)"
+        tooltip-effect="dark" style="width: 100%">
+        <el-table-column prop="userEmail" label="邮箱" width="180">
         </el-table-column>
-        <el-table-column
-          prop="userEmail"
-          label="邮箱"
-          width="180"
-        >
+        <el-table-column prop="userName" label="用户名" width="120">
         </el-table-column>
-        <el-table-column
-          prop="userName"
-          label="用户名"
-          width="120"
-        >
-        </el-table-column>
-        <el-table-column
-          prop="userPassword"
-          label="密码"
-          show-overflow-tooltip
-        >
+        <el-table-column prop="userPassword" label="密码" show-overflow-tooltip>
         </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button @click="handleEdit(scope.row)">编辑</el-button>
-            <el-button
-              type="danger"
-              @click="handleDelete(scope.row)"
-            >删除</el-button>
+            <el-button type="danger" @click="handleDelete(scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
       <div class="pager">
-        <el-pagination
-          layout="prev, pager, next"
-          :total="total"
-          @current-change="currentChange"
-        >
+        <el-pagination align='center' @size-change="handleSizeChange" @current-change="handleCurrentChange"
+          :current-page="currentPage" :page-sizes="[1, 5]" :page-size="pageSize"
+          layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
         </el-pagination>
       </div>
       <div style="margin-top: 20px">
@@ -182,12 +109,9 @@ export default {
       // 打开表单:新建0,编辑1
       modalType: 0,
       // 分页的对象
-      pageData: {
-        page: 1,
-        limit: 20
-      },
-      // 分页页数
-      total: 0,
+      currentPage: 1, // 当前页码
+      total: 20, // 总条数
+      pageSize: 5, //
       // 搜索框表单
       searchForm: {
         name: "",
@@ -197,6 +121,14 @@ export default {
   },
 
   methods: {
+    handleSizeChange(val) {
+      this.currentPage = 1;
+      this.pageSize = val;
+    },
+    //当前页改变时触发 跳转其他页
+    handleCurrentChange(val) {
+      this.currentPage = val;
+    },
     toggleSelection(rows) {
       if (rows) {
         rows.forEach(row => {
