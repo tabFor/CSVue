@@ -4,57 +4,29 @@
     <div class="chatpdf">
       <div class="pannel">
         <div class="fileList">
-          <el-button
-            round
-            class="fileTitle"
-            @click="newtalk"
-          >新建对话</el-button>
+          <el-button round class="fileTitle" @click="newtalk">新建对话</el-button>
           <br>
-          <el-button
-            round
-            class="fileTitle"
-            @click="savetalk"
-            v-loading="loading"
-            :disabled="discheck"
-          >保存对话</el-button>
+          <el-button round class="fileTitle" @click="savetalk" v-loading="loading" :disabled="discheck">保存对话</el-button>
           <br>
-          <el-button
-            round
-            class="fileTitle"
-            @click="mytalk"
-          >自定义对话</el-button>
+          <el-button round class="fileTitle" @click="mytalk">自定义对话</el-button>
         </div>
         <div class="fileList">
           <div v-if="ifset">
-            <el-input
-              type="textarea"
-              :rows="2"
-              :autosize="{ minRows: 10, maxRows: 16}"
-              v-model="talksetting"
-              placeholder="请输入你希望的回答风格"
-            ></el-input>
+            <el-input type="textarea" :rows="2" :autosize="{ minRows: 10, maxRows: 16 }" v-model="talksetting"
+              placeholder="请输入你希望的回答风格"></el-input>
             <br>
             <hr>
             <el-button @click="changestyle">确定</el-button>
           </div>
           <div v-if="!ifset">
-            <img
-              :src="require('@/assets/AI.png')"
-              alt="logo"
-            >
-            <img
-              :src="require('@/assets/co.png')"
-              alt="logo"
-            >
+            <img :src="require('@/assets/AI.png')" alt="logo">
+            <img :src="require('@/assets/co.png')" alt="logo">
           </div>
         </div>
       </div>
       <div class="chatpdfBox">
         <div class="chatpdfLine">
-          <div
-            v-for="item in items"
-            v-bind:key="item"
-          >
+          <div v-for="item in items" v-bind:key="item">
             <div class="chatpdfRow chatpdfAsk">
               <div class="chatpdfContent">{{ item.inputask }}</div>
             </div>
@@ -67,28 +39,14 @@
               <div class="chatpdfContent">{{ nowask }}</div>
             </div>
             <div class="chatpdfRow">
-              <div
-                class="chatpdfContent"
-                v-loading="loading"
-              >{{ nowanswer }}</div>
+              <div class="chatpdfContent" v-loading="loading">{{ nowanswer }}</div>
             </div>
           </div>
         </div>
         <div class="chatpdfArea">
-          <el-input
-            :disabled="nowcheck"
-            type="textarea"
-            :rows="2"
-            v-model="input"
-            placeholder="请输入内容"
-            :autosize="{ minRows: 1, maxRows: 5}"
-          ></el-input>
-          <el-button
-            v-loading="loading"
-            type="primary"
-            v-on:click="submit"
-            :disabled="discheck"
-          >提交</el-button>
+          <el-input :disabled="nowcheck" type="textarea" :rows="2" v-model="input" placeholder="请输入内容"
+            :autosize="{ minRows: 1, maxRows: 5 }"></el-input>
+          <el-button v-loading="loading" type="primary" v-on:click="submit" :disabled="discheck">提交</el-button>
         </div>
       </div>
     </div>
@@ -139,7 +97,7 @@ export default {
         });
       this.items = [
         {
-          massgge: "欢迎使用",
+          massgge: "欢迎使用AI对话功能，请输入你有疑问的合同内容和你的问题，或者简单询问一些法律问题，系统会自动回答你的问题。这个过程可能需要一点时间，请耐心等待。",
           inputask: "AI对话"
         }
       ];
@@ -245,10 +203,12 @@ export default {
   height: 90.5vh;
   flex-direction: row;
 }
+
 .chatpdf .pannel {
   width: 255px;
   background-color: #66a6ff;
 }
+
 .chatpdfBox {
   display: flex;
   flex-direction: column;
@@ -257,6 +217,7 @@ export default {
   background-size: cover;
   background-attachment: fixed;
 }
+
 .chatpdfLine {
   flex: 1;
   width: 100%;
@@ -264,13 +225,16 @@ export default {
   margin: 0 auto;
   overflow-y: auto;
 }
+
 .chatpdfRow {
   margin: 20px 10px;
   display: flex;
 }
+
 .chatpdfAsk {
   justify-content: flex-end;
 }
+
 .chatpdfContent {
   display: inline-block;
   border-radius: 8px;
@@ -282,10 +246,12 @@ export default {
   box-shadow: 0px 0.3px 0.9px rgba(0, 0, 0, 0.12),
     0px 1.6px 3.6px rgba(0, 0, 0, 0.16);
 }
+
 .chatpdfAsk .chatpdfContent {
   background: linear-gradient(90deg, #2870ea 10.79%, #1b4aef 87.08%);
   color: #fff;
 }
+
 .chatpdfArea {
   display: flex;
   padding: 5px 10px;
@@ -295,6 +261,7 @@ export default {
   margin-right: auto;
   width: 100%;
 }
+
 .chatpdfArea textarea {
   flex: 1;
   border-color: #d9d9d9;
@@ -307,9 +274,11 @@ export default {
   border-radius: 10px 0px 0px 10px;
   transition: all 0.3s, height 0s;
 }
+
 .chatpdfArea textarea:hover {
   border-color: #4096ff;
 }
+
 .chatpdfArea button {
   height: 35px;
   color: #fff;
@@ -320,21 +289,26 @@ export default {
   border-radius: 0px 8px 8px 0px;
   cursor: pointer;
 }
+
 .chatpdfArea button:hover {
   background-color: #388aff;
 }
+
 .chatpdf .fileTitle {
   padding: 10px;
   margin: 10px;
   font-size: 14px;
   width: 150px;
 }
+
 .inputbox {
   width: 800px;
 }
+
 body {
   margin: 0;
 }
+
 @media (max-width: 768px) {
   .pannel {
     display: none;

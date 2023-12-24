@@ -9,15 +9,7 @@
           </el-form-item>
           <el-form-item label="法律内容">
             <el-input v-model="lawForm.content" type="textarea" placeholder="输入合同内容"
-              :autosize="{ minRows: 10, maxRows: 20 }"></el-input>
-          </el-form-item>
-          <el-form-item label="法律内容">
-            <el-upload class="upload-demo" action="/upload" :on-success="handleUploadSuccess"
-              :before-upload="beforeUpload" :file-list="fileList" multiple :limit="3" :auto-upload="false">
-              <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-              <el-button size="small" type="success" @click="submitUpload">上传到服务器</el-button>
-              <div slot="tip" class="el-upload__tip">只能上传doc/txt文件</div>
-            </el-upload>
+              :autosize="{ minRows: 10, maxRows: 30 }"></el-input>
           </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">

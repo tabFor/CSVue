@@ -13,11 +13,11 @@
         <!-- ref=form:为了通过this.$refs调用组件的方法 -->
         <el-form :inline="true" :model="form" :rules="rules" ref="form" label-width="80px">
           <!-- 每一项表单域:el-form-item -->
-          <el-form-item label="姓名" prop="name">
-            <el-input placeholder="请输入姓名" v-model="form.userName"></el-input>
+          <el-form-item label="姓名" prop="name" :disabled="inputDisabled">
+            <el-input placeholder="请输入用户名" v-model="form.userName"></el-input>
           </el-form-item>
 
-          <el-form-item label="邮箱" prop="email">
+          <el-form-item label="邮箱" prop="email" :disabled="inputDisabled">
             <el-input placeholder="请输入邮箱" v-model="form.userEmail"></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="password">
@@ -49,8 +49,6 @@
         <el-table-column prop="userEmail" label="邮箱" width="180">
         </el-table-column>
         <el-table-column prop="userName" label="用户名" width="120">
-        </el-table-column>
-        <el-table-column prop="userPassword" label="密码" show-overflow-tooltip>
         </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
@@ -108,6 +106,7 @@ export default {
       dialogVisible: false,
       // 打开表单:新建0,编辑1
       modalType: 0,
+      inputDisabled: false,
       // 分页的对象
       currentPage: 1, // 当前页码
       total: 20, // 总条数
@@ -226,9 +225,11 @@ export default {
     // 编辑按钮
     handleEdit(index) {
       this.modalType = 1;
+      this.inputDisabled = true;
       this.openForm();
       // 深拷贝
       this.form = JSON.parse(JSON.stringify(index));
+      this.form.userPassword = ""
     },
     deleteUser(email) {
       this.$ajax
@@ -264,10 +265,6 @@ export default {
         .then(() => {
           // 删除操作:根据后端接口,参数是对象,id是唯一标识符
           deleteUser({ id: index.email }).then(() => {
-            this.$message({
-              type: "success",
-              message: "删除成功!"
-            });
             this.getList();
           });
         })
@@ -281,6 +278,7 @@ export default {
     },
     // 新建按钮
     handlecreate() {
+      this.inputDisabled = false;
       this.modalType = 0;
       this.openForm();
     },

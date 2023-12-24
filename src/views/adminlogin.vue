@@ -76,7 +76,7 @@ export default {
               sessionStorage.setItem("isLogedin", true);
               sessionStorage.setItem("userType", "admin");
               // 跳转到主页
-              this.$router.replace("/admin");
+              this.$router.replace("/admin/advice");
             } else {
               // 输入错误
               console.assert("密码错误");
