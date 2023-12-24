@@ -24,7 +24,7 @@ axios.defaults.baseURL = "http://110.238.65.174:8080";
 //   return config;
 // }, function (error) {
 //   // 对请求错误做些什么
-//   console.log(error);
+
 //   return Promise.reject(error);
 // });
 

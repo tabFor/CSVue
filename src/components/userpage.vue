@@ -106,7 +106,7 @@ export default {
     };
   },
   mounted() {
-    this.getNickname();
+    (this.input1 = this.$session.get("email")), this.getNickname();
   },
   methods: {
     submiterror() {
@@ -118,13 +118,11 @@ export default {
           }
         })
         .then(res => {
-          console.log(res);
           this.$message.success(res.data);
           this.$message.success("提交反馈成功");
           return res.data;
         })
         .catch(err => {
-          console.log(err);
           this.$message.error("失败");
         });
 
@@ -138,12 +136,10 @@ export default {
           }
         })
         .then(res => {
-          console.log(res);
           this.nickname = res.data;
           return res.data;
         })
         .catch(err => {
-          console.log(err);
           this.$message.error("获取昵称失败");
         });
     },
@@ -156,23 +152,16 @@ export default {
           }
         })
         .then(res => {
-          console.log(res);
           this.$message.success("修改成功");
-          console.log(res.data);
-          console.log(res.data.length);
+
           this.dialogVisible = false;
         })
         .catch(err => {
-          console.log(err);
           this.$message.error("修改失败");
         });
     },
-    handleEdit(index, row) {
-      console.log(index, row);
-    },
-    handleDelete(index, row) {
-      console.log(index, row);
-    },
+    handleEdit(index, row) { },
+    handleDelete(index, row) { },
     handleCommand(command) {
       if (command === "a") {
         this.$router.replace("/changepwd");
@@ -195,13 +184,10 @@ export default {
         this.$session.set("session-id", "114514");
         this.$session.remove("session-id");
         sessionStorage.setItem("session-id", "");
-        //退出登录后改变的值
-        sessionStorage.setItem('isLogedin', false);
-        sessionStorage.setItem('userType', '');
-        const is = sessionStorage.getItem('isLogedin') || false;
-        console.log(is + '已修改isLogedin');
+        sessionStorage.setItem("isLogedin", false);
+        sessionStorage.setItem("userType", "");
         this.index = "Yes";
-        console.log(this.index);
+
         this.$router.replace({ path: "/" });
         this.$session.destory();
       }

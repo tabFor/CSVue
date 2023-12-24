@@ -66,7 +66,7 @@ export default {
   methods: {
     signin() {
       this.loading = true;
-      console.log(this.$session.get("email"));
+
       this.$ajax
         .get("/managerresetpassword", {
           params: {
@@ -76,7 +76,6 @@ export default {
         })
         .then(
           res => {
-            console.log(res.data);
             if (String(res.data) === "修改密码成功") {
               this.$message({
                 message: "重置密码成功",
@@ -84,7 +83,7 @@ export default {
               });
               this.$router.replace("/admin/advice");
             }
-            console.log(res.data);
+
             this.loading = false;
           },
           err => {
@@ -92,7 +91,7 @@ export default {
               message: "失败",
               type: "success"
             });
-            console.log(err);
+
             this.loading = false;
           }
         );

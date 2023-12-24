@@ -45,12 +45,12 @@ export default {
   methods: {
     userLogin() {
       // 这里添加用户登录的代码
-      console.log("用户登录");
+
       this.$router.replace("/login");
     },
     adminLogin() {
       // 这里添加管理员登录的代码
-      console.log("管理员登录");
+
       this.$router.replace("/adminlogin");
     }
   }

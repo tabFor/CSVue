@@ -57,7 +57,7 @@ export default {
     getcode() {
       this.loading = true;
       //发送验证码
-      console.log(this.$session.get("email"));
+
       this.$ajax
         .get("/user/signup", {
           headers: {
@@ -74,20 +74,20 @@ export default {
               this.loading = false;
             } else {
               this.$session.set("email", this.name);
-              console.log(res.data);
+
               this.signcode = res.data;
-              console.log(this.signcode);
+
               this.loading = false;
             }
           },
           err => {
-            console.log(err);
             this.$message.error(err);
             this.loading = false;
           }
         );
     },
     signin() {
+      this.$session.set("email", this.name);
       this.loading = true;
       this.$ajax
         .get("/user/check", {
@@ -100,20 +100,23 @@ export default {
         })
         .then(
           res => {
-            console.log(res.data);
             if (String(res.data) === "验证码正确") {
+              this.$session.set("email", this.name);
+              this.$global.email = this.name;
               this.$router.replace("/signsetting");
             } else {
               console.assert("密码错误");
               this.$message("验证码错误");
+              this.loading = false;
             }
-            this.laoding = false;
+            this.loading = false;
           },
           err => {
             this.$message.error(err);
             this.loading = false;
           }
         );
+      // .finally((this.loading = false));
     },
     backTLog() {
       this.$router.replace("/login");

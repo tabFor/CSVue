@@ -132,11 +132,9 @@ export default {
           }
         })
         .then(response => {
-          console.log(response);
           this.$message.success("新建成功");
         })
         .catch(error => {
-          console.log(error);
           this.$message.error("出现错误");
         });
       this.items = [
@@ -145,11 +143,10 @@ export default {
           inputask: "AI对话"
         }
       ];
-      // this.$global.dialogueID = "0";
+      this.$global.items = this.items;
       // this.$router.go(0);
     },
     savetalk() {
-      console.log(this.$global.dialogueID);
       this.$ajax
         .post("/user/savedialogue", JSON.stringify(this.items), {
           headers: {
@@ -159,11 +156,9 @@ export default {
           }
         })
         .then(response => {
-          console.log(response);
           this.$message.success("保存成功");
         })
         .catch(error => {
-          console.log(error);
           this.$message.error("保存失败");
         });
     },
@@ -178,9 +173,7 @@ export default {
       this.loading = true;
       // 设置discheck为true
       this.discheck = true;
-      console.log("Submit");
-      console.log(this.$global.dialogueID);
-      console.log(this.$session.get("session-id"));
+
       try {
         this.$ajax
           .post(
@@ -203,7 +196,6 @@ export default {
           )
           .then(
             res => {
-              console.log(res.data);
               this.nowcheck = false;
               this.nowanswer = "";
               this.nowask = "";
@@ -229,7 +221,6 @@ export default {
             }
           );
       } catch (error) {
-        console.log(error);
         this.$message.error(error);
         this.loading = false;
       } finally {
@@ -239,8 +230,11 @@ export default {
   },
   mounted() {
     this.items = this.$global.items;
-    console.log(sessionStorage.getItem("items"));
-    this.newtalk();
+
+    // this.newtalk();
+  },
+  created() {
+    // this.newtalk();
   }
 };
 </script>

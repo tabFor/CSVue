@@ -117,8 +117,19 @@ export default {
   },
   methods: {
     continuedia() {
+      this.$ajax
+        .get("/user/loaddialogue", {
+          params: {
+            cookie: this.$session.get("session-id"),
+            dialogueid: this.$global.dialogueID
+          }
+        })
+        .then(res => {})
+        .catch(err => {
+          this.$message.error("加载失败");
+        });
       this.$global.items = this.items;
-      console.log(this.$global.items);
+
       this.$router.replace("/layout/home");
     },
     open(a, b) {
@@ -138,7 +149,6 @@ export default {
         });
     },
     fetchData() {
-      console.log("fetchData");
       this.$ajax
         .post("/user/showdialogues", this.tableData, {
           headers: {
@@ -146,39 +156,29 @@ export default {
           }
         })
         .then(res => {
-          console.log(this.$session.get("session-id"));
-          console.log(res.data);
-          console.log(res);
           this.tableData.length = 0;
           for (let i = 0; i < res.data.length; i++) {
             this.tableData.push(res.data[i]);
-            console.log(this.tableData[i]);
           }
           this.tableData.reverse();
           this.$message.success("加载成功");
         })
         .catch(err => {
-          console.log(err);
           this.$message.error("加载失败");
         });
     },
     //每页条数改变时触发 选择一页显示多少行
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
       this.currentPage = 1;
       this.pageSize = val;
     },
     //当前页改变时触发 跳转其他页
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
       this.currentPage = val;
     },
     handleLook(index, row) {
-      console.log(this.$global.dialogueID);
       this.$global.dialogueID = row.dialogueId;
-      console.log(row.dialogueId);
-      console.log(this.$global.dialogueID);
-      console.log(index, row, row.time);
+
       this.$ajax
         .get("/user/showdialogue", {
           params: {
@@ -188,25 +188,20 @@ export default {
           }
         })
         .then(res => {
-          console.log(res);
           this.$message.success("预览成功");
-          console.log(res.data);
-          console.log(res.data.length);
+
           this.items.length = 0;
           for (let i = 0; i < res.data.length; i++) {
             this.items.push(res.data[i]);
-            console.log(this.items[i]);
           }
 
           this.dialogVisible = true;
         })
         .catch(err => {
-          console.log(err);
           this.$message.error("预览失败");
         });
     },
     handleDelete(index, row) {
-      console.log(index, row, row.date);
       this.$ajax
         .get("/user/deletedialogue", {
           params: {
@@ -216,11 +211,10 @@ export default {
         })
         .then(res => {
           location.reload();
-          console.log(res);
+
           this.$message.success("删除成功");
         })
         .catch(err => {
-          console.log(err);
           this.$message.error("删除失败");
         });
     }

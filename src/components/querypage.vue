@@ -128,9 +128,6 @@ export default {
         })
         .then(
           res => {
-            console.log(res);
-            console.log(this.tableData);
-            console.log(res.data.length);
             if (res.data.length === 0) {
               this.tableData.length = 0;
 
@@ -141,7 +138,6 @@ export default {
               this.tableData.length = 0;
               for (let i = 0; i < res.data.length; i++) {
                 this.tableData.push(res.data[i]);
-                console.log(this.tableData[i]);
               }
               this.$message.success("查询成功");
               this.isload = false;
@@ -149,14 +145,14 @@ export default {
           },
           err => {
             this.$message.error(err);
-            console.log(err);
+
             this.isload = false;
           }
         );
     },
     searchLaw() {
       this.isload = true;
-      console.log(this.content);
+
       this.$ajax
         .post("/user/longsearch", this.content, {
           headers: {
@@ -165,9 +161,6 @@ export default {
         })
         .then(
           res => {
-            console.log(res.data);
-            console.log(this.tableData);
-            console.log(res.data.length);
             if (res.data.length === 0) {
               this.tableData.length = 0;
 
@@ -178,7 +171,6 @@ export default {
               this.tableData.length = 0;
               for (let i = 0; i < res.data.length; i++) {
                 this.tableData.push(res.data[i]);
-                console.log(this.tableData[i]);
               }
               this.$message.success("查询成功");
               this.isload = false;
@@ -186,20 +178,18 @@ export default {
           },
           err => {
             this.$message.error(err);
-            console.log(err);
+
             this.isload = false;
           }
         );
     },
     //每页条数改变时触发 选择一页显示多少行
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
       this.currentPage = 1;
       this.pageSize = val;
     },
     //当前页改变时触发 跳转其他页
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
       this.currentPage = val;
     }
   }

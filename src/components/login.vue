@@ -12,7 +12,7 @@
 
     <div>
       <el-button :disabled="!(isValidEmail(this.name) && isValidPassword(this.pwd) && !discheck)" type="primary"
-        @click="test" v-loading="loading" class="login_style">登录</el-button>
+        @click="login" v-loading="loading" class="login_style">登录</el-button>
       <el-button type="primary" @click="signin" class="login_style" :disabled="discheck">注册</el-button>
     </div>
     <div>
@@ -74,19 +74,18 @@ export default {
         })
         .then(
           res => {
-            console.log(res.data);
             // 登录成功
             if (String(res.data) === "登录成功") {
               this.$session.set("email", this.name);
-              sessionStorage.setItem('isLogedin', true);
-              sessionStorage.setItem('userType', 'normal');
+              sessionStorage.setItem("isLogedin", true);
+              sessionStorage.setItem("userType", "normal");
               // 跳转到主页
               this.$router.replace("/layout/home");
             } else {
               // 输入错误
-              console.assert("密码错误");
+              // console.assert("密码错误");
               // 提示错误信息
-              this.$message("输入错误" + String(res.data));
+              this.$message.error("输入错误" + String(res.data));
             }
             // 加载结束
             this.loading = false;
@@ -94,9 +93,8 @@ export default {
             this.discheck = false;
           },
           err => {
-            console.log(err);
             // 网络错误
-            this.$message(err);
+            this.$message.error(err);
             // 加载结束
             this.loading = false;
             // 隐藏密码
