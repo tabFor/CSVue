@@ -1,146 +1,65 @@
 <template>
   <div>
     <div>
-      <el-button
-        type="primary"
-        @click="showDialog"
-      >+新增法律条文</el-button>
-      <el-dialog
-        title="新增法律条文"
-        :visible.sync="dialogVisible"
-      >
-        <el-form
-          ref="lawForm"
-          :model="lawForm"
-          label-width="100px"
-        >
+      <el-button type="primary" @click="showDialog">+新增法律条文</el-button>
+      <el-dialog title="新增法律条文" :visible.sync="dialogVisible">
+        <el-form ref="lawForm" :model="lawForm" label-width="100px">
           <el-form-item label="法律名称">
             <el-input v-model="lawForm.name"></el-input>
           </el-form-item>
           <el-form-item label="法律内容">
-            <el-input
-              v-model="lawForm.content"
-              type="textarea"
-              placeholder="输入合同内容"
-              :autosize="{ minRows: 10, maxRows: 20 }"
-            ></el-input>
+            <el-input v-model="lawForm.content" type="textarea" placeholder="输入合同内容"
+              :autosize="{ minRows: 10, maxRows: 20 }"></el-input>
           </el-form-item>
           <el-form-item label="法律内容">
-            <el-upload
-              class="upload-demo"
-              action="/upload"
-              :on-success="handleUploadSuccess"
-              :before-upload="beforeUpload"
-              :file-list="fileList"
-              multiple
-              :limit="3"
-              :auto-upload="false"
-            >
-              <el-button
-                slot="trigger"
-                size="small"
-                type="primary"
-              >选取文件</el-button>
-              <el-button
-                size="small"
-                type="success"
-                @click="submitUpload"
-              >上传到服务器</el-button>
-              <div
-                slot="tip"
-                class="el-upload__tip"
-              >只能上传doc/txt文件</div>
+            <el-upload class="upload-demo" action="/upload" :on-success="handleUploadSuccess"
+              :before-upload="beforeUpload" :file-list="fileList" multiple :limit="3" :auto-upload="false">
+              <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+              <el-button size="small" type="success" @click="submitUpload">上传到服务器</el-button>
+              <div slot="tip" class="el-upload__tip">只能上传doc/txt文件</div>
             </el-upload>
           </el-form-item>
         </el-form>
-        <span
-          slot="footer"
-          class="dialog-footer"
-        >
+        <span slot="footer" class="dialog-footer">
           <el-button @click="dialogVisible = false">取 消</el-button>
-          <el-button
-            type="primary"
-            @click="addLaw"
-          >确 定</el-button>
+          <el-button type="primary" @click="addLaw">确 定</el-button>
         </span>
       </el-dialog>
     </div>
     <div class="formdiv">
-      <el-form
-        :inline="true"
-        class="demo-form-inline"
-      >
+      <el-form :inline="true" class="demo-form-inline">
         <el-form-item label="名称搜索">
-          <el-input
-            :disabled="isload"
-            v-model="keyword"
-            placeholder="输入法律名称"
-          ></el-input>
+          <el-input :disabled="isload" v-model="keyword" placeholder="输入法律名称查询"></el-input>
         </el-form-item>
         <el-form-item label="长文本搜索">
-          <el-input
-            :disabled="isload"
-            v-model="content"
-            type="textarea"
-            placeholder="输入合同内容"
-            :autosize="{ minRows: 2, maxRows: 16 }"
-          ></el-input>
+          <el-input :disabled="isload" v-model="content" type="textarea" placeholder="输入法律内容查询"
+            :autosize="{ minRows: 2, maxRows: 16 }"></el-input>
         </el-form-item>
         <el-form-item>
           <el-form-item label="解释搜索">
-            <el-input
-              :disabled="isload"
-              v-model="explain"
-              type="textarea"
-              placeholder="输入合同内容"
-              :autosize="{ minRows: 2, maxRows: 16 }"
-            ></el-input>
+            <el-input :disabled="isload" v-model="explain" type="textarea" placeholder="输入法律解释查询"
+              :autosize="{ minRows: 2, maxRows: 16 }"></el-input>
           </el-form-item>
-          <el-button
-            @click="searchLaw"
-            :disabled="isload"
-          >搜索</el-button>
+          <el-button @click="searchLaw" :disabled="isload">搜索</el-button>
         </el-form-item>
       </el-form>
     </div>
     <!-- 表格 -->
-    <el-table
-      :data="tableData.slice((currentPage - 1) * pageSize, currentPage * pageSize)"
-      @row-click="handleClick"
-      style="width: 100%"
-      class="main_table"
-      v-loading="isload"
-    >
-      <el-table-column
-        prop="lawName"
-        label="法律"
-        width="180"
-      >
+    <el-table :data="tableData.slice((currentPage - 1) * pageSize, currentPage * pageSize)" @row-click="handleClick"
+      style="width: 100%" class="main_table" v-loading="isload">
+      <el-table-column prop="lawName" label="法律" width="180">
       </el-table-column>
-      <el-table-column
-        prop="lawContent"
-        label="内容"
-      >
+      <el-table-column prop="lawContent" label="内容">
         <template slot-scope="{ row }">
           <span>{{ row.lawContent }}</span>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页器 -->
-    <div
-      class="block"
-      style="margin-top:15px;"
-    >
-      <el-pagination
-        align='center'
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="currentPage"
-        :page-sizes="[1, 5, 10, 20]"
-        :page-size="pageSize"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="tableData.length"
-      >
+    <div class="block" style="margin-top:15px;">
+      <el-pagination align='center' @size-change="handleSizeChange" @current-change="handleCurrentChange"
+        :current-page="currentPage" :page-sizes="[1, 5, 10, 20]" :page-size="pageSize"
+        layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
       </el-pagination>
     </div>
   </div>
