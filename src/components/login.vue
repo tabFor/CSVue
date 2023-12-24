@@ -12,7 +12,7 @@
 
     <div>
       <el-button :disabled="!(isValidEmail(this.name) && isValidPassword(this.pwd) && !discheck)" type="primary"
-        @click="login" v-loading="loading" class="login_style">登录</el-button>
+        @click="test" v-loading="loading" class="login_style">登录</el-button>
       <el-button type="primary" @click="signin" class="login_style" :disabled="discheck">注册</el-button>
     </div>
     <div>
@@ -46,6 +46,11 @@ export default {
     forget() {
       // 跳转到忘记密码页面
       this.$router.replace("/forget");
+    },
+    test() {
+      sessionStorage.setItem('isLogedin', true);
+      sessionStorage.setItem('userType', 'normal');
+      this.$router.replace("/layout/home");
     },
     // 登录
     login() {

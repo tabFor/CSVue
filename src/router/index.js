@@ -156,9 +156,9 @@ const router = new Router({
   ]
 
 });
-const pathsBeforeLogin = ['/adminlogin', '/adminregister', '/', '/adminsignin', '/adminsignsetting', "/adminforget", "/adminforgetset", "/forget", "/forgetset", "/signin", "/login"];
+const pathsBeforeLogin = ['/adminlogin', '/', '/adminsignin', '/adminsignsetting', "/adminforget", "/adminforgetset", "/forget", "/forgetset", "/signin", "/login", '/signsetting'];
 const pathsForNormalUser = ["/changepwd", '/layout/home', '/layout/query', '/layout/dialog', '/layout/user'];
-const pathsForAdminUser = ['/admin/user', '/admin/law', '/admin/advice'];
+const pathsForAdminUser = ['/admin/user', '/admin/law', '/admin/advice', '/admin/show'];
 
 router.beforeEach((to, from, next) => {
   // 获取token
@@ -169,35 +169,56 @@ router.beforeEach((to, from, next) => {
   // } else {
   //   next({ name: 'hello' })
   // }  
-  if (!isLogged) {
-    // 未登录状态下的导航守卫逻辑
-    if (pathsBeforeLogin.includes(to.path)) {
-      // 允许登录前可跳转的路径
-      next();
-    } else {
-      console.log('未登录')
-      // 非法路径，重定向到根路径
-      next('/');
-    }
-  } else {
 
-    // 已登录状态下的导航守卫逻辑
-    if (userType === 'normal' && pathsForNormalUser.includes(to.path)) {
-      // 普通用户可跳转的路径
-      next();
-    } else if (userType === 'admin' && pathsForAdminUser.includes(to.path)) {
-      // 管理员用户可跳转的路径
-      next();
-    } else if (userType === 'normal') {
-      console.log('非法路径')
-      // 非法路径，重定向到根路径
-      next('/layout/home');
-    } else {
-      console.log('非法路径')
-      // 非法路径，重定向到根路径
-      next('/admin/advice');
-    }
+  if (userType === 'normal' && pathsForNormalUser.includes(to.path)) {
+    // 普通用户可跳转的路径
+    next();
+  } else if (userType === 'admin' && pathsForAdminUser.includes(to.path)) {
+    // 管理员用户可跳转的路径
+    next();
+  } else if (userType === 'normal') {
+    console.log('用户非法路径')
+    // 非法路径，重定向到根路径
+    next('/layout/home');
+  } else if (userType === 'admin') {
+    console.log('管理非法路径')
+    // 非法路径，重定向到根路径
+    next('/admin/advice');
+  } else if (pathsForNormalUser.includes(to.path) || pathsForAdminUser.includes(to.path)) {
+    next('/');
+  } else {
+    next();
   }
+  // if (isLogged === false) {
+  //   console.log('未登录')
+  //   // 未登录状态下的导航守卫逻辑
+  //   if (pathsBeforeLogin.includes(to.path)) {
+  //     // 允许登录前可跳转的路径
+  //     next();
+  //   } else {
+
+  //     // 非法路径，重定向到根路径
+  //     next('/');
+  //   }
+  // } else {
+  //   console.log('已登录')
+  //   // 已登录状态下的导航守卫逻辑
+  //   if (userType === 'normal' && pathsForNormalUser.includes(to.path)) {
+  //     // 普通用户可跳转的路径
+  //     next();
+  //   } else if (userType === 'admin' && pathsForAdminUser.includes(to.path)) {
+  //     // 管理员用户可跳转的路径
+  //     next();
+  //   } else if (userType === 'normal') {
+  //     console.log('用户非法路径')
+  //     // 非法路径，重定向到根路径
+  //     next('/layout/home');
+  //   } else {
+  //     console.log('管理非法路径')
+  //     // 非法路径，重定向到根路径
+  //     next('/admin/advice');
+  //   } 
+  // }
 })
 
 export default router;

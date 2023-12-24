@@ -195,8 +195,11 @@ export default {
         this.$session.set("session-id", "114514");
         this.$session.remove("session-id");
         sessionStorage.setItem("session-id", "");
+        //退出登录后改变的值
         sessionStorage.setItem('isLogedin', false);
         sessionStorage.setItem('userType', '');
+        const is = sessionStorage.getItem('isLogedin') || false;
+        console.log(is + '已修改isLogedin');
         this.index = "Yes";
         console.log(this.index);
         this.$router.replace({ path: "/" });
