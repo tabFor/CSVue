@@ -63,10 +63,6 @@ export default {
   },
   methods: {
     searchKeyLaw() {
-      if (!this.lawname && !this.lawcontent && !this.keyword) {
-        this.$message.error("请输入搜索内容！");
-        return;
-      }
       this.isload = true;
       this.$ajax
         .get("/user/findlaw", {
@@ -102,10 +98,6 @@ export default {
         );
     },
     searchLaw() {
-      if (!this.content) {
-        this.$message.error("请输入搜索内容！");
-        return;
-      }
       this.isload = true;
 
       this.$ajax
