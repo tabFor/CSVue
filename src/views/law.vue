@@ -99,8 +99,11 @@ export default {
       this.$global.lawTable = this.tableData;
     },
     searchLaw() {
+      if (!this.keyword && !this.content && !this.explain) {
+        this.$message.error("请输入搜索内容！");
+        return;
+      }
       this.isload = true;
-
       this.$ajax
         .get("/user/findlaw", {
           // headers: {

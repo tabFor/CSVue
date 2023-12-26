@@ -13,14 +13,14 @@
         <!-- ref=form:为了通过this.$refs调用组件的方法 -->
         <el-form :inline="true" :model="form" :rules="rules" ref="form" label-width="80px">
           <!-- 每一项表单域:el-form-item -->
-          <el-form-item label="姓名" prop="name" :disabled="inputDisabled">
+          <el-form-item label="姓名" :disabled="inputDisabled">
             <el-input placeholder="请输入用户名" v-model="form.userName"></el-input>
           </el-form-item>
 
-          <el-form-item label="邮箱" prop="email" :disabled="inputDisabled">
+          <el-form-item label="邮箱" prop="useremail" :disabled="inputDisabled">
             <el-input placeholder="请输入邮箱" v-model="form.userEmail"></el-input>
           </el-form-item>
-          <el-form-item label="密码" prop="password">
+          <el-form-item label="密码" prop="userpassword">
             <el-input placeholder="请输入密码" v-model="form.userPassword"></el-input>
           </el-form-item>
         </el-form>
@@ -39,7 +39,7 @@
           <el-input v-model="searchForm.email" placeholder="请输入邮箱"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="search">查询</el-button>
+          <el-button type="primary" @click="search" :disabled="isload">查询</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -94,11 +94,11 @@ export default {
       },
       // 表单验证规则
       rules: {
-        userName: [
+        username: [
           { required: true, message: "请输入用户名", trigger: "blur" }
         ],
-        userEmail: [{ required: true, message: "请输入邮箱", trigger: "blur" }],
-        userPassword: [
+        useremail: [{ required: true, message: "请输入邮箱", trigger: "blur" }],
+        userpassword: [
           { required: true, message: "请输入密码", trigger: "blur" }
         ]
       },
@@ -106,6 +106,7 @@ export default {
       dialogVisible: false,
       // 打开表单:新建0,编辑1
       modalType: 0,
+      isload: false,
       inputDisabled: false,
       // 分页的对象
       currentPage: 1, // 当前页码
@@ -219,6 +220,7 @@ export default {
     closeDialog() {
       // 先重置
       this.$refs.form.resetFields();
+      this.form = {};
       // 后关闭
       this.dialogVisible = false;
     },
@@ -323,11 +325,13 @@ export default {
     },
     // 搜索
     search() {
+      if (!this.searchForm.email && !this.searchForm.name) {
+        this.$message.error("请输入搜索内容！");
+        return;
+      }
+      this.isload = true;
       this.$ajax
         .get("/user/finduser", {
-          // headers: {
-          //     "Content-Type": "application/json"
-          // },
           params: {
             email: this.searchForm.email,
             name: this.searchForm.name
@@ -339,7 +343,6 @@ export default {
             if (res.data.length === 0) {
               this.$message.error("未找到相关数据");
               this.isload = false;
-              // this.$router.go(0);
             } else {
               for (let i = 0; i < res.data.length; i++) {
                 this.tableData.push(res.data[i]);
@@ -351,7 +354,6 @@ export default {
           },
           err => {
             this.$message.error(err);
-
             this.isload = false;
           }
         );

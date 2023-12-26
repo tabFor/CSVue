@@ -1,95 +1,42 @@
 <template>
   <div>
     <div class="formdiv">
-      <el-form
-        :inline="true"
-        :model="formInline"
-        class="demo-form-inline"
-      >
+      <el-form :inline="true" :model="formInline" class="demo-form-inline">
         <el-form-item label="法律搜索">
-          <el-input
-            :disabled="isload"
-            v-model="keyword"
-            placeholder="输入法律关键词，如：专利，合同"
-          ></el-input>
-          <el-input
-            :disabled="isload"
-            v-model="lawname"
-            placeholder="输入法律名，如：专利法"
-          ></el-input>
-          <el-input
-            :disabled="isload"
-            v-model="lawcontent"
-            placeholder="输入法律条例，如：第十一条"
-          ></el-input>
+          <el-input :disabled="isload" v-model="keyword" placeholder="输入法律关键词，如：专利，合同"></el-input>
+          <el-input :disabled="isload" v-model="lawname" placeholder="输入法律名，如：专利法"></el-input>
+          <el-input :disabled="isload" v-model="lawcontent" placeholder="输入法律条例号，如：第十一条"></el-input>
         </el-form-item>
         <el-form-item label="搜索">
-          <el-button
-            @click="searchKeyLaw"
-            :disabled="isload"
-          >搜索</el-button>
+          <el-button @click="searchKeyLaw" :disabled="isload">搜索</el-button>
         </el-form-item>
         <el-form-item label="长文本搜索">
-          <el-input
-            :disabled="isload"
-            v-model="content"
-            type="textarea"
-            placeholder="输入合同内容"
-            :autosize="{ minRows: 2, maxRows: 16}"
-          ></el-input>
+          <el-input :disabled="isload" v-model="content" type="textarea" placeholder="输入合同内容"
+            :autosize="{ minRows: 2, maxRows: 16 }"></el-input>
         </el-form-item>
         <el-form-item label="搜索">
-          <el-button
-            @click="searchLaw"
-            :disabled="isload"
-          >搜索</el-button>
+          <el-button @click="searchLaw" :disabled="isload">搜索</el-button>
         </el-form-item>
       </el-form>
     </div>
     <!-- 表格 -->
-    <el-table
-      :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
-      style="width: 100%"
-      class="main_table"
-      v-loading="isload"
-    >
-      <el-table-column
-        prop="lawName"
-        label="法律"
-        width="180"
-      >
+    <el-table :data="tableData.slice((currentPage - 1) * pageSize, currentPage * pageSize)" style="width: 100%"
+      class="main_table" v-loading="isload">
+      <el-table-column prop="lawName" label="法律" width="180">
       </el-table-column>
-      <el-table-column
-        prop="lno"
-        label="条款"
-        width="180"
-      >
+      <el-table-column prop="lno" label="条款" width="180">
       </el-table-column>
-      <el-table-column
-        prop="lawContent"
-        label="内容"
-      >
+      <el-table-column prop="lawContent" label="内容">
       </el-table-column>
     </el-table>
     <!-- 分页器 -->
-    <div
-      class="block"
-      style="margin-top:15px;"
-    >
-      <el-pagination
-        align='center'
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="currentPage"
-        :page-sizes="[1,5,10,20]"
-        :page-size="pageSize"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="tableData.length"
-      >
+    <div class="block" style="margin-top:15px;">
+      <el-pagination align='center' @size-change="handleSizeChange" @current-change="handleCurrentChange"
+        :current-page="currentPage" :page-sizes="[1, 5, 10, 20]" :page-size="pageSize"
+        layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
       </el-pagination>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -116,6 +63,10 @@ export default {
   },
   methods: {
     searchKeyLaw() {
+      if (!this.lawname && !this.lawcontent && !this.keyword) {
+        this.$message.error("请输入搜索内容！");
+        return;
+      }
       this.isload = true;
       this.$ajax
         .get("/user/findlaw", {
@@ -151,6 +102,10 @@ export default {
         );
     },
     searchLaw() {
+      if (!this.content) {
+        this.$message.error("请输入搜索内容！");
+        return;
+      }
       this.isload = true;
 
       this.$ajax
@@ -200,15 +155,19 @@ export default {
   min-height: 60vh;
   /* max-height: 60vh; */
 }
+
 .demo-form-inline {
   margin-top: 20px;
 }
+
 .formdiv {
   background-color: aliceblue;
 }
+
 .el-main {
   background-color: aliceblue;
 }
+
 body {
   margin: 0;
 }
